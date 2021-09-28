@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  php:
+    container_name: public_api_php
+    build:
+      context: docker/php
+      dockerfile: docker/php/Dockerfile-dev
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+    environment:
+      - ENV=dev
+    volumes:
+      - .:/var/www/html
+    networks:
+      - inosa_dev
+      - reverse-proxy
+
+  nginx:
+    container_name: public_api_nginx
+    image: bitnami/nginx:latest
+    ports:
+      - 8888:80
+    depends_on:
+      - php
+    volumes:
+      - ./docker/nginx/nginx.conf:/opt/bitnami/nginx/conf/server_blocks/nginx.conf
+    networks:
+      - inosa_dev
+      - reverse-proxy
+
+networks:
+  inosa_dev:
+    external:
+      name: inosa_dev
+  reverse-proxy:
+    external:
+      name: reverse-proxy

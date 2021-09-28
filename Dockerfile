@@ -25,3 +25,6 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v1.21.8.0/s6
 RUN gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C /
 
 COPY ./docker/services.d/ /etc/services.d/
+
+ENTRYPOINT ["/init"]
+CMD ["php-fpm", "-F"]

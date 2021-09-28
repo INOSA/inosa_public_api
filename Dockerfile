@@ -6,7 +6,7 @@ RUN apk add --no-cache \
     docker-php-ext-enable opcache && \
     rm -rf /tmp/pear
 
-COPY docker/php /var/www/html
+COPY ./ /var/www/html
 
 ARG HOST_IP
 ARG ENV
@@ -19,5 +19,15 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 #NGINX
 RUN apk add --no-cache nginx
+COPY ./docker/nginx/publicapi.conf /etc/nginx/http.d/publicapi.conf
+RUN rm /etc/nginx/http.d/default.conf
 
-COPY ./docker/nginx/publicapi.conf /etc/nginx/conf.d/publicapi.conf
+EXPOSE 80
+EXPOSE 443
+
+ADD https://github.com/just-containers/s6-overlay/releases/download/v1.21.8.0/s6-overlay-amd64.tar.gz /tmp/
+RUN gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C /
+
+COPY ./docker/services.d/ /etc/services.d/
+
+ENTRYPOINT ["/init"]

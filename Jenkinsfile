@@ -84,11 +84,9 @@ pipeline {
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'PHP-Code-Standards', description: 'Checking code standards',  status: 'PENDING'
                         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'phpcs --report-checkstyle=phpcs-report.xml --report-code ${CHANGED_FILES}'
-                            sh 'phpcs --report-checkstyle=phpcs2-report.xml --report-code'
+                            sh 'phpcs --standard=phpcs.xml --report-checkstyle=phpcs-report.xml --report-code'
                         }
                         stash name: 'phpcs-report', includes: 'phpcs-report.xml'
-                        stash name: 'phpcs2-report', includes: 'phpcs2-report.xml'
                     }
 
                     post {
@@ -133,7 +131,7 @@ pipeline {
                         }
                     }
                 }
-                stage ('parallel-lint') {
+                stage ('LINT') {
                     agent {
                         dockerfile {
                             filename 'Dockerfile.jakzal'
@@ -144,7 +142,7 @@ pipeline {
                         githubNotify credentialsId: 'github-app-inosa', context: 'parallel-lint', description: 'Checking file syntax',  status: 'PENDING'
                         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                             sh 'composer global require php-parallel-lint/php-parallel-lint'
-                            sh '/tools/.composer/vendor/bin/parallel-lint --checkstyle app > parallel-report.xml'
+                            sh '/tools/.composer/vendor/bin/parallel-lint --checkstyle src > parallel-report.xml'
                         }
                         stash name: 'parallel-report', includes: 'parallel-report.xml'
                     }
@@ -162,7 +160,7 @@ pipeline {
                         }
                     }
                 }
-                stage ('Test: Unit') {
+                stage ('UNIT') {
                     agent {
                         dockerfile {
                             filename 'Dockerfile.jakzal'
@@ -217,41 +215,11 @@ pipeline {
                         }
                     }
                 }
-
-                stage ('SONAR') {
-                    agent {
-                        docker {
-                            image 'newtmitch/sonar-scanner:3'
-                            args '--entrypoint=""'
-                        }
-                    }
-
-                    steps {
-                        sh "sonar-scanner \
-                                -Dsonar.projectBaseDir=${env.WORKSPACE} \
-                                -Dsonar.host.url=${SONAR_HOST} \
-                                -Dsonar.login=${SONAR_LOGIN} \
-                                -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                                -Dsonar.projectName=${SONAR_PROJECT_KEY} \
-                                -Dsonar.sources=${SONAR_SOURCES} \
-                                -Dsonar.inclusions=${CHANGED_FILES_COMMA} \
-                                -Dsonar.exclusions=${SONAR_EXCLUSIONS} \
-                                -Dsonar.github.pullRequest=${CHANGE_ID} \
-                                -Dsonar.github.repository=${GITHUB_REPO} \
-                                -Dsonar.github.oauth=${GITHUB_ACCESS_TOKEN}"
-                    }
-                    post {
-                        always {
-                            cleanWs()
-                        }
-                    }
-                }
             }
 
             post {
                 always {
                     unstash name: 'phpcs-report'
-                    unstash name: 'phpcs2-report'
                     unstash name: 'parallel-report'
 
                     ViolationsToGitHub([

@@ -1,5 +1,5 @@
 #!/usr/bin/with-contenv sh
-0
+
 if [[ -z $SECURITY_KEY_HEX ]]; then
   echo -e "\033[0;31mno SECURITY_KEY_HEX provided. it has to be 256-bit hex code\033[0m"
   exit 1

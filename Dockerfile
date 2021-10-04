@@ -8,6 +8,7 @@ ENV MSSQL_VERSION=${MSSQL_VERSION}
 
 RUN apk add --no-cache \
     unixodbc-dev \
+    gnutls gnutls-utils \
     $PHPIZE_DEPS \
     && docker-php-ext-install opcache pdo \
     && docker-php-ext-enable opcache pdo
@@ -51,8 +52,10 @@ RUN rm /etc/nginx/http.d/default.conf
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v1.21.8.0/s6-overlay-amd64.tar.gz /tmp/
 RUN gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C /
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS 2
 
 COPY ./docker/services.d/ /etc/services.d/
+COPY ./docker/cont-init.d/ /etc/cont-init.d/
 
 ENTRYPOINT ["/init"]
 CMD ["php-fpm", "-F"]

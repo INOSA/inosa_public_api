@@ -7,5 +7,6 @@ fi
 if [[ ! -d /var/oauth ]]; then
   mkdir /var/oauth
 fi
-certtool --generate-privkey --outfile /var/oauth/public-api --key-type=rsa --sec-param=high --seed=$SECURITY_KEY_HEX
+certtool --generate-privkey --outfile=/var/oauth/public-api.privkey --key-type=rsa --sec-param=high --seed=$SECURITY_KEY_HEX
+certtool --load-privkey=/var/oauth/public-api.privkey --to-p8 --password=  > /var/oauth/public-api
 openssl rsa -in /var/oauth/public-api -pubout > /var/oauth/public-api.pub

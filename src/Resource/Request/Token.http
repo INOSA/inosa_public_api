@@ -1,0 +1,12 @@
+# curl -X POST
+#  http://public-api.inosa.local/token
+#  -H 'Accept: application/json'
+#  -H 'Content-Length: 130'
+#  -H 'Content-Type: application/x-www-form-urlencoded'
+#  -d 'client_id=e3a40feb28f8c7cde70513b4a3c2e107&grant_type=client_credentials&scope=public-api&client_secret=498701caa49a48accfab6d619a82fb48ba08677d6b079b2e96fe83a14d49ff48f1fcb2b12d68b34ee9b28e6fb540a613be123073da4242ff48521ea6acc9b957'
+POST http://public-api.inosa.local/token
+Accept: application/json
+Content-Length: 130
+Content-Type: application/x-www-form-urlencoded
+
+client_id=e3a40feb28f8c7cde70513b4a3c2e107&grant_type=client_credentials&scope=public-api&client_secret=498701caa49a48accfab6d619a82fb48ba08677d6b079b2e96fe83a14d49ff48f1fcb2b12d68b34ee9b28e6fb540a613be123073da4242ff48521ea6acc9b957

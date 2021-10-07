@@ -1,5 +1,5 @@
 controllers:
-    resource: ../../src/Controller/
+    resource: ../../src/AuthorizationServer/CreatePublicApiClient/UI/Controller
     type: annotation
 
 kernel:

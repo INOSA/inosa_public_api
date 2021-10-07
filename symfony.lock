@@ -1,4 +1,7 @@
 {
+    "brick/math": {
+        "version": "0.9.3"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
     },
@@ -88,6 +91,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "illuminate/collections": {
+        "version": "v8.63.0"
+    },
+    "illuminate/contracts": {
+        "version": "v8.63.0"
+    },
+    "illuminate/macroable": {
+        "version": "v8.62.0"
+    },
+    "inosa/arrays": {
+        "version": "1.0.0"
+    },
     "laminas/laminas-code": {
         "version": "4.4.3"
     },
@@ -105,6 +120,9 @@
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"
+    },
+    "nette/utils": {
+        "version": "v3.2.5"
     },
     "nikic/php-parser": {
         "version": "v4.13.0"
@@ -195,6 +213,15 @@
     "psr/log": {
         "version": "2.0.0"
     },
+    "psr/simple-cache": {
+        "version": "1.0.1"
+    },
+    "ramsey/collection": {
+        "version": "1.2.1"
+    },
+    "ramsey/uuid": {
+        "version": "4.2.3"
+    },
     "sebastian/cli-parser": {
         "version": "1.0.1"
     },
@@ -255,6 +282,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "symfony/amqp-messenger": {
+        "version": "v5.3.7"
+    },
     "symfony/browser-kit": {
         "version": "v5.3.4"
     },
@@ -289,6 +319,9 @@
         "version": "v2.4.0"
     },
     "symfony/doctrine-bridge": {
+        "version": "v5.3.8"
+    },
+    "symfony/doctrine-messenger": {
         "version": "v5.3.8"
     },
     "symfony/dom-crawler": {
@@ -343,6 +376,9 @@
             "src/Kernel.php"
         ]
     },
+    "symfony/http-client": {
+        "version": "v5.3.8"
+    },
     "symfony/http-client-contracts": {
         "version": "v2.4.0"
     },
@@ -351,6 +387,18 @@
     },
     "symfony/http-kernel": {
         "version": "v5.3.7"
+    },
+    "symfony/messenger": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "25e3c964d3aee480b3acc3114ffb7940c89edfed"
+        },
+        "files": [
+            "config/packages/messenger.yaml"
+        ]
     },
     "symfony/password-hasher": {
         "version": "v5.3.8"
@@ -399,6 +447,9 @@
     },
     "symfony/psr-http-message-bridge": {
         "version": "v2.1.1"
+    },
+    "symfony/redis-messenger": {
+        "version": "v5.3.8"
     },
     "symfony/routing": {
         "version": "5.3",

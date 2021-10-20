@@ -54,7 +54,13 @@ final class OAuth2Authenticator extends AbstractAuthenticator
 
     public function supports(Request $request): bool
     {
-        return str_starts_with($request->headers->get('Authorization', ''), 'Bearer ');
+        $authorization = $request->headers->get('Authorization', '');
+
+        if (null === $authorization) {
+            return false;
+        }
+
+        return str_starts_with($authorization, 'Bearer ');
     }
 
     public function getUser(string $userIdentifier, UserProviderInterface $userProvider): UserInterface

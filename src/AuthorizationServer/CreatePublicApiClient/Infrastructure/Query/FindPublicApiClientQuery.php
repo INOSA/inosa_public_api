@@ -31,7 +31,13 @@ final class FindPublicApiClientQuery implements FindPublicApiClientQueryInterfac
             ->setParameter('inosa_site_id', $id->asString());
 
         try {
-            $result = ArrayHashMap::create($qb->fetchAssociative());
+            $result = $qb->fetchAssociative();
+
+            if (false === $result) {
+                return null;
+            }
+
+            $result = ArrayHashMap::create($result);
 
             if ($result->isEmpty()) {
                 return null;

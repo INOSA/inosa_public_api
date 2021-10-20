@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\AuthorizationServer\CreatePublicApiClient\Infrastructure\Http;
 
-use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientInternalIdentifier;
 use App\Shared\Domain\Identifier\IdentifierFactoryInterface;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 use App\Shared\Domain\InosaApi\InosaApiException;
@@ -37,7 +36,7 @@ final class InosaApiClient implements InosaApiInterface
     /**
      * @throws InosaApiException
      */
-    public function createInosaPublicApiUser(ClientInternalIdentifier $clientIdentifier): void
+    public function createInosaPublicApiUser(InosaSiteIdentifier $inosaSiteIdentifier): void
     {
         try {
             $request = $this->apiClient->request(
@@ -48,14 +47,14 @@ final class InosaApiClient implements InosaApiInterface
                         'Accept' => 'application/json',
                     ],
                     'body' => [
-                        'siteId' => $clientIdentifier->asString()
+                        'siteId' => $inosaSiteIdentifier->asString()
                     ]
                 ]
             );
 
             if (Response::HTTP_CREATED !== $request->getStatusCode()) {
                 throw new InosaApiException(
-                    sprintf('Could not create pubic user for site (client) %s', $clientIdentifier->asString())
+                    sprintf('Could not create pubic user for site (client) %s', $inosaSiteIdentifier->asString())
                 );
             }
         } catch (TransportExceptionInterface $e) {

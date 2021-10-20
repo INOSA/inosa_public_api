@@ -19,7 +19,7 @@
 
     <testsuites>
         <testsuite name="Security">
-            <directory>src/Security/Tests</directory>
+            <directory>src/AuthorizationServer/CreatePublicApiClient/Infrastructure/Security/Tests/Passport</directory>
         </testsuite>
     </testsuites>
 

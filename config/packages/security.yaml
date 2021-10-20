@@ -13,7 +13,7 @@ security:
             security: true
             stateless: true
             custom_authenticators:
-                - App\Security\OAuth2Authenticator
+                - App\AuthorizationServer\CreatePublicApiClient\Infrastructure\Security\OAuth2Authenticator
 
     access_control:
     # - { path: ^/admin, roles: ROLE_ADMIN }

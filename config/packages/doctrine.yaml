@@ -9,9 +9,9 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
+            AuthorizationServer:
                 is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
+                type: 'attribute'
+                dir: '%kernel.project_dir%/src/AuthorizationServer/CreatePublicApiClient/Infrastructure/Client/Entity'
+                prefix: 'App\AuthorizationServer\CreatePublicApiClient\Infrastructure\Client\Entity'
                 alias: App

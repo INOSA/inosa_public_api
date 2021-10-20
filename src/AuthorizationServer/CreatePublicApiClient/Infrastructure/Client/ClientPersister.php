@@ -12,8 +12,8 @@ use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientRepository
 use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientSecret;
 use App\Shared\Domain\InosaApi\InosaApiInterface;
 use App\Shared\Domain\Scope\Scope;
-use App\Shared\Domain\Transaction\TransactionServiceInterface;
 use App\Shared\Infrastructure\Command\Runner\CliCommandRunner;
+use App\Shared\Infrastructure\Transaction\TransactionServiceInterface;
 use RuntimeException;
 use Symfony\Component\Console\Input\ArrayInput;
 
@@ -27,6 +27,9 @@ final class ClientPersister implements ClientPersisterInterface
     ) {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function persist(Client $client): void
     {
         try {
@@ -36,7 +39,7 @@ final class ClientPersister implements ClientPersisterInterface
                         $this->getCreateClientCommandArrayInput($client->getClientId(), $client->getClientSecret())
                     );
                     $this->clientRepository->save($client);
-                    $this->apiClient->createInosaPublicApiUser($client->getClientInternalIdentifier());
+                    $this->apiClient->createInosaPublicApiUser($client->getInosaSiteIdentifier());
                 }
             );
         } catch (RuntimeException $e) {

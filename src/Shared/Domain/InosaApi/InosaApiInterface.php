@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\InosaApi;
 
-use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientInternalIdentifier;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 
 interface InosaApiInterface
@@ -14,5 +13,5 @@ interface InosaApiInterface
     /**
      * @throws InosaApiException
      */
-    public function createInosaPublicApiUser(ClientInternalIdentifier $clientIdentifier): void;
+    public function createInosaPublicApiUser(InosaSiteIdentifier $inosaSiteIdentifier): void;
 }

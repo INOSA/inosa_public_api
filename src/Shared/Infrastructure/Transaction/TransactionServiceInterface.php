@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain\Transaction;
+namespace App\Shared\Infrastructure\Transaction;
 
 use Closure;
 use RuntimeException;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Transaction;
 
-use App\Shared\Domain\Transaction\TransactionServiceInterface;
 use Closure;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;

@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\AuthorizationServer\CreatePublicApiClient\Domain\Client;
 
+use App\AuthorizationServer\CreatePublicApiClient\Domain\InosaApi\CreatePublicApiUserInosaApiInterface;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;
-use App\Shared\Domain\InosaApi\InosaApiInterface;
 use LogicException;
 
 final class ClientCreator
 {
     public function __construct(
-        private InosaApiInterface $apiClient,
-        private ClientSecretFactory $secretFactory,
-        private ClientIdFactory $clientHashFactory,
+        private CreatePublicApiUserInosaApiInterface $apiClient,
         private ClientFactory $clientFactory,
         private ClientPersisterInterface $clientPersister,
         private ClientRepositoryInterface $clientRepository,
@@ -25,22 +23,13 @@ final class ClientCreator
      */
     public function create(InosaSiteIdentifier $inosaSiteIdentifier): void
     {
-        $clientIdentifier = $inosaSiteIdentifier->toClientInternalIdentifier();
-
         $this->assertSiteExists($inosaSiteIdentifier);
 
         if ($this->alreadyHasClient($inosaSiteIdentifier)) {
             return;
         }
 
-        $client = $this->clientFactory->create(
-            $clientIdentifier,
-            $inosaSiteIdentifier,
-            $this->clientHashFactory->generate(),
-            $this->secretFactory->generate()
-        );
-
-        $this->clientPersister->persist($client);
+        $this->clientPersister->persist($this->clientFactory->create($inosaSiteIdentifier));
     }
 
     private function assertSiteExists(InosaSiteIdentifier $inosaSiteIdentifier): void

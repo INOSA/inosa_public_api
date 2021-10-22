@@ -113,7 +113,8 @@ pipeline {
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'Stan', description: 'Looking for bugs',  status: 'PENDING'
                         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'composer install --ignore-platform-reqs --no-progress --no-suggest --no-scripts'
+                            sh 'composer install --ignore-platform-reqs --no-progress --no-scripts'
+                            sh '/var/www/html/bin/console cache:warmup'
                             sh 'scripts/phpstan.sh'
                         }
                     }

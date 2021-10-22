@@ -1,4 +1,4 @@
-FROM jakzal/phpqa:1.59
+FROM jakzal/phpqa:php8.0
 RUN chmod -R 777 /tools/.composer
 ENV APP_DEBUG=false
 ENTRYPOINT sleep infinity

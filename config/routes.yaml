@@ -1,2 +1,9 @@
 oauth2:
-    resource: '@TrikoderOAuth2Bundle/Resources/config/routes.xml'
+    resource: '@LeagueOAuth2ServerBundle/Resources/config/routes.php'
+
+get_folders_basic_structure:
+    path: /api/folders-basic-structure/without-metrics
+    controller: App\AuthorizationServer\GetFoldersBasicStructure\UI\GetFoldersBasicStructureController::getFoldersBasicStructure
+    methods: GET
+    defaults:
+        oauth2_scopes: [ 'public-api' ]

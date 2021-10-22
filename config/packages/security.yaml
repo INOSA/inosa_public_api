@@ -12,9 +12,7 @@ security:
             pattern: ^/api
             security: true
             stateless: true
-            custom_authenticators:
-                - App\AuthorizationServer\CreatePublicApiClient\Infrastructure\Security\OAuth2Authenticator
+            oauth2: true
 
     access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
-    # - { path: ^/profile, roles: ROLE_USER }
+     - { path: ^/api, roles: ROLE_OAUTH2_PUBLIC-API }

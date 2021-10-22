@@ -8,12 +8,19 @@ use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 
 final class ClientFactory
 {
-    public function create(
-        ClientInternalIdentifier $clientIdentifier,
-        InosaSiteIdentifier $inosaSiteIdentifier,
-        ClientId $clientId,
-        ClientSecret $clientSecret,
-    ): Client {
-        return new Client($clientIdentifier, $inosaSiteIdentifier, $clientId, $clientSecret);
+    public function __construct(
+        private ClientIdFactory $clientIdFactory,
+        private ClientSecretFactory $clientSecretFactory,
+    ) {
+    }
+
+    public function create(InosaSiteIdentifier $inosaSiteIdentifier): Client
+    {
+        return new Client(
+            $inosaSiteIdentifier->toClientInternalIdentifier(),
+            $inosaSiteIdentifier,
+            $this->clientIdFactory->generate(),
+            $this->clientSecretFactory->generate()
+        );
     }
 }

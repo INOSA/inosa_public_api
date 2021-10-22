@@ -55,6 +55,26 @@ pipeline {
 
             failFast false
             parallel {
+                stage ('STAN') {
+                    steps {
+                        githubNotify credentialsId: 'github-app-inosa', context: 'PHPSTAN', description: 'Starting stan analysis...',  status: 'PENDING'
+                            sh "docker-compose -f docker-compose.test.yml up -d"
+                            sh "while ! docker-compose -f docker-compose.test.yml logs db | grep 'This container is running'; do sleep 1; done"
+                            sh "docker-compose -f docker-compose.test.yml exec -T api composer install"
+                            sh "docker-compose -f docker-compose.test.yml exec -T api sh ./scripts/phpstan.sh"
+                    }
+                    post {
+                        always {
+                            sh "docker-compose -f docker-compose.test.yml down -v --rmi local"
+                        }
+                        success {
+                            githubNotify credentialsId: 'github-app-inosa', context: 'PHPSTAN', description: 'PHPStan success!',  status: 'SUCCESS'
+                        }
+                        failure {
+                            githubNotify credentialsId: 'github-app-inosa', context: 'PHPSTAN', description: 'PHPStan failed',  status: 'FAILURE'
+                        }
+                    }
+                }
                 stage ('BRANCH NAME') {
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'name check', description: 'Checking commit naming',  status: 'PENDING'
@@ -62,9 +82,6 @@ pipeline {
                         sh "scripts/git_naming_check.sh ${env.CHANGE_TARGET} ${env.CHANGE_BRANCH}"
                     }
                     post {
-                        always {
-                            cleanWs()
-                        }
                         failure {
                             githubNotify credentialsId: 'github-app-inosa', context: 'name check', description: 'commit names not OK',  status: 'FAILURE'
                         }
@@ -103,34 +120,6 @@ pipeline {
                     }
                 }
 
-                stage ('STAN') {
-                    agent {
-                        dockerfile {
-                            filename 'Dockerfile.jakzal'
-                        }
-                    }
-
-                    steps {
-                        githubNotify credentialsId: 'github-app-inosa', context: 'Stan', description: 'Looking for bugs',  status: 'PENDING'
-                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'composer install --ignore-platform-reqs --no-progress --no-suggest --no-scripts'
-                            sh 'scripts/phpstan.sh'
-                        }
-                    }
-
-                    post {
-                        always {
-                            cleanWs()
-                        }
-                        failure {
-                            githubNotify credentialsId: 'github-app-inosa', context: 'Stan', description: 'Found bugs',  status: 'FAILURE'
-                        }
-
-                        success {
-                            githubNotify credentialsId: 'github-app-inosa', context: 'Stan', description: 'No bugs found - so far...',  status: 'SUCCESS'
-                        }
-                    }
-                }
                 stage ('LINT') {
                     agent {
                         dockerfile {
@@ -170,7 +159,7 @@ pipeline {
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'Test:Unit', description: 'Running unit tests...',  status: 'PENDING'
                         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'composer install --ignore-platform-reqs --no-progress --no-suggest --no-scripts'
+                            sh 'composer install --ignore-platform-reqs --no-progress --no-scripts'
                             sh 'scripts/test-unit.sh'
                         }
                     }

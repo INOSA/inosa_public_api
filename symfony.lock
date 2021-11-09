@@ -118,6 +118,9 @@
     "league/oauth2-server": {
         "version": "8.3.2"
     },
+    "league/oauth2-server-bundle": {
+        "version": "v0.1.2"
+    },
     "myclabs/deep-copy": {
         "version": "1.10.2"
     },
@@ -170,7 +173,10 @@
         "version": "0.12.99"
     },
     "phpstan/phpstan-strict-rules": {
-        "version": "0.12.11"
+        "version": "1.0.0"
+    },
+    "phpstan/phpstan-symfony": {
+        "version": "1.0.1"
     },
     "phpunit/php-code-coverage": {
         "version": "9.2.7"
@@ -275,18 +281,6 @@
     },
     "sebastian/version": {
         "version": "3.0.2"
-    },
-    "sensio/framework-extra-bundle": {
-        "version": "5.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "5.2",
-            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        },
-        "files": [
-            "config/packages/sensio_framework_extra.yaml"
-        ]
     },
     "symfony/amqp-messenger": {
         "version": "v5.3.7"
@@ -517,19 +511,6 @@
     },
     "theseer/tokenizer": {
         "version": "1.2.1"
-    },
-    "trikoder/oauth2-bundle": {
-        "version": "3.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "3.0",
-            "ref": "43774de114904e86d18de0cea92f368d8e3c7499"
-        },
-        "files": [
-            "config/packages/trikoder_oauth2.yaml",
-            "config/routes/trikoder_oauth2.yaml"
-        ]
     },
     "webmozart/assert": {
         "version": "1.10.0"

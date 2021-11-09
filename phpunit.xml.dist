@@ -18,8 +18,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="Security">
-            <directory>src/AuthorizationServer/CreatePublicApiClient/Infrastructure/Security/Tests/Passport</directory>
+        <testsuite name="Tests">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 

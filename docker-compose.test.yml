@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    user: root
+    environment:
+      - APP_DEBUG=true
+      - APP_ENV=test
+      - PUBLIC_API_DB_NAME=public_api_db
+      - DB_USERNAME=test
+      - DB_PASSWORD=test
+      - DB_CONTAINER_NAME=db
+      - SECURITY_KEY_HEX=31faa44d680828f50bea589270333f718b4128c609e9f37b35ec27d0e63cbe8e
+    volumes:
+      - .:/var/www/html
+  db:
+    image: 'public.ecr.aws/s6z8v3g0/inosadocker/database:release-1.0.2'
+    environment:
+      - DB_DATABASE=public_api_db
+      - DB_PASSWORD=test
+      - DB_USERNAME=test
+      - SA_PASSWORD=testsa
+      - ACCEPT_EULA=Y

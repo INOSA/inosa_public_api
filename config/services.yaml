@@ -1,16 +1,16 @@
 parameters:
 
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        bind:
-            $apiUrl: 'http://%env(string:API_CONTAINER_NAME)%/internalapi/public-api'
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    bind:
+      $apiUrl: 'http://%env(string:API_CONTAINER_NAME)%/internalapi/public-api'
 
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/AuthorizationServer/Infrastructure/ClientInfo/Entity/'
-            - '../src/Kernel.php'
-            - '../src/Tests/'
+  App\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/Shared/Infrastructure/Client/Entity/'
+      - '../src/Kernel.php'
+      - '../src/Tests/'

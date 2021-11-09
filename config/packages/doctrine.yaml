@@ -12,6 +12,6 @@ doctrine:
             AuthorizationServer:
                 is_bundle: false
                 type: 'attribute'
-                dir: '%kernel.project_dir%/src/AuthorizationServer/CreatePublicApiClient/Infrastructure/Client/Entity'
-                prefix: 'App\AuthorizationServer\CreatePublicApiClient\Infrastructure\Client\Entity'
+                dir: '%kernel.project_dir%/src/Shared/Infrastructure/Client/Entity'
+                prefix: 'App\Shared\Infrastructure\Client\Entity'
                 alias: App

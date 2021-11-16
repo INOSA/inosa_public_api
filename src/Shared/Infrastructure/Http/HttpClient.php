@@ -28,9 +28,7 @@ final class HttpClient
             'GET',
             $url,
             [
-                'headers' => [
-                    'Accept' => 'application/json',
-                ]
+                'headers' => $this->getHeaders()->toArray(),
             ]
         );
     }
@@ -58,6 +56,7 @@ final class HttpClient
         return ArrayHashMap::create(
             [
                 'Accept' => 'application/json',
+                'Origin' => 'public-api'
             ]
         );
     }

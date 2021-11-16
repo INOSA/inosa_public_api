@@ -16,7 +16,7 @@ final class ViewFactory
     public function internalServerError(): InternalServerErrorView
     {
         return new InternalServerErrorView(
-            $this->jsonEncoder->encode('Internal server error'),
+            $this->jsonEncoder->encode('Internal Server Error, please contact with the Administrator.'),
             500
         );
     }

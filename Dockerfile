@@ -1,4 +1,4 @@
-FROM php:8.0.12-fpm-alpine3.13
+FROM php:8.0.13-fpm-alpine3.13
 
 ARG HOST_IP
 ARG ENV
@@ -46,6 +46,7 @@ COPY ./docker/php/xdebug.ini $PHP_INI_DIR/conf.d/xdebug.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer creates=/usr/local/bin/composer warn=no
 
+RUN mkdir -p /run/nginx
 RUN apk add --no-cache nginx
 COPY ./docker/nginx/publicapi.conf /etc/nginx/http.d/publicapi.conf
 RUN rm /etc/nginx/http.d/default.conf

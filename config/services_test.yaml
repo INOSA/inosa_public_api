@@ -1,0 +1,9 @@
+services:
+
+  App\Shared\Infrastructure\Test\AccessTokenIssuer:
+    public: true
+    arguments:
+      - '@League\OAuth2\Server\AuthorizationServer'
+      - '@App\Shared\Infrastructure\Client\Repository\ClientRepository'
+      - '@App\Shared\Domain\Identifier\IdentifierFactoryInterface'
+      - '@App\Shared\Application\Json\JsonDecoderInterface'

@@ -1,0 +1,20 @@
+league_oauth2_server:
+  authorization_server:
+    private_key: file:///var/www/html/tests/AuthorizationServer/test
+    private_key_passphrase: null
+    encryption_key: '%env(string:OAUTH2_ENCRYPTION_KEY)%'
+
+    enable_client_credentials_grant: true
+
+  resource_server:
+    public_key: file:///var/www/html/tests/AuthorizationServer/test.pub
+
+  scopes:
+    available:
+      - public-api
+    default:
+      - public-api
+
+  persistence:
+    doctrine:
+      entity_manager: default

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Client\Repository;
 
+use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 use App\Shared\Infrastructure\Client\Entity\ClientEntity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
@@ -24,7 +25,7 @@ final class ClientRepository
     /**
      * @throws ClientEntityNotFoundException
      */
-    public function getClient(): ClientEntity
+    public function getClientFromToken(): ClientEntity
     {
         $oauthToken = $this->tokenStorage->getToken();
 
@@ -45,10 +46,36 @@ final class ClientRepository
             ->setParameter('clientId', $token->getClient()->getIdentifier());
 
         try {
-            /** @var ClientEntity*/
+            /** @var ClientEntity */
             return $qb->getQuery()->getSingleResult();
         } catch (NoResultException) {
             throw new ClientEntityNotFoundException('Client application not found');
+        } catch (NonUniqueResultException $e) {
+            throw new LogicException($e->getMessage());
+        }
+    }
+
+    /**
+     * @throws ClientEntityNotFoundException
+     */
+    public function getClientByInosaSiteIdentifier(InosaSiteIdentifier $id): ClientEntity
+    {
+        $qb = $this->entityManager->createQueryBuilder();
+
+        $qb->select('client_additional_info')
+            ->from(ClientEntity::class, 'client_additional_info')
+            ->andWhere(
+                $qb->expr()->eq('client_additional_info.inosaSiteId', ':inosaSiteId')
+            )->setParameter(
+                'inosaSiteId',
+                $id->asString()
+            );
+
+        try {
+            /** @phpstan-ignore-next-line */
+            return $qb->getQuery()->getSingleResult();
+        } catch (NoResultException $e) {
+            throw new ClientEntityNotFoundException($e->getMessage());
         } catch (NonUniqueResultException $e) {
             throw new LogicException($e->getMessage());
         }

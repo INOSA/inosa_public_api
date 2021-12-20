@@ -12,7 +12,7 @@ final class ResponseFactory
     public function fromView(ResponseViewInterface $responseView): JsonResponse
     {
         return new JsonResponse(
-            data: $responseView->getResponse(),
+            data: $responseView->getResponseContent(),
             status: $responseView->getStatusCode(),
             json: true
         );

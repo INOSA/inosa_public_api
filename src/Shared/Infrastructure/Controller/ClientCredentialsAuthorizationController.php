@@ -19,7 +19,7 @@ class ClientCredentialsAuthorizationController extends AbstractController
     public function getClient(): ClientEntity
     {
         try {
-            return $this->clientRepository->getClient();
+            return $this->clientRepository->getClientFromToken();
         } catch (ClientEntityNotFoundException) {
             throw new LogicException('Client is not authorized or does not exists');
         }

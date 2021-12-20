@@ -15,7 +15,7 @@ final class ScopeBadgeTest extends UnitTestCase
             'scope1',
             'scope2',
             'scope3',
-            'scope4'
+            'scope4',
         ];
 
         $scopeBadge = new ScopeBadge($scopes);

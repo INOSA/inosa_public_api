@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Http;
 
+use App\Shared\Domain\Url\Url;
 use Inosa\Arrays\ArrayHashMap;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -16,17 +17,17 @@ final class HttpClient
     ) {
     }
 
-    public function get(string $url): ResponseInterface
+    public function get(Url $url): ResponseInterface
     {
-        $url = sprintf(
+        $parsedUrl = sprintf(
             '%s/%s',
             $this->apiUrl,
-            $url,
+            $url->asString(),
         );
 
         return $this->apiClient->request(
             'GET',
-            $url,
+            $parsedUrl,
             [
                 'headers' => $this->getHeaders()->toArray(),
             ]
@@ -36,14 +37,14 @@ final class HttpClient
     /**
      * @param ArrayHashMap<mixed> $body
      */
-    public function post(string $url, ArrayHashMap $body): ResponseInterface
+    public function post(Url $url, ArrayHashMap $body): ResponseInterface
     {
         return $this->apiClient->request(
             'POST',
-            sprintf('%s/%s', $this->apiUrl, $url),
+            sprintf('%s/%s', $this->apiUrl, $url->asString()),
             [
                 'headers' => $this->getHeaders()->toArray(),
-                'body' => $body->toArray()
+                'body' => $body->toArray(),
             ]
         );
     }
@@ -56,7 +57,7 @@ final class HttpClient
         return ArrayHashMap::create(
             [
                 'Accept' => 'application/json',
-                'Origin' => 'public-api'
+                'Origin' => 'public-api',
             ]
         );
     }

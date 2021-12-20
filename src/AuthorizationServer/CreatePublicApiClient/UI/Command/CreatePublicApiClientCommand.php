@@ -52,8 +52,8 @@ final class CreatePublicApiClientCommand extends Command
             ->setRows(
                 [
                     [
-                        $clientView->getClientId(), $clientView->getClientSecret()
-                    ]
+                        $clientView->getClientId(), $clientView->getClientSecret(),
+                    ],
                 ]
             );
         $table->render();

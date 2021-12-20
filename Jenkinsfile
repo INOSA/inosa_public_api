@@ -9,9 +9,9 @@ pipeline {
         SONAR_HOST = "https://sonar.ci.vadev.net"
         SONAR_LOGIN = credentials('sonar-login')
         SONAR_PROJECT_KEY = "inosa:public-api"
-        SONAR_SOURCES = "./app"
+        SONAR_SOURCES = "./src"
         SONAR_INCLUSIONS = "**/*.php"
-        SONAR_EXCLUSIONS = "./vendor/**,app/Http/Controllers/Api/Items/Documents/DocumentController.php"
+        SONAR_EXCLUSIONS = "./vendor/**"
 
         GITHUB_REPO = "INOSA/inosa_public_api"
         GITHUB_ACCESS_TOKEN = credentials('valueadd-robot-github-token')
@@ -101,7 +101,8 @@ pipeline {
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'PHP-Code-Standards', description: 'Checking code standards',  status: 'PENDING'
                         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'phpcs --standard=phpcs.xml --report-checkstyle=phpcs-report.xml --report-code'
+                            sh 'composer global require slevomat/coding-standard'
+                            sh '/tools/.composer/vendor/bin/phpcs --standard=phpcs.xml --extensions=php --tab-width=4 -sp src tests --report-checkstyle=phpcs-report.xml --report-code'
                         }
                         stash name: 'phpcs-report', includes: 'phpcs-report.xml'
                     }

@@ -8,5 +8,4 @@ use RuntimeException;
 
 final class ClientCreateException extends RuntimeException
 {
-
 }

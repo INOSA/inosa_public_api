@@ -15,8 +15,8 @@ final class GetFoldersBasicStructureController extends ClientCredentialsAuthoriz
         GetFoldersBasicStructureQueryInterface $query,
         ResponseFactory $responseFactory
     ): JsonResponse {
-        return $responseFactory->fromView(
-            $query->getFolderBasicStructureView($this->getClient()->getInosaSiteId())
-        );
+        $query = $query->getFolderBasicStructureView($this->getClient()->getInosaSiteId());
+
+        return $responseFactory->fromView($query);
     }
 }

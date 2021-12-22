@@ -9,6 +9,7 @@ use App\AuthorizationServer\CreatePublicApiClient\Domain\InosaApi\CreatePublicAp
 use App\Shared\Application\Json\JsonDecoderInterface;
 use App\Shared\Domain\Identifier\IdentifierFactoryInterface;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;
+use App\Shared\Domain\Url\Url;
 use App\Shared\Infrastructure\Http\HttpClient;
 use Inosa\Arrays\ArrayHashMap;
 use Inosa\Arrays\ArrayList;
@@ -39,10 +40,10 @@ final class CreatePublicApiUserInosaApi implements CreatePublicApiUserInosaApiIn
     {
         try {
             $request = $this->httpClient->post(
-                'users',
+                new Url('users'),
                 ArrayHashMap::create(
                     [
-                        'siteId' => $inosaSiteIdentifier->asString()
+                        'siteId' => $inosaSiteIdentifier->asString(),
                     ]
                 )
             );
@@ -62,7 +63,7 @@ final class CreatePublicApiUserInosaApi implements CreatePublicApiUserInosaApiIn
      */
     private function getSiteIdentifiers(): ArrayList
     {
-        $response = $this->httpClient->get('sites');
+        $response = $this->httpClient->get(new Url('sites'));
 
         return $this->getExistingSitesFromResponse($response);
     }

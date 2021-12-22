@@ -60,7 +60,7 @@ final class ClientPersister implements ClientPersisterInterface
                 ],
                 '--grant-type' => [
                     'client_credentials',
-                ]
+                ],
             ]
         );
     }

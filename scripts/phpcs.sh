@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-files=$(git diff --name-only HEAD);
-
-vendor/bin/phpcs $files
+vendor/bin/phpcs --standard=phpcs.xml --extensions=php --tab-width=4 -sp src tests

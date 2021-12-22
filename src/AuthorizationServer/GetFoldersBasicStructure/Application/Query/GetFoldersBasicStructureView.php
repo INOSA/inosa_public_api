@@ -8,19 +8,17 @@ use App\Shared\Application\Query\ResponseViewInterface;
 
 final class GetFoldersBasicStructureView implements ResponseViewInterface
 {
-    public function __construct(
-        private string $response,
-        private int $statusCode,
-    ) {
+    public function __construct(private ResponseViewInterface $responseView)
+    {
     }
 
     public function getResponse(): string
     {
-        return $this->response;
+        return $this->responseView->getResponse();
     }
 
     public function getStatusCode(): int
     {
-        return $this->statusCode;
+        return $this->responseView->getStatusCode();
     }
 }

@@ -5,6 +5,9 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
     },
+    "dealerdirect/phpcodesniffer-composer-installer": {
+        "version": "v0.7.1"
+    },
     "defuse/php-encryption": {
         "version": "v2.3.1"
     },
@@ -154,6 +157,9 @@
     "php-http/message-factory": {
         "version": "v1.0.2"
     },
+    "php-parallel-lint/php-parallel-lint": {
+        "version": "v1.3.1"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
@@ -168,6 +174,9 @@
     },
     "phpstan/extension-installer": {
         "version": "1.1.0"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "1.2.0"
     },
     "phpstan/phpstan": {
         "version": "0.12.99"
@@ -281,6 +290,21 @@
     },
     "sebastian/version": {
         "version": "3.0.2"
+    },
+    "slevomat/coding-standard": {
+        "version": "7.0.18"
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.6",
+            "ref": "1019e5c08d4821cb9b77f4891f8e9c31ff20ac6f"
+        },
+        "files": [
+            "phpcs.xml.dist"
+        ]
     },
     "symfony/amqp-messenger": {
         "version": "v5.3.7"

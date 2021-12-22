@@ -6,5 +6,4 @@ namespace App\Shared\Application\MessageBus;
 
 interface SyncCommandInterface extends CommandInterface
 {
-
 }

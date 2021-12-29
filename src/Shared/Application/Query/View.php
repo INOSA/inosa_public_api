@@ -12,7 +12,7 @@ class View implements ResponseViewInterface
     ) {
     }
 
-    public function getResponse(): string
+    public function getResponseContent(): string
     {
         return $this->response;
     }

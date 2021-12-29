@@ -10,6 +10,7 @@ use App\Shared\Application\Query\ResponseViewInterface;
 use App\Shared\Application\Query\View;
 use App\Shared\Domain\ProxyResponse;
 use App\Shared\Domain\ResponseCode;
+use Inosa\Arrays\ArrayHashMap;
 
 final class ViewFactory
 {
@@ -37,7 +38,14 @@ final class ViewFactory
     private function internalServerError(): InternalServerErrorView
     {
         return new InternalServerErrorView(
-            $this->jsonEncoder->encode('Internal Server Error, please contact with the Administrator.'),
+            $this->jsonEncoder->encode(
+                ArrayHashMap::create(
+                    [
+                        'data' => null,
+                        'error' => 'Internal Server Error, please contact with the Administrator.',
+                    ]
+                )
+            ),
             500
         );
     }

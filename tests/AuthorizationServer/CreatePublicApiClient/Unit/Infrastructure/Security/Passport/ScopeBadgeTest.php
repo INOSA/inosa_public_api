@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\AuthorizationServer\CreatePublicApiClient\Infrastructure\Security\Passport\UnitTest;
+namespace App\Tests\AuthorizationServer\CreatePublicApiClient\Unit\Infrastructure\Security\Passport;
 
 use App\AuthorizationServer\CreatePublicApiClient\Infrastructure\Security\Passport\ScopeBadge;
 use App\Tests\UnitTestCase;

@@ -1,4 +1,17 @@
 doctrine:
     dbal:
-        # "TEST_TOKEN" is typically set by ParaTest
-        dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+        default_connection: default
+        connections:
+            default:
+                url: '%env(resolve:DATABASE_URL)%'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            AuthorizationServer:
+                is_bundle: false
+                type: 'attribute'
+                dir: '%kernel.project_dir%/src/Shared/Infrastructure/Client/Entity'
+                prefix: 'App\Shared\Infrastructure\Client\Entity'
+                alias: App

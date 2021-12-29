@@ -6,6 +6,6 @@ namespace App\Shared\Application\Query;
 
 interface ResponseViewInterface
 {
-    public function getResponse(): string;
+    public function getResponseContent(): string;
     public function getStatusCode(): int;
 }

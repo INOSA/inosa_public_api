@@ -48,25 +48,46 @@ pipeline {
             }
         }
 
+        stage ('Build static tools image') {
+            steps {
+                sh "docker-compose -f docker-compose.test.yml up -d --build"
+                sh "while ! docker-compose -f docker-compose.test.yml logs testdb | grep 'DATABASE IS READY'; do sleep 1; done"
+                sh "docker-compose -f docker-compose.test.yml exec -T testapi composer install"
+                sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:migrations:migrate -n"
+                sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:fixtures:load -n"
+            }
+        }
+
         stage ('Static tools') {
             when {
                 changeRequest()
             }
 
             failFast false
+
             parallel {
+                stage ('UNIT') {
+                    steps {
+                        githubNotify credentialsId: 'github-app-inosa', context: 'PHPUNIT', description: 'Starting phpunit...',  status: 'PENDING'
+                        sh "docker-compose -f docker-compose.test.yml exec -T testapi sh ./scripts/test-unit.sh"
+                    }
+
+                    post {
+                        success {
+                            githubNotify credentialsId: 'github-app-inosa', context: 'PHPUNIT', description: 'PHPUNIT success!',  status: 'SUCCESS'
+                        }
+                        failure {
+                            githubNotify credentialsId: 'github-app-inosa', context: 'PHPUNIT', description: 'PHPUNIT failed',  status: 'FAILURE'
+                        }
+                    }
+                }
+
                 stage ('STAN') {
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'PHPSTAN', description: 'Starting stan analysis...',  status: 'PENDING'
-                            sh "docker-compose -f docker-compose.test.yml up -d"
-                            sh "while ! docker-compose -f docker-compose.test.yml logs db | grep 'This container is running'; do sleep 1; done"
-                            sh "docker-compose -f docker-compose.test.yml exec -T api composer install"
-                            sh "docker-compose -f docker-compose.test.yml exec -T api sh ./scripts/phpstan.sh"
+                        sh "docker-compose -f docker-compose.test.yml exec -T testapi sh ./scripts/phpstan.sh"
                     }
                     post {
-                        always {
-                            sh "docker-compose -f docker-compose.test.yml down -v --rmi local"
-                        }
                         success {
                             githubNotify credentialsId: 'github-app-inosa', context: 'PHPSTAN', description: 'PHPStan success!',  status: 'SUCCESS'
                         }
@@ -75,6 +96,7 @@ pipeline {
                         }
                     }
                 }
+
                 stage ('BRANCH NAME') {
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'name check', description: 'Checking commit naming',  status: 'PENDING'
@@ -91,6 +113,7 @@ pipeline {
                         }
                     }
                 }
+
                 stage ('PHPCS') {
                     agent {
                         dockerfile {
@@ -150,34 +173,7 @@ pipeline {
                         }
                     }
                 }
-                stage ('UNIT') {
-                    agent {
-                        dockerfile {
-                            filename 'Dockerfile.jakzal'
-                        }
-                    }
 
-                    steps {
-                        githubNotify credentialsId: 'github-app-inosa', context: 'Test:Unit', description: 'Running unit tests...',  status: 'PENDING'
-                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'composer install --ignore-platform-reqs --no-progress --no-scripts'
-                            sh 'scripts/test-unit.sh'
-                        }
-                    }
-
-                    post {
-                        always {
-                            cleanWs()
-                        }
-                        failure {
-                            githubNotify credentialsId: 'github-app-inosa', context: 'Test:Unit', description: 'Unit tests failed',  status: 'FAILURE'
-                        }
-
-                        success {
-                            githubNotify credentialsId: 'github-app-inosa', context: 'Test:Unit', description: 'Unit tests passed',  status: 'SUCCESS'
-                        }
-                    }
-                }
                 stage ('COMPOSER VALIDATE') {
                     agent {
                         dockerfile {
@@ -250,6 +246,7 @@ pipeline {
 
     post {
         always {
+            sh "docker-compose -f docker-compose.test.yml down -v --rmi local"
             cleanWs()
         }
     }

@@ -14,3 +14,11 @@ services:
       - '../src/Shared/Infrastructure/Client/Entity/'
       - '../src/Kernel.php'
       - '../src/Tests/'
+
+  App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientCreator:
+    arguments:
+      $clientPersister: '@App\Shared\Infrastructure\Client\ClientPersister'
+
+  App\DataFixtures\CreatePublicApiClient\CreatePublicApiClientDataFixtures:
+    arguments:
+      $clientPersister: '@App\Shared\Infrastructure\Client\PublicApiClientPersister'

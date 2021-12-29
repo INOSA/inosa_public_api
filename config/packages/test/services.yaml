@@ -1,0 +1,3 @@
+services:
+  Symfony\Contracts\HttpClient\HttpClientInterface:
+    class: Symfony\Component\HttpClient\MockHttpClient

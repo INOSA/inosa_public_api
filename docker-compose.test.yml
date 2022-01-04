@@ -17,8 +17,6 @@ services:
       - DB_CONTAINER_NAME=testdb
       - SECURITY_KEY_HEX=31faa44d680828f50bea589270333f718b4128c609e9f37b35ec27d0e63cbe8e
       - API_CONTAINER_NAME=public_api_testapi
-    volumes:
-      - .:/var/www/html
   testdb:
     image: 'public.ecr.aws/s6z8v3g0/inosadocker/database:release-1.0.2'
     environment:

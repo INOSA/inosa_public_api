@@ -18,3 +18,6 @@ league_oauth2_server:
   persistence:
     doctrine:
       entity_manager: default
+
+  client:
+    classname: App\Shared\Infrastructure\Client\Entity\Client

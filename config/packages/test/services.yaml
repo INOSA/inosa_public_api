@@ -1,3 +1,9 @@
 services:
   Symfony\Contracts\HttpClient\HttpClientInterface:
     class: Symfony\Component\HttpClient\MockHttpClient
+
+  App\Tests\AuthorizationServer\CreateUser\CreateUserParamBuilder:
+    arguments:
+      - '@App\Shared\Application\Json\JsonEncoderInterface'
+      - '@App\Shared\Domain\Identifier\IdentifierFactoryInterface'
+    public: true

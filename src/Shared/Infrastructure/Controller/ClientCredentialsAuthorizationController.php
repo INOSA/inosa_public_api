@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Controller;
 
-use App\Shared\Infrastructure\Client\Entity\ClientEntity;
+use App\Shared\Infrastructure\Client\Entity\Client;
 use App\Shared\Infrastructure\Client\Repository\ClientEntityNotFoundException;
 use App\Shared\Infrastructure\Client\Repository\ClientRepository;
 use LogicException;
@@ -16,7 +16,7 @@ class ClientCredentialsAuthorizationController extends AbstractController
     {
     }
 
-    public function getClient(): ClientEntity
+    public function getClient(): Client
     {
         try {
             return $this->clientRepository->getClientFromToken();

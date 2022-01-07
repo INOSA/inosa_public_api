@@ -20,6 +20,6 @@ final class ScopeBadgeTest extends UnitTestCase
 
         $scopeBadge = new ScopeBadge($scopes);
 
-        $this::assertInstanceOf(ScopeBadge::class, $scopeBadge);
+        $this::assertEquals(ScopeBadge::class, $scopeBadge::class);
     }
 }

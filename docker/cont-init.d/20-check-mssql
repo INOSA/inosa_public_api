@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv sh
+
+s6-setuidgid www-data /var/www/html/scripts/check-mssql.sh

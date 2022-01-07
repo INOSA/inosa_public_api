@@ -6,6 +6,8 @@ namespace App\AuthorizationServer\CreatePublicApiClient\Domain\Client;
 
 use App\AuthorizationServer\CreatePublicApiClient\Domain\InosaApi\CreatePublicApiUserInosaApiInterface;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;
+use App\Shared\Domain\Scope\Scope;
+use Inosa\Arrays\ArrayList;
 use LogicException;
 
 final class ClientCreator
@@ -21,7 +23,7 @@ final class ClientCreator
     /**
      * @throws ClientCreateException
      */
-    public function create(InosaSiteIdentifier $inosaSiteIdentifier): void
+    public function create(InosaSiteIdentifier $inosaSiteIdentifier, ClientName $clientName): void
     {
         $this->assertSiteExists($inosaSiteIdentifier);
 
@@ -29,14 +31,21 @@ final class ClientCreator
             return;
         }
 
-        $this->clientPersister->persist($this->clientFactory->create($inosaSiteIdentifier));
+        $client = $this->clientFactory->create(
+            $inosaSiteIdentifier,
+            $clientName,
+            ArrayList::create([Grant::clientCredentials()]),
+            ArrayList::create([Scope::publicApi()])
+        );
+
+        $this->clientPersister->persist($client);
     }
 
     private function assertSiteExists(InosaSiteIdentifier $inosaSiteIdentifier): void
     {
         if (!$this->apiClient->siteExists($inosaSiteIdentifier)) {
             throw new LogicException(
-                sprintf('Inosa site %s does not exists', $inosaSiteIdentifier->asString())
+                sprintf('Inosa site %s does not exists', $inosaSiteIdentifier->toString())
             );
         }
     }

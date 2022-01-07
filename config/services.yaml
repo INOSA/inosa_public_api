@@ -1,4 +1,6 @@
 parameters:
+  default_db_port: 1433
+  env(DB_PORT): '%default_db_port%'
 
 services:
   _defaults:
@@ -6,6 +8,7 @@ services:
     autoconfigure: true
     bind:
       $apiUrl: 'http://%env(string:API_CONTAINER_NAME)%/internalapi/public-api'
+      $reportsApiUrl: 'http://%env(string:REPORTS_CONTAINER_NAME)%/public-api'
 
   App\:
     resource: '../src/'
@@ -19,6 +22,8 @@ services:
     arguments:
       $clientPersister: '@App\Shared\Infrastructure\Client\ClientPersister'
 
-  App\DataFixtures\CreatePublicApiClient\CreatePublicApiClientDataFixtures:
+  App\Shared\Infrastructure\Repository\AccessTokenRepository:
     arguments:
-      $clientPersister: '@App\Shared\Infrastructure\Client\PublicApiClientPersister'
+      - '@League\Bundle\OAuth2ServerBundle\Repository\AccessTokenRepository'
+
+  League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface: '@App\Shared\Infrastructure\Repository\AccessTokenRepository'

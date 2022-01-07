@@ -18,6 +18,6 @@ final class GetFoldersBasicStructureEndpoint implements EndpointInterface
 
     public function getUrl(): Url
     {
-        return new Url(sprintf('%s?siteId=%s', self::URL, $this->inosaSiteIdentifier->asString()));
+        return new Url(sprintf('%s?siteId=%s', self::URL, $this->inosaSiteIdentifier->toString()));
     }
 }

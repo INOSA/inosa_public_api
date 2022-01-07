@@ -4,54 +4,34 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Client\Factory;
 
-use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\Client;
-use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientId;
-use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientRepositoryException;
-use App\Shared\Infrastructure\Client\Entity\ClientEntity;
-use League\Bundle\OAuth2ServerBundle\Manager\Doctrine\ClientManager;
-use League\Bundle\OAuth2ServerBundle\Model\Client as OAuthServerClient;
-use LogicException;
+use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\Client as DomainClient;
+use App\Shared\Infrastructure\Client\Entity\Client;
 
 final class ClientEntityFacade
 {
-    public function __construct(private ClientManager $clientManager)
+    public function toEntity(DomainClient $domainClient): Client
     {
-    }
-
-    /**
-     * @throws ClientRepositoryException
-     */
-    public function toEntity(Client $domainClient): ClientEntity
-    {
-        $client = $this->clientManager->find($domainClient->getClientId()->asString());
-
-        if (null === $client) {
-            throw new ClientRepositoryException(
-                sprintf(
-                    'Could not find a client with hash %s',
-                    $domainClient->getClientId()->asString()
-                )
-            );
-        }
-
-        if (!is_a($client, OAuthServerClient::class)) {
-            throw new LogicException('Undefined client class');
-        }
-
-        return new ClientEntity(
+        return new Client(
             $domainClient->getClientInternalIdentifier(),
-            $domainClient->getInosaSiteIdentifier(),
-            $client
+            $domainClient->getSiteId(),
+            $domainClient->getClientName(),
+            $domainClient->getClientId(),
+            $domainClient->getClientSecret(),
+            $domainClient->getGrants(),
+            $domainClient->getScopes()
         );
     }
 
-    public function toModel(ClientEntity $entity): Client
+    public function toModel(Client $entity): DomainClient
     {
-        return new Client(
+        return new DomainClient(
             $entity->getId(),
             $entity->getInosaSiteId(),
-            new ClientId($entity->getClient()->getIdentifier()),
-            $entity->getClientSecret()
+            $entity->getClientName(),
+            $entity->getClientIdentifier(),
+            $entity->getClientSecret(),
+            $entity->getClientGrants(),
+            $entity->getClientScopes()
         );
     }
 }

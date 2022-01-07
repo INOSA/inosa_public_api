@@ -50,11 +50,11 @@ pipeline {
 
         stage ('Build static tools image') {
             steps {
+                sh "docker-compose -f docker-compose.test.yml down -v --rmi local"
                 sh "docker-compose -f docker-compose.test.yml up -d --build"
                 sh "while ! docker-compose -f docker-compose.test.yml logs testdb | grep 'DATABASE IS READY'; do sleep 1; done"
-                sh "docker-compose -f docker-compose.test.yml exec -T testapi composer install"
-                sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:migrations:migrate -n"
-                sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:fixtures:load -n"
+                sh "while ! docker-compose -f docker-compose.test.yml logs testapi | grep 'bin/console doctrine:fixtures:load -n'; do sleep 1; done"
+                sh "docker-compose -f docker-compose.test.yml logs testapi"
             }
         }
 
@@ -115,25 +115,11 @@ pipeline {
                 }
 
                 stage ('PHPCS') {
-                    agent {
-                        dockerfile {
-                            filename 'Dockerfile.jakzal'
-                        }
-                    }
-
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'PHP-Code-Standards', description: 'Checking code standards',  status: 'PENDING'
-                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'composer global require slevomat/coding-standard'
-                            sh '/tools/.composer/vendor/bin/phpcs --standard=phpcs.xml --extensions=php --tab-width=4 -sp src tests --report-checkstyle=phpcs-report.xml --report-code'
-                        }
-                        stash name: 'phpcs-report', includes: 'phpcs-report.xml'
+                        sh "docker-compose -f docker-compose.test.yml exec -T testapi sh ./scripts/phpcs.sh"
                     }
-
                     post {
-                        always {
-                            cleanWs()
-                        }
                         failure {
                             githubNotify credentialsId: 'github-app-inosa', context: 'PHP-Code-Standards', description: 'Fix your coding standards',  status: 'FAILURE'
                         }
@@ -145,25 +131,12 @@ pipeline {
                 }
 
                 stage ('LINT') {
-                    agent {
-                        dockerfile {
-                            filename 'Dockerfile.jakzal'
-                        }
-                    }
-
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'parallel-lint', description: 'Checking file syntax',  status: 'PENDING'
-                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'composer global require php-parallel-lint/php-parallel-lint'
-                            sh '/tools/.composer/vendor/bin/parallel-lint --checkstyle src > parallel-report.xml'
-                        }
-                        stash name: 'parallel-report', includes: 'parallel-report.xml'
+                        sh "docker-compose -f docker-compose.test.yml exec -T testapi sh ./scripts/lint.sh"
                     }
 
                     post {
-                        always {
-                            cleanWs()
-                        }
                         failure {
                             githubNotify credentialsId: 'github-app-inosa', context: 'parallel-lint', description: 'Found errors',  status: 'FAILURE'
                         }
@@ -175,23 +148,12 @@ pipeline {
                 }
 
                 stage ('COMPOSER VALIDATE') {
-                    agent {
-                        dockerfile {
-                            filename 'Dockerfile.jakzal'
-                        }
-                    }
-
                     steps {
                         githubNotify credentialsId: 'github-app-inosa', context: 'Composer validate', description: 'validating...',  status: 'PENDING'
-                        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                            sh 'composer validate --no-check-publish'
-                        }
+                        sh "docker-compose -f docker-compose.test.yml exec -T testapi composer validate --no-check-publish"
                     }
 
                     post {
-                        always {
-                            cleanWs()
-                        }
                         failure {
                             githubNotify credentialsId: 'github-app-inosa', context: 'Composer validate', description: 'Validation failed',  status: 'FAILURE'
                         }
@@ -205,9 +167,6 @@ pipeline {
 
             post {
                 always {
-                    unstash name: 'phpcs-report'
-                    unstash name: 'parallel-report'
-
                     ViolationsToGitHub([
                         gitHubUrl: 'https://api.github.com/',
                         repositoryOwner: 'INOSA',

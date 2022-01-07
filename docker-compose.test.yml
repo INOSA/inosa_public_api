@@ -4,21 +4,30 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - HOST_IP=${HOST_IP}
+        - ENV=test
     restart: unless-stopped
     user: root
     depends_on:
       - testdb
     environment:
-      - APP_DEBUG=true # needs to be true to generate container xml cache file
+      - ENV=test
       - APP_ENV=test
+      - APP_DEBUG=true # needs to be true to generate container xml cache file
       - PUBLIC_API_DB_NAME=public_api_db_test
       - DB_PASSWORD=Asd12345
+      - SA_PASSWORD=Asd12345
       - DB_USERNAME=sa
-      - DB_CONTAINER_NAME=testdb
+      - DB_HOST=testdb
+      - DB_PORT=1433
       - SECURITY_KEY_HEX=31faa44d680828f50bea589270333f718b4128c609e9f37b35ec27d0e63cbe8e
       - API_CONTAINER_NAME=public_api_testapi
+      - REPORTS_CONTAINER_NAME=inosa_reports_dev
   testdb:
     image: 'public.ecr.aws/s6z8v3g0/inosadocker/database:release-1.0.2'
+    ports:
+      - "14333:1433"
     environment:
       - DB_DATABASE=public_api_db_test
       - DB_PASSWORD=Asd12345

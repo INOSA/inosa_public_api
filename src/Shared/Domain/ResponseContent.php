@@ -10,8 +10,18 @@ final class ResponseContent
     {
     }
 
-    public function asString(): string
+    public function toString(): string
     {
         return $this->content;
+    }
+
+    public static function internalServerError(): self
+    {
+        return new self('Internal server error, please contact with the Administrator.');
+    }
+
+    public static function notFound(): self
+    {
+        return new self('Resource you\'re looking for does not exist.');
     }
 }

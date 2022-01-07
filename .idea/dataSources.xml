@@ -8,18 +8,18 @@
       <jdbc-url>jdbc:sqlserver://localhost:1432;database=inosa_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="public_api_db@localhost" uuid="10a3721d-85ae-46ae-b845-2a14e114f138">
+    <data-source source="LOCAL" name="Public API" uuid="10a3721d-85ae-46ae-b845-2a14e114f138">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://localhost:1432;database=public_api_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="public_api_db_test@localhost" uuid="eab28b7b-3abc-4713-b740-4e6f66cf14d5">
+    <data-source source="LOCAL" name="public_api_db_test" uuid="08720d71-5b98-45a5-8143-b4b36f3f0672">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://localhost:1433;database=public_api_db_test</jdbc-url>
+      <jdbc-url>jdbc:sqlserver://localhost:14333;database=public_api_db_test</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

@@ -7,3 +7,10 @@ get_folders_basic_structure:
     methods: GET
     defaults:
         oauth2_scopes: [ 'public-api' ]
+
+get_departments:
+    path: /api/departments
+    controller: App\AuthorizationServer\GetDepartments\UI\GetDepartmentsController::getDepartments
+    methods: GET
+    defaults:
+        oauth2_scopes: [ 'public-api' ]

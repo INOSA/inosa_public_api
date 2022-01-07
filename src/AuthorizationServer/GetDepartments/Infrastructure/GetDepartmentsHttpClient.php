@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\AuthorizationServer\GetFoldersBasicStructure\Infrastructure;
+namespace App\AuthorizationServer\GetDepartments\Infrastructure;
 
-use App\AuthorizationServer\GetFoldersBasicStructure\Domain\GetFolderBasicStructureHttpClientInterface;
+use App\AuthorizationServer\GetDepartments\Domain\GetDepartmentsHttpClientInterface;
 use App\Shared\Domain\Endpoint\EndpointInterface;
 use App\Shared\Domain\ProxyResponse;
 use App\Shared\Infrastructure\Http\HttpClient;
 use App\Shared\Infrastructure\Response\ProxyResponseMapper;
 
-final class GetFolderBasicStructureHttpClient implements GetFolderBasicStructureHttpClientInterface
+final class GetDepartmentsHttpClient implements GetDepartmentsHttpClientInterface
 {
     public function __construct(private HttpClient $httpClient, private ProxyResponseMapper $proxyResponseMapper)
     {

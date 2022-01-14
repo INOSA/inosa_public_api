@@ -145,6 +145,9 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/phpstan/phpstan-phpunit" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
@@ -220,7 +223,7 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
+      <phpunit_by_interpreter interpreter_id="c5d5c7d4-d4f4-4da3-87fb-4b6a9a27e9f9" configuration_file_path="/var/www/html/phpunit.xml.dist" custom_loader_path="/var/www/html/vendor/autoload.php" use_configuration_file="true" />
     </phpunit_settings>
   </component>
 </project>

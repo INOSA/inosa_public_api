@@ -8,7 +8,7 @@ use App\DataFixtures\CreatePublicApiClient\CreatePublicApiClientDataFixtures;
 use App\Shared\Application\Json\JsonDecoderInterface;
 use App\Shared\Domain\Identifier\IdentifierFactoryInterface;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;
-use App\Shared\Infrastructure\Client\Entity\ClientEntity;
+use App\Shared\Infrastructure\Client\Entity\Client;
 use App\Shared\Infrastructure\Client\Repository\ClientEntityNotFoundException;
 use App\Shared\Infrastructure\Client\Repository\ClientRepository;
 use League\OAuth2\Server\AuthorizationServer;
@@ -39,10 +39,10 @@ class AccessTokenIssuer
         return $this->decodeTokenResponse($token);
     }
 
-    private function getTestClient(): ClientEntity
+    private function getTestClient(): Client
     {
         try {
-            return $this->clientRepository->getClientByInosaSiteIdentifier(
+            return $this->clientRepository->getByInosaSiteIdentifier(
                 InosaSiteIdentifier::fromIdentifier(
                     $this->identifierFactory->fromString(
                         CreatePublicApiClientDataFixtures::CLIENT_INOSA_SITE_IDENTIFIER
@@ -54,7 +54,7 @@ class AccessTokenIssuer
         }
     }
 
-    private function getTokenRequest(ClientEntity $client): ServerRequestInterface
+    private function getTokenRequest(Client $client): ServerRequestInterface
     {
         return (new Psr17Factory())->createServerRequest(
             'POST',
@@ -66,8 +66,8 @@ class AccessTokenIssuer
             ]
         )->withParsedBody(
             [
-                'client_id' => $client->getClient()->getIdentifier(),
-                'client_secret' => $client->getClient()->getSecret(),
+                'client_id' => $client->getClientIdentifier()->toString(),
+                'client_secret' => $client->getClientSecret()->toString(),
                 'grant_type' => 'client_credentials',
             ]
         );

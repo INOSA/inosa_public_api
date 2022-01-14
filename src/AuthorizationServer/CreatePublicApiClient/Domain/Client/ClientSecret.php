@@ -10,7 +10,7 @@ final class ClientSecret
     {
     }
 
-    public function asString(): string
+    public function toString(): string
     {
         return $this->secret;
     }

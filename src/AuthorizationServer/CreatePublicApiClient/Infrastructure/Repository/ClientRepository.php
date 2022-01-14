@@ -29,7 +29,7 @@ final class ClientRepository implements ClientRepositoryInterface
     public function findOneByInosaSiteIdentifier(InosaSiteIdentifier $id): ?Client
     {
         try {
-            $entity = $this->clientRepository->getClientByInosaSiteIdentifier($id);
+            $entity = $this->clientRepository->getByInosaSiteIdentifier($id);
 
             return $this->clientFacade->toModel($entity);
         } catch (ClientEntityNotFoundException) {

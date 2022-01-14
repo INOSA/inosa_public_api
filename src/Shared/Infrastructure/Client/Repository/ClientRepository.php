@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Client\Repository;
 
+use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientIdentifier;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;
-use App\Shared\Infrastructure\Client\Entity\ClientEntity;
+use App\Shared\Infrastructure\Client\Entity\Client;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -22,14 +23,11 @@ final class ClientRepository
     ) {
     }
 
-    /**
-     * @throws ClientEntityNotFoundException
-     */
-    public function getClientFromToken(): ClientEntity
+    public function getClientFromToken(): Client
     {
         $oauthToken = $this->tokenStorage->getToken();
 
-        if (null === $oauthToken || !is_string($token = $oauthToken->getCredentials())) {
+        if (null === $oauthToken || !is_string($token = $oauthToken->getAttribute('access_token_id'))) {
             throw new LogicException('Authorization token does not exists');
         }
 
@@ -39,17 +37,36 @@ final class ClientRepository
             throw new LogicException('Token does not exists');
         }
 
+        $client = $token->getClient();
+
+        if (!is_a($client, Client::class)) {
+            throw new LogicException('Invalid client created');
+        }
+
+        return $client;
+    }
+
+    /**
+     * @throws ClientEntityNotFoundException
+     */
+    public function getByInternalClientIdentifier(ClientIdentifier $clientIdentifier): Client
+    {
         $qb = $this->entityManager->createQueryBuilder();
-        $qb->from(ClientEntity::class, 'client')
-            ->select('client')
-            ->andWhere($qb->expr()->eq('client.client', ':clientId'))
-            ->setParameter('clientId', $token->getClient()->getIdentifier());
+
+        $qb->select('client')
+            ->from(Client::class, 'client')
+            ->andWhere(
+                $qb->expr()->eq('client.identifier', ':clientIdentifier')
+            )->setParameter(
+                'clientIdentifier',
+                $clientIdentifier->toString()
+            );
 
         try {
-            /** @var ClientEntity */
+            /** @phpstan-ignore-next-line */
             return $qb->getQuery()->getSingleResult();
-        } catch (NoResultException) {
-            throw new ClientEntityNotFoundException('Client application not found');
+        } catch (NoResultException $e) {
+            throw new ClientEntityNotFoundException($e->getMessage());
         } catch (NonUniqueResultException $e) {
             throw new LogicException($e->getMessage());
         }
@@ -58,17 +75,17 @@ final class ClientRepository
     /**
      * @throws ClientEntityNotFoundException
      */
-    public function getClientByInosaSiteIdentifier(InosaSiteIdentifier $id): ClientEntity
+    public function getByInosaSiteIdentifier(InosaSiteIdentifier $id): Client
     {
         $qb = $this->entityManager->createQueryBuilder();
 
-        $qb->select('client_additional_info')
-            ->from(ClientEntity::class, 'client_additional_info')
+        $qb->select('client')
+            ->from(Client::class, 'client')
             ->andWhere(
-                $qb->expr()->eq('client_additional_info.inosaSiteId', ':inosaSiteId')
+                $qb->expr()->eq('client.siteId', ':siteId')
             )->setParameter(
-                'inosaSiteId',
-                $id->asString()
+                'siteId',
+                $id->toString()
             );
 
         try {

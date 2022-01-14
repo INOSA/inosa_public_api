@@ -8,7 +8,7 @@ use App\Shared\Domain\Identifier\Identifier;
 use App\Shared\Domain\Identifier\IdentifierFactoryInterface;
 use Ramsey\Uuid\Uuid;
 
-final class IdentifierFactory implements IdentifierFactoryInterface
+final class UuidIdentifierFactory implements IdentifierFactoryInterface
 {
     public function create(): Identifier
     {

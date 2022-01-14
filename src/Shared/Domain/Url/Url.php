@@ -10,7 +10,7 @@ final class Url
     {
     }
 
-    public function asString(): string
+    public function toString(): string
     {
         return $this->url;
     }

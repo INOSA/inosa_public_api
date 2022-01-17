@@ -3,7 +3,13 @@ doctrine:
         default_connection: default
         connections:
             default:
-                url: '%env(resolve:DATABASE_URL)%'
+                dbname: '%env(string:PUBLIC_API_DB_NAME)%'
+                user: '%env(string:DB_USERNAME)%'
+                password: '%env(string:DB_PASSWORD)%'
+                host: '%env(string:DB_HOST)%'
+                port: '%env(int:DB_PORT)%'
+                charset: UTF-8
+                driver: sqlsrv
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

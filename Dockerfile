@@ -46,6 +46,9 @@ COPY ./docker/php/xdebug.ini $PHP_INI_DIR/conf.d/xdebug.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer creates=/usr/local/bin/composer warn=no
 
+COPY composer.json composer.json
+COPY composer.lock composer.lock
+
 RUN mkdir -p /run/nginx
 RUN apk add --no-cache nginx
 COPY ./docker/nginx/publicapi.conf /etc/nginx/http.d/publicapi.conf

@@ -50,11 +50,13 @@ pipeline {
 
         stage ('Build static tools image') {
             steps {
+                sh "docker-compose -f docker-compose.test.yml down -v --rmi local"
                 sh "docker-compose -f docker-compose.test.yml up -d --build"
                 sh "while ! docker-compose -f docker-compose.test.yml logs testdb | grep 'DATABASE IS READY'; do sleep 1; done"
-                sh "docker-compose -f docker-compose.test.yml exec -T testapi composer install"
-                sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:migrations:migrate -n"
-                sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:fixtures:load -n"
+                sh "while ! docker-compose -f docker-compose.test.yml logs testapi | grep 'bin/console doctrine:fixtures:load -n'; do sleep 1; done"
+                sh "docker-compose -f docker-compose.test.yml logs testapi"
+//                 sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:migrations:migrate -n"
+//                 sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:fixtures:load -n"
             }
         }
 

@@ -9,6 +9,7 @@ services:
     depends_on:
       - testdb
     environment:
+      - ENV=test
       - APP_DEBUG=true # needs to be true to generate container xml cache file
       - APP_ENV=test
       - PUBLIC_API_DB_NAME=public_api_db_test

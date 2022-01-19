@@ -52,6 +52,9 @@ pipeline {
             steps {
                 sh "docker-compose -f docker-compose.test.yml up -d --build"
                 sh "while ! docker-compose -f docker-compose.test.yml logs testdb | grep 'DATABASE IS READY'; do sleep 1; done"
+                sh "docker logs public_api_testapi_1"
+//                 sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:migrations:migrate -n"
+//                 sh "docker-compose -f docker-compose.test.yml exec -T testapi bin/console doctrine:fixtures:load -n"
             }
         }
 

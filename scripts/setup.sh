@@ -1,12 +1,8 @@
 #!/usr/bin/env sh
 
-echo "Running in ${APP_ENV} env."
-
 set -eux
 
 composer clear-cache
-
-echo "${ENV}"
 
 if [ "${ENV}" == "dev" ] || [ ${ENV} == "test" ]
 then
@@ -18,15 +14,7 @@ then
   bin/console doctrine:migrations:migrate -n
   bin/console doctrine:fixtures:load -n
 else
-  composer dump-autoload --optimize
+  composer dump-autoload --no-dev --optimize
   bin/console doctrine:migrations:migrate -n
 fi
 
-whoami
-
-bin/console cache:warmup
-
-chmod 777 -R var/cache/
-
-echo "List available public api routes"
-bin/console debug:router

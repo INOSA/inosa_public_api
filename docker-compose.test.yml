@@ -13,6 +13,7 @@ services:
       - APP_ENV=test
       - PUBLIC_API_DB_NAME=public_api_db_test
       - DB_PASSWORD=Asd12345
+      - SA_PASSWORD=Asd12345
       - DB_USERNAME=sa
       - DB_HOST=testdb
       - DB_PORT=1433

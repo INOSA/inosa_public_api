@@ -6,6 +6,7 @@ namespace App\Shared\Infrastructure\Http;
 
 use App\Shared\Domain\Url\Url;
 use Inosa\Arrays\ArrayHashMap;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -14,6 +15,7 @@ final class HttpClient
     public function __construct(
         private string $apiUrl,
         private HttpClientInterface $apiClient,
+        private RequestStack $requestStack,
     ) {
     }
 
@@ -22,7 +24,7 @@ final class HttpClient
         $parsedUrl = sprintf(
             '%s/%s',
             $this->apiUrl,
-            $url->asString(),
+            $url->toString(),
         );
 
         return $this->apiClient->request(
@@ -41,7 +43,7 @@ final class HttpClient
     {
         return $this->apiClient->request(
             'POST',
-            sprintf('%s/%s', $this->apiUrl, $url->asString()),
+            sprintf('%s/%s', $this->apiUrl, $url->toString()),
             [
                 'headers' => $this->getHeaders()->toArray(),
                 'body' => $body->toArray(),
@@ -54,11 +56,30 @@ final class HttpClient
      */
     private function getHeaders(): ArrayHashMap
     {
-        return ArrayHashMap::create(
-            [
-                'Accept' => 'application/json',
-                'Origin' => 'public-api',
-            ]
-        );
+        $headers = [
+            'Accept' => 'application/json',
+            'Origin' => 'public-api',
+        ];
+
+        $authorization = $this->getAuthorizationHeader();
+
+        if (null === $authorization) {
+            return ArrayHashMap::create($headers);
+        }
+
+        $headers['Authorization'] = $authorization;
+
+        return ArrayHashMap::create($headers);
+    }
+
+    private function getAuthorizationHeader(): ?string
+    {
+        $request = $this->requestStack->getCurrentRequest();
+
+        if (null === $request) {
+            return null;
+        }
+
+        return $request->headers->get('Authorization');
     }
 }

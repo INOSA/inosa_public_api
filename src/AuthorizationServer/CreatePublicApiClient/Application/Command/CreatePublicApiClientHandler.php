@@ -15,6 +15,9 @@ final class CreatePublicApiClientHandler implements CommandHandlerInterface
 
     public function __invoke(CreatePublicApiClientCommand $createPublicApiClient): void
     {
-        $this->clientCreator->create($createPublicApiClient->getInosaSiteIdentifier());
+        $this->clientCreator->create(
+            $createPublicApiClient->getInosaSiteIdentifier(),
+            $createPublicApiClient->getClientName(),
+        );
     }
 }

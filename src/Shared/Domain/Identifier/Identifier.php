@@ -15,10 +15,10 @@ class Identifier
 
     public function __toString(): string
     {
-        return $this->asString();
+        return $this->toString();
     }
 
-    public function asString(): string
+    public function toString(): string
     {
         return $this->identifier;
     }

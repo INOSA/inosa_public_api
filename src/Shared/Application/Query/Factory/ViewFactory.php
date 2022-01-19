@@ -30,7 +30,7 @@ final class ViewFactory
     private function view(ProxyResponse $response): ResponseViewInterface
     {
         return new View(
-            $response->getResponseContent()->asString(),
+            $response->getResponseContent()->toString(),
             $response->getResponseCode()->asInt(),
         );
     }

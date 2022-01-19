@@ -12,12 +12,17 @@ final class Scope
     {
     }
 
+    public static function fromString(string $scope): self
+    {
+        return new self($scope);
+    }
+
     public static function publicApi(): self
     {
         return new self(self::SCOPE_PUBLIC_API);
     }
 
-    public function asString(): string
+    public function toString(): string
     {
         return $this->scope;
     }

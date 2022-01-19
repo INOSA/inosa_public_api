@@ -72,7 +72,7 @@ final class ProxyResponseMapperTest extends UnitTestCase
         $mappedResponse = $this->mapper->toProxyResponse($this->responseMock);
 
         self::assertEquals($expectedStatusCode, $mappedResponse->getResponseCode()->asInt());
-        self::assertEquals($expectedContent, $mappedResponse->getResponseContent()->asString());
+        self::assertEquals($expectedContent, $mappedResponse->getResponseContent()->toString());
     }
 
     protected function setUp(): void

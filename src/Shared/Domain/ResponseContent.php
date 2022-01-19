@@ -10,7 +10,7 @@ final class ResponseContent
     {
     }
 
-    public function asString(): string
+    public function toString(): string
     {
         return $this->content;
     }

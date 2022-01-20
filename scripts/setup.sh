@@ -17,4 +17,3 @@ else
   composer dump-autoload --no-dev --optimize
   bin/console doctrine:migrations:migrate -n
 fi
-

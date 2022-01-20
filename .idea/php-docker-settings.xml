@@ -18,6 +18,34 @@
             </DockerContainerSettings>
           </value>
         </entry>
+        <entry key="a14416e0-4e3e-4a89-af9e-d3ef39f412e3">
+          <value>
+            <DockerContainerSettings>
+              <option name="envVars">
+                <list>
+                  <DockerEnvVarImpl>
+                    <option name="name" value="ENV" />
+                    <option name="value" value="test" />
+                  </DockerEnvVarImpl>
+                  <DockerEnvVarImpl>
+                    <option name="name" value="APP_ENV" />
+                    <option name="value" value="test" />
+                  </DockerEnvVarImpl>
+                </list>
+              </option>
+              <option name="runCliOptions" value="" />
+              <option name="version" value="1" />
+              <option name="volumeBindings">
+                <list>
+                  <DockerVolumeBindingImpl>
+                    <option name="containerPath" value="/var/www/html" />
+                    <option name="hostPath" value="$PROJECT_DIR$" />
+                  </DockerVolumeBindingImpl>
+                </list>
+              </option>
+            </DockerContainerSettings>
+          </value>
+        </entry>
         <entry key="c5d5c7d4-d4f4-4da3-87fb-4b6a9a27e9f9">
           <value>
             <DockerContainerSettings>

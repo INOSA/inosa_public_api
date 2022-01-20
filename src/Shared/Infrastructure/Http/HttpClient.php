@@ -46,7 +46,7 @@ final class HttpClient
             sprintf('%s/%s', $this->apiUrl, $url->toString()),
             [
                 'headers' => $this->getHeaders()->toArray(),
-                'body' => $body->toArray(),
+                'json' => $body->toArray(),
             ]
         );
     }

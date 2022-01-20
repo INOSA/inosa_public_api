@@ -1,1 +1,1 @@
-./vendor/bin/phpunit -c phpunit.xml.dist
+./vendor/bin/phpunit -c phpunit.xml.dist --testdox

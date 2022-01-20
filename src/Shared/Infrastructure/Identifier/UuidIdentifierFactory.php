@@ -6,6 +6,7 @@ namespace App\Shared\Infrastructure\Identifier;
 
 use App\Shared\Domain\Identifier\Identifier;
 use App\Shared\Domain\Identifier\IdentifierFactoryInterface;
+use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
 
 final class UuidIdentifierFactory implements IdentifierFactoryInterface
@@ -15,8 +16,15 @@ final class UuidIdentifierFactory implements IdentifierFactoryInterface
         return new Identifier(Uuid::uuid4()->toString());
     }
 
+    /**
+     * @throws InvalidIdentifierException
+     */
     public function fromString(string $identifier): Identifier
     {
-        return new Identifier(Uuid::fromString($identifier)->toString());
+        try {
+            return new Identifier(Uuid::fromString($identifier)->toString());
+        } catch (InvalidUuidStringException $exception) {
+            throw new InvalidIdentifierException($exception->getMessage());
+        }
     }
 }

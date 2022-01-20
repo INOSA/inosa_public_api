@@ -4,6 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - HOST_IP=${HOST_IP}
+        - ENV=test
     restart: unless-stopped
     user: root
     depends_on:

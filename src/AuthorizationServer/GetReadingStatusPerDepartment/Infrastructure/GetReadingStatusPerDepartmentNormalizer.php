@@ -23,6 +23,7 @@ final class GetReadingStatusPerDepartmentNormalizer implements ContextAwareDenor
 
     /**
      * @inheritDoc
+     * @phpcs
      */
     public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {

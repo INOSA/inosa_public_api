@@ -34,19 +34,14 @@ final class GetReadingStatusPerDepartmentEndpoint implements PostEndpointInterfa
         return ArrayHashMap::create(
             [
                 'globalFilters' => [
-                    'departmentIds' => $this
-                        ->departmentIds
-                        ->transform(fn(DepartmentIdentifier $identifier): string => $identifier->toString())
-                        ->toArray(),
+                    'departmentIds' => $this->departmentIds->transform(
+                        fn(DepartmentIdentifier $identifier): string => $identifier->toString()
+                    )->toArray(),
                     'excludeDepartmentIds' => [],
                     'excludeFolderIds' => [],
                     'folderIds' => [],
                 ],
                 'localFilters' => [],
-                'pagination' => [
-                    'page' => 0,
-                    'size' => -1,
-                ],
             ]
         );
     }

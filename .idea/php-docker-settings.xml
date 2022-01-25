@@ -33,15 +33,6 @@
                   </DockerEnvVarImpl>
                 </list>
               </option>
-              <option name="links">
-                <list>
-                  <DockerLinkImpl>
-                    <option name="alias" value="testdb" />
-                    <option name="name" value="public_api_testdb_1" />
-                  </DockerLinkImpl>
-                </list>
-              </option>
-              <option name="networkMode" value="public_api_default" />
               <option name="runCliOptions" value="" />
               <option name="version" value="1" />
               <option name="volumeBindings">

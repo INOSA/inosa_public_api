@@ -37,7 +37,7 @@ COPY ./ /var/www/html
 COPY ./docker/php/php.ini-${ENV} ${PHP_INI_DIR}/php.ini
 COPY ./docker/php/opcache.ini-${ENV} ${PHP_INI_DIR}/opcache.ini
 
-RUN set -eux; if [[ ${ENV} == "dev" ]]; then \
+RUN set -eux; if [ "${ENV}" == "dev" ] || [ ${ENV} == "test" ]; then \
         pecl install xdebug \
         && docker-php-ext-enable --ini-name xdebug.ini xdebug \
     ;fi

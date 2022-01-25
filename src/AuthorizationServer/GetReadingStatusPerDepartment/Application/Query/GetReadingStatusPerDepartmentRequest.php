@@ -7,7 +7,7 @@ namespace App\AuthorizationServer\GetReadingStatusPerDepartment\Application\Quer
 use App\Shared\Domain\Identifier\DepartmentIdentifier;
 use Inosa\Arrays\ArrayList;
 
-final class GetReadingStatusPerDepartmentRequest
+class GetReadingStatusPerDepartmentRequest
 {
     /**
      * @param ArrayList<DepartmentIdentifier> $departmentIds

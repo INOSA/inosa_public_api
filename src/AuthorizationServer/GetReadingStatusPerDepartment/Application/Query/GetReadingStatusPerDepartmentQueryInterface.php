@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\AuthorizationServer\GetReadingStatusPerDepartment\Application\Query;
 
 use App\Shared\Application\Query\ResponseViewInterface;
-use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 
 interface GetReadingStatusPerDepartmentQueryInterface
 {
-    public function getReadingStatusPerDepartmentView(InosaSiteIdentifier $inosaSiteIdentifier): ResponseViewInterface;
+    public function getReadingStatusPerDepartmentView(GetReadingStatusPerDepartmentRequest $request): ResponseViewInterface;
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\AuthorizationServer\GetReadingStatusPerDepartment\UI;
 
+use App\AuthorizationServer\GetReadingStatusPerDepartment\Application\Query\GetReadingStatusPerDepartmentQueryInterface;
 use App\AuthorizationServer\GetReadingStatusPerDepartment\Application\Query\GetReadingStatusPerDepartmentRequest;
-use App\AuthorizationServer\GetReadingStatusPerDepartment\Infrastructure\GetReadingStatusPerDepartmentQuery;
 use App\Shared\Infrastructure\Controller\ClientCredentialsAuthorizationController;
 use App\Shared\Infrastructure\Response\Factory\ResponseFactory;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,7 +18,7 @@ final class GetReadingStatusPerDepartmentController extends ClientCredentialsAut
 {
     public function getReadingStatusPerDepartment(
         Request $request,
-        GetReadingStatusPerDepartmentQuery $query,
+        GetReadingStatusPerDepartmentQueryInterface $query,
         ResponseFactory $responseFactory,
         DenormalizerInterface $serializer
     ): JsonResponse {

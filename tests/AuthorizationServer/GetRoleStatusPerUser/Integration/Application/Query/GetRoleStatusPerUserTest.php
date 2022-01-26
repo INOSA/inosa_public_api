@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\AuthorizationServer\GetReadingStatusPerDepartment\Integration\Application\Query;
+namespace App\Tests\AuthorizationServer\GetRoleStatusPerUser\Integration\Application\Query;
 
-use App\AuthorizationServer\GetReadingStatusPerDepartment\Application\Query\GetReadingStatusPerDepartmentQueryInterface;
-use App\AuthorizationServer\GetReadingStatusPerDepartment\Application\Query\GetReadingStatusPerDepartmentRequest;
+use App\AuthorizationServer\GetRoleStatusPerUser\Application\Query\GetRoleStatusPerUserQueryInterface;
+use App\AuthorizationServer\GetRoleStatusPerUser\Application\Query\GetRoleStatusPerUserRequest;
 use App\Shared\Application\Json\JsonEncoderInterface;
 use App\Shared\Application\Query\InternalServerErrorView;
-use App\Shared\Domain\Identifier\DepartmentIdentifier;
+use App\Shared\Domain\Identifier\RoleIdentifier;
 use App\Tests\IntegrationTestCase;
 use Inosa\Arrays\ArrayHashMap;
 use Inosa\Arrays\ArrayList;
@@ -17,9 +17,9 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class GetReadingStatusPerDepartmentTest extends IntegrationTestCase
+final class GetRoleStatusPerUserTest extends IntegrationTestCase
 {
-    private GetReadingStatusPerDepartmentQueryInterface $query;
+    private GetRoleStatusPerUserQueryInterface $query;
     private MockHttpClient $httpClient;
     private JsonEncoderInterface $jsonEncoder;
 
@@ -42,8 +42,8 @@ final class GetReadingStatusPerDepartmentTest extends IntegrationTestCase
             ],
         );
 
-        $response = $this->query->getReadingStatusPerDepartmentView(
-            new GetReadingStatusPerDepartmentRequest(ArrayList::create([]))
+        $response = $this->query->getRoleStatusPerUserView(
+            new GetRoleStatusPerUserRequest(ArrayList::create([]))
         );
 
         $this::assertJson($response->getResponseContent());
@@ -72,8 +72,8 @@ final class GetReadingStatusPerDepartmentTest extends IntegrationTestCase
             ],
         );
 
-        $response = $this->query->getReadingStatusPerDepartmentView(
-            new GetReadingStatusPerDepartmentRequest(ArrayList::create([]))
+        $response = $this->query->getRoleStatusPerUserView(
+            new GetRoleStatusPerUserRequest(ArrayList::create([]))
         );
 
         $this::assertJson($response->getResponseContent());
@@ -100,11 +100,11 @@ final class GetReadingStatusPerDepartmentTest extends IntegrationTestCase
             ],
         );
 
-        $response = $this->query->getReadingStatusPerDepartmentView(
-            new GetReadingStatusPerDepartmentRequest(
+        $response = $this->query->getRoleStatusPerUserView(
+            new GetRoleStatusPerUserRequest(
                 ArrayList::create(
                     [
-                        new DepartmentIdentifier('79fdac72-815e-4345-8a37-975eaa1114f8'),
+                        new RoleIdentifier('9c32f47b-dfa6-4577-98e5-21790d82b815'),
                     ],
                 )
             )
@@ -121,7 +121,7 @@ final class GetReadingStatusPerDepartmentTest extends IntegrationTestCase
         $container = self::getContainer();
 
         $this->httpClient = $container->get(HttpClientInterface::class);
-        $this->query = $container->get(GetReadingStatusPerDepartmentQueryInterface::class);
+        $this->query = $container->get(GetRoleStatusPerUserQueryInterface::class);
         $this->jsonEncoder = $container->get(JsonEncoderInterface::class);
     }
 }

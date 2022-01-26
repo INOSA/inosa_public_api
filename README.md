@@ -27,3 +27,10 @@ You can now run following static analysis tools:
 
 ### Removing test containers is done via:
 `./scripts/remove-local-test-container.sh`
+
+
+## For local development
+If you have set up fixtures for main api application you can run 
+`./scripts/public-api-client-create.sh` 
+
+This will create complete public api client account connected with main api user called *public-api-user*.

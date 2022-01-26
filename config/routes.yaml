@@ -1,23 +1,30 @@
 oauth2:
-    resource: '@LeagueOAuth2ServerBundle/Resources/config/routes.php'
+  resource: '@LeagueOAuth2ServerBundle/Resources/config/routes.php'
 
 get_folders_basic_structure:
-    path: /api/folders-basic-structure/without-metrics
-    controller: App\AuthorizationServer\GetFoldersBasicStructure\UI\GetFoldersBasicStructureController::getFoldersBasicStructure
-    methods: GET
-    defaults:
-        oauth2_scopes: [ 'public-api' ]
+  path: /api/folders-basic-structure/without-metrics
+  controller: App\AuthorizationServer\GetFoldersBasicStructure\UI\GetFoldersBasicStructureController::getFoldersBasicStructure
+  methods: GET
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
 
 get_departments:
-    path: /api/departments
-    controller: App\AuthorizationServer\GetDepartments\UI\GetDepartmentsController::getDepartments
-    methods: GET
-    defaults:
-        oauth2_scopes: [ 'public-api' ]
+  path: /api/departments
+  controller: App\AuthorizationServer\GetDepartments\UI\GetDepartmentsController::getDepartments
+  methods: GET
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
 
 get_reading_status_per_department:
-    path: /api/departments/reading-status
-    controller: App\AuthorizationServer\GetReadingStatusPerDepartment\UI\GetReadingStatusPerDepartmentController::getReadingStatusPerDepartment
-    methods: GET
-    defaults:
-        oauth2_scopes: [ 'public-api' ]
+  path: /api/departments/reading-status
+  controller: App\AuthorizationServer\GetReadingStatusPerDepartment\UI\GetReadingStatusPerDepartmentController::getReadingStatusPerDepartment
+  methods: GET
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
+
+get_role_status_per_user:
+  path: /api/role-status-per-user
+  controller: App\AuthorizationServer\GetRoleStatusPerUser\UI\GetRoleStatusPerUserController::getRoleStatusPerUser
+  methods: GET
+  defaults:
+    oauth2_scopes: [ 'public-api' ]

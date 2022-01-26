@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\AuthorizationServer\GetReadingStatusPerDepartment\Integration\Application\Query;
 
+use App\AuthorizationServer\GetReadingStatusPerDepartment\Application\Query\GetReadingStatusPerDepartmentQueryInterface;
 use App\AuthorizationServer\GetReadingStatusPerDepartment\Application\Query\GetReadingStatusPerDepartmentRequest;
-use App\AuthorizationServer\GetReadingStatusPerDepartment\Infrastructure\GetReadingStatusPerDepartmentQuery;
 use App\Shared\Application\Json\JsonEncoderInterface;
 use App\Shared\Application\Query\InternalServerErrorView;
 use App\Shared\Domain\Identifier\DepartmentIdentifier;
@@ -19,7 +19,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class GetReadingStatusPerDepartmentTest extends IntegrationTestCase
 {
-    private GetReadingStatusPerDepartmentQuery $query;
+    private GetReadingStatusPerDepartmentQueryInterface $query;
     private MockHttpClient $httpClient;
     private JsonEncoderInterface $jsonEncoder;
 
@@ -121,7 +121,7 @@ final class GetReadingStatusPerDepartmentTest extends IntegrationTestCase
         $container = self::getContainer();
 
         $this->httpClient = $container->get(HttpClientInterface::class);
-        $this->query = $container->get(GetReadingStatusPerDepartmentQuery::class);
+        $this->query = $container->get(GetReadingStatusPerDepartmentQueryInterface::class);
         $this->jsonEncoder = $container->get(JsonEncoderInterface::class);
     }
 }

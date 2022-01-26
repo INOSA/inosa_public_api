@@ -15,13 +15,6 @@ get_departments:
   defaults:
     oauth2_scopes: [ 'public-api' ]
 
-get_roles:
-  path: /api/roles
-  controller: App\AuthorizationServer\GetRoles\UI\GetRolesController::getRoles
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
 get_reading_status_per_department:
   path: /api/departments/reading-status
   controller: App\AuthorizationServer\GetReadingStatusPerDepartment\UI\GetReadingStatusPerDepartmentController::getReadingStatusPerDepartment
@@ -35,49 +28,3 @@ get_role_status_per_user:
   methods: GET
   defaults:
     oauth2_scopes: [ 'public-api' ]
-
-get_reading_status_for_one_user:
-  path: /api/users/{id}/reading-status
-  controller: App\AuthorizationServer\GetReadingStatusForOneUser\UI\GetReadingStatusForOneUserController::getReadingStatusForOneUser
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_reading_status_per_user:
-  path: /api/users/reading-status
-  controller: App\AuthorizationServer\GetReadingStatusPerUser\UI\GetReadingStatusPerUserController::getReadingStatusPerUser
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_permission_groups:
-  path: /api/permissions-groups
-  controller: App\AuthorizationServer\GetPermissionGroups\UI\GetPermissionGroupsController::getPermissionGroups
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-create_users:
-  path: /api/users
-  controller: App\AuthorizationServer\CreateUser\UI\CreateUserController::createUser
-  methods: POST
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-assign_user_to_role:
-  path: /api/users/{userId}/roles
-  controller: App\AuthorizationServer\ConnectUserToRoles\UI\ConnectUserToRolesController::connectUserToRoles
-  methods: PUT
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_users:
-  path: /api/users
-  controller: App\AuthorizationServer\GetUsers\UI\GetUsersController::getUsers
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-kernel:
-  resource: ../src/Kernel.php
-  type: annotation

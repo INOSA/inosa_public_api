@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Query;
 
-class View implements ResponseViewInterface
+class GenericView implements ResponseViewInterface
 {
     public function __construct(
         private string $response,

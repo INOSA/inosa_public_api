@@ -6,10 +6,10 @@ namespace App\Shared\Application\Query;
 
 final class InternalServerErrorView implements ResponseViewInterface
 {
-    public function __construct(
-        private string $response,
-        private int $statusCode,
-    ) {
+    private const INTERNAL_SERVER_ERROR_STATUS_CODE = 500;
+
+    public function __construct(private string $response)
+    {
     }
 
     public function getResponseContent(): string
@@ -19,6 +19,6 @@ final class InternalServerErrorView implements ResponseViewInterface
 
     public function getStatusCode(): int
     {
-        return $this->statusCode;
+        return self::INTERNAL_SERVER_ERROR_STATUS_CODE;
     }
 }

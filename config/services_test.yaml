@@ -1,5 +1,4 @@
 services:
-
   App\Shared\Infrastructure\Test\AccessTokenIssuer:
     public: true
     arguments:

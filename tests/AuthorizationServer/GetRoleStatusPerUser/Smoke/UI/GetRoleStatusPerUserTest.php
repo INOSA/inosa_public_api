@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\AuthorizationServer\GetReadingStatusPerDepartment\Smoke\UI;
+namespace App\Tests\AuthorizationServer\GetRoleStatusPerUser\Smoke\UI;
 
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;

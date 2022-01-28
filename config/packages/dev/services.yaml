@@ -1,3 +1,0 @@
-services:
-  App\Shared\Infrastructure\Client\PublicApiClientPersister: ~
-  App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientPersisterInterface: '@App\Shared\Infrastructure\Client\PublicApiClientPersister'

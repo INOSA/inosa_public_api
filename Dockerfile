@@ -54,5 +54,7 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS 2
 COPY ./docker/services.d/ /etc/services.d/
 COPY ./docker/cont-init.d/ /etc/cont-init.d/
 
+USER root
+
 ENTRYPOINT ["/init"]
 CMD ["php-fpm", "-F"]

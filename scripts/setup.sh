@@ -1,12 +1,11 @@
 #!/usr/bin/env sh
 
-set -eux
+echo "Running in ${APP_ENV} env."
 
+set -eux
 composer clear-cache
 
-echo "${ENV}"
-
-if [ "${ENV}" == "dev" ] || [ ${ENV} == "test" ]
+if [ "${APP_ENV}" == "dev" ] || [ ${APP_ENV} == "test" ]
 then
   echo "Installing dev/test dependencies"
 
@@ -16,6 +15,10 @@ then
   bin/console doctrine:migrations:migrate -n
   bin/console doctrine:fixtures:load -n
 else
-  composer dump-autoload --no-dev --optimize
+  composer dump-autoload --optimize
   bin/console doctrine:migrations:migrate -n
 fi
+
+bin/console cache:warmup
+
+chmod 777 -R var/cache/

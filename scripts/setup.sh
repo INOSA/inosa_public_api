@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+echo "Running in ${APP_ENV} env."
+
 set -eux
 
 composer clear-cache
@@ -19,3 +21,9 @@ else
   composer dump-autoload --optimize
   bin/console doctrine:migrations:migrate -n
 fi
+
+whoami
+
+bin/console cache:warmup
+
+chmod 777 -R var/cache/

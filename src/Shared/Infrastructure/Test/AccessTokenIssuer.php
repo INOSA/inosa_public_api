@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Test;
 
-use App\DataFixtures\CreatePublicApiClient\CreatePublicApiClientDataFixtures;
+use App\DataFixtures\CreatePublicApiClientDataFixtures;
 use App\Shared\Application\Json\JsonDecoderInterface;
 use App\Shared\Domain\Identifier\IdentifierFactoryInterface;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;

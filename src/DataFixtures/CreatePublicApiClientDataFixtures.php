@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures\CreatePublicApiClient;
+namespace App\DataFixtures;
 
 use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientFactory;
 use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientName;

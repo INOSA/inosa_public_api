@@ -6,11 +6,11 @@ namespace App\DataFixtures;
 
 use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientFactory;
 use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientName;
-use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\ClientPersisterInterface;
 use App\AuthorizationServer\CreatePublicApiClient\Domain\Client\Grant;
 use App\Shared\Domain\Identifier\IdentifierFactoryInterface;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 use App\Shared\Domain\Scope\Scope;
+use App\Shared\Infrastructure\Client\PublicApiClientPersister;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Inosa\Arrays\ArrayList;
@@ -21,7 +21,7 @@ final class CreatePublicApiClientDataFixtures extends Fixture
     public const CLIENT_INOSA_NAME = 'inosa';
 
     public function __construct(
-        private ClientPersisterInterface $clientPersister,
+        private PublicApiClientPersister $clientPersister,
         private ClientFactory $clientFactory,
         private IdentifierFactoryInterface $identifierFactory
     ) {

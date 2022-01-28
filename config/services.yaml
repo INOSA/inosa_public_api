@@ -22,7 +22,6 @@ services:
     arguments:
       $clientPersister: '@App\Shared\Infrastructure\Client\ClientPersister'
 
-
   App\Shared\Infrastructure\Repository\AccessTokenRepository:
     arguments:
       - '@League\Bundle\OAuth2ServerBundle\Repository\AccessTokenRepository'

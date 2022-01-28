@@ -40,8 +40,6 @@ RUN set -eux; if [ "${ENV}" == "dev" ] || [ ${ENV} == "test" ]; then \
         && docker-php-ext-enable --ini-name xdebug.ini xdebug \
     ;fi
 
-COPY ./docker/php/xdebug.ini $PHP_INI_DIR/conf.d/xdebug.ini
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer creates=/usr/local/bin/composer warn=no && \
     composer install --no-scripts --no-dev --no-autoloader
 

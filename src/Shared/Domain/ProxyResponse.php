@@ -10,14 +10,6 @@ final class ProxyResponse
     {
     }
 
-    public static function internalServerError(): self
-    {
-        return new self(
-            ResponseContent::internalServerError(),
-            ResponseCode::internalServerError(),
-        );
-    }
-
     public function getResponseContent(): ResponseContent
     {
         return $this->responseContent;
@@ -28,14 +20,9 @@ final class ProxyResponse
         return $this->responseCode;
     }
 
-    public function isSuccess(): bool
-    {
-        return $this->responseCode->isSuccess();
-    }
-
     public function isInternalServerError(): bool
     {
-        return $this->responseCode->isServerError();
+        return $this->responseCode->equals(ResponseCode::internalServerError());
     }
 
     public function isNotFound(): bool

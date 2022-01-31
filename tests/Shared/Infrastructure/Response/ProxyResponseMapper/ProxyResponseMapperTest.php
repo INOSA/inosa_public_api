@@ -7,7 +7,12 @@ namespace App\Tests\Shared\Infrastructure\Response\ProxyResponseMapper;
 use App\Shared\Infrastructure\Response\ProxyResponseMapper;
 use App\Tests\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
+use Throwable;
 
 final class ProxyResponseMapperTest extends UnitTestCase
 {
@@ -19,54 +24,60 @@ final class ProxyResponseMapperTest extends UnitTestCase
     private MockObject $responseMock;
 
     /**
-     * @dataProvider responseMapperDataProvider
+     * @return array<string, array<int, MockObject|\Throwable|int>>
      */
-    public function testShouldReturnCorrectResponse(
-        string $content,
-        int $code,
-        string $expectedContent,
-        int $expectedStatusCode,
+    public function getMockedException(): array
+    {
+        return [
+            'Transport exception, 500' => [
+                $this->createMock(TransportExceptionInterface::class),
+                500,
+            ],
+            'Server exception, 500' => [
+                $this->createMock(ServerExceptionInterface::class),
+                500,
+            ],
+            'RedirectionExceptionInterface, 500' => [
+                $this->createMock(RedirectionExceptionInterface::class),
+                500,
+            ],
+            'Client exception, 404' => [
+                $this->createMock(ClientExceptionInterface::class),
+                404,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider getMockedException
+     */
+    public function testShouldExceptionResponseWhenProvidedResponseThrowException(
+        Throwable $mockedException,
+        int $statusCode,
     ): void {
-        $this->responseMock->method('getStatusCode')->willReturn($code);
-        $this->responseMock->method('getContent')->willReturn($content);
+        $this->responseMock->method('getContent')->willThrowException($mockedException);
+        $this->responseMock->method('getStatusCode')->willReturn($statusCode);
+
+        $mappedResponse = $this->mapper->toProxyResponse($this->responseMock);
+
+        self::assertEquals(
+            $statusCode,
+            $mappedResponse->getResponseCode()->asInt()
+        );
+    }
+
+    public function testShouldReturnCorrectResponse(): void
+    {
+        $expectedStatusCode = 200;
+        $expectedContent = '';
+
+        $this->responseMock->method('getStatusCode')->willReturn(200);
+        $this->responseMock->method('getContent')->willReturn($expectedContent);
 
         $mappedResponse = $this->mapper->toProxyResponse($this->responseMock);
 
         self::assertEquals($expectedStatusCode, $mappedResponse->getResponseCode()->asInt());
         self::assertEquals($expectedContent, $mappedResponse->getResponseContent()->toString());
-    }
-
-    /**
-     * @return array<string, array<int, int|string>>
-     */
-    public function responseMapperDataProvider(): array
-    {
-        return [
-            '200 with content' => [
-                '{"message":"Success"}',
-                200,
-                '{"message":"Success"}',
-                200,
-            ],
-            '201 with no content' => [
-                '',
-                201,
-                '',
-                201,
-            ],
-            '400 with validation error' => [
-                'Client id is already taken',
-                400,
-                'Client id is already taken',
-                400,
-            ],
-            '500 with content' => [
-                'Really bad sqlincjection response from main api',
-                500,
-                'Internal server error, please contact with the Administrator.',
-                500,
-            ],
-        ];
     }
 
     protected function setUp(): void

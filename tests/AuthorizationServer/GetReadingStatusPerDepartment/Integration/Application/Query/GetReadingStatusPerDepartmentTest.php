@@ -81,6 +81,35 @@ final class GetReadingStatusPerDepartmentTest extends IntegrationTestCase
         $this::assertInstanceOf(InternalServerErrorView::class, $response);
     }
 
+    public function testGetReadingStatusPerDepartmentTestWillReturnNotFoundResponse(): void
+    {
+        $this->httpClient->setResponseFactory(
+            [
+                new MockResponse(
+                    $this->jsonEncoder->encode(
+                        ArrayHashMap::create(
+                            [
+                                'data' => null,
+                                'errors' => [
+                                    'exception' => 'Department with id 88514b7c-aea7-4eb1-91d8-544e6451d6cb was not found',
+                                ],
+                            ],
+                        )
+                    ),
+                    [
+                        'http_code' => Response::HTTP_NOT_FOUND,
+                    ],
+                ),
+            ],
+        );
+
+        $response = $this->query->getReadingStatusPerDepartmentView(
+            new GetReadingStatusPerDepartmentRequest(ArrayList::create([]))
+        );
+
+        $this::assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
+    }
+
     public function testGetReadingStatusPerDepartmentRequestWithDepartmentParameter(): void
     {
         $this->httpClient->setResponseFactory(

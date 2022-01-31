@@ -19,4 +19,14 @@ final class ProxyResponse
     {
         return $this->responseCode;
     }
+
+    public function isInternalServerError(): bool
+    {
+        return $this->responseCode->equals(ResponseCode::internalServerError());
+    }
+
+    public function isNotFound(): bool
+    {
+        return $this->responseCode->equals(ResponseCode::notFound());
+    }
 }

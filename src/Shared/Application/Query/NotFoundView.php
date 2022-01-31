@@ -6,7 +6,7 @@ namespace App\Shared\Application\Query;
 
 use App\Shared\Domain\ResponseCode;
 
-final class InternalServerErrorView implements ResponseViewInterface
+final class NotFoundView implements ResponseViewInterface
 {
     public function __construct(private string $response)
     {
@@ -19,6 +19,6 @@ final class InternalServerErrorView implements ResponseViewInterface
 
     public function getStatusCode(): int
     {
-        return ResponseCode::INTERNAL_SERVER_ERROR_CODE;
+        return ResponseCode::NOT_FOUND_CODE;
     }
 }

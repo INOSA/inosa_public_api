@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Shared\Infrastructure\Response\ProxyResponseMapper;
 
-use App\Shared\Domain\ResponseCode;
 use App\Shared\Infrastructure\Response\ProxyResponseMapper;
 use App\Tests\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -25,22 +24,26 @@ final class ProxyResponseMapperTest extends UnitTestCase
     private MockObject $responseMock;
 
     /**
-     * @return array<int, array<int, MockObject|\Throwable>>
+     * @return array<string, array<int, MockObject|\Throwable|int>>
      */
     public function getMockedException(): array
     {
         return [
-            [
+            'Transport exception, 500' => [
                 $this->createMock(TransportExceptionInterface::class),
+                500,
             ],
-            [
-                $this->createMock(ClientExceptionInterface::class),
-            ],
-            [
+            'Server exception, 500' => [
                 $this->createMock(ServerExceptionInterface::class),
+                500,
             ],
-            [
+            'RedirectionExceptionInterface, 500' => [
                 $this->createMock(RedirectionExceptionInterface::class),
+                500,
+            ],
+            'Client exception, 404' => [
+                $this->createMock(ClientExceptionInterface::class),
+                404,
             ],
         ];
     }
@@ -49,14 +52,16 @@ final class ProxyResponseMapperTest extends UnitTestCase
      * @dataProvider getMockedException
      */
     public function testShouldExceptionResponseWhenProvidedResponseThrowException(
-        Throwable $mockedException
+        Throwable $mockedException,
+        int $statusCode,
     ): void {
         $this->responseMock->method('getContent')->willThrowException($mockedException);
+        $this->responseMock->method('getStatusCode')->willReturn($statusCode);
 
         $mappedResponse = $this->mapper->toProxyResponse($this->responseMock);
 
         self::assertEquals(
-            ResponseCode::INTERNAL_SERVER_ERROR_CODE,
+            $statusCode,
             $mappedResponse->getResponseCode()->asInt()
         );
     }

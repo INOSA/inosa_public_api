@@ -7,6 +7,7 @@ namespace App\Shared\Domain;
 final class ResponseCode
 {
     public const INTERNAL_SERVER_ERROR_CODE = 500;
+    public const NOT_FOUND_CODE = 404;
 
     public function __construct(private int $code)
     {
@@ -15,6 +16,11 @@ final class ResponseCode
     public static function internalServerError(): self
     {
         return new self(self::INTERNAL_SERVER_ERROR_CODE);
+    }
+
+    public static function notFound(): self
+    {
+        return new self(self::NOT_FOUND_CODE);
     }
 
     public function equals(ResponseCode $responseCode): bool

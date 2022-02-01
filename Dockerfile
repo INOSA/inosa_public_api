@@ -1,4 +1,4 @@
-FROM php:8.0.13-fpm-alpine3.13
+FROM php:8.1.2-fpm-alpine3.15
 
 RUN apk add --no-cache \
     unixodbc-dev \

@@ -35,3 +35,7 @@ get_role_status_per_user:
   methods: GET
   defaults:
     oauth2_scopes: [ 'public-api' ]
+
+kernel:
+    resource: ../src/Kernel.php
+    type: annotation

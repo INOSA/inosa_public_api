@@ -144,6 +144,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/event-manager" />
     </content>
+    <content url="file://$MODULE_DIR$/tests/AuthorizationServer/CreatePublicApiClient" />
+    <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetDepartments" />
+    <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetFolderBasicStructure" />
+    <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetReadingStatusForOneUser" />
+    <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetReadingStatusPerDepartment" />
+    <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetRoleStatusPerUser" />
+    <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetRoles" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

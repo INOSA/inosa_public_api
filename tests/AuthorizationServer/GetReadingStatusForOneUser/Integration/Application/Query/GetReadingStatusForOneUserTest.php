@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\AuthorizationServer\GetReadingStatusForOneUser\Integration\Application\Query;
+namespace App\Tests\AuthorizationServer\GetRoleStatusPerUser\Integration\Application\Query;
 
 use App\AuthorizationServer\GetReadingStatusForOneUser\Application\Query\GetReadingStatusForOneUserQueryInterface;
 use App\AuthorizationServer\GetReadingStatusForOneUser\Application\Query\GetReadingStatusForOneUserRequest;

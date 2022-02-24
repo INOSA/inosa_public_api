@@ -41,21 +41,13 @@ final class GetReadingStatusForOneUserEndpoint implements PostEndpointInterface
             [
                 'globalFilters' => [],
                 'localFilters' => [
-                    'documentIds' => $this
-                        ->documentIds
-                        ->transform(fn(DocumentIdentifier $identifier): string => $identifier->toString())
-                        ->toArray(),
-                    'roleIds' => $this
-                        ->roleIds
-                        ->transform(fn(RoleIdentifier $identifier): string => $identifier->toString())
-                        ->toArray(),
-                    'userId' => $this
-                        ->userIdentifier
-                        ->toString(),
-                ],
-                'pagination' => [
-                    'page' => 0,
-                    'size' => -1,
+                    'documentIds' => $this->documentIds->transform(
+                        fn(DocumentIdentifier $identifier): string => $identifier->toString()
+                    )->toArray(),
+                    'roleIds' => $this->roleIds->transform(
+                        fn(RoleIdentifier $identifier): string => $identifier->toString()
+                    )->toArray(),
+                    'userId' => $this->userIdentifier->toString(),
                 ],
             ]
         );

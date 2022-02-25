@@ -35,9 +35,14 @@ final class GetRoleStatusPerUserEndpoint implements PostEndpointInterface
             [
                 'globalFilters' => [],
                 'localFilters' => [
-                    'roleIds' => $this->roleIds->transform(
-                        fn(RoleIdentifier $identifier): string => $identifier->toString()
-                    )->toArray(),
+                    'roleIds' => $this
+                        ->roleIds
+                        ->transform(fn(RoleIdentifier $identifier): string => $identifier->toString())
+                        ->toArray(),
+                ],
+                'pagination' => [
+                    'page' => 0,
+                    'size' => -1,
                 ],
             ]
         );

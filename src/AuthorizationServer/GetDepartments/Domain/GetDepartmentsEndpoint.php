@@ -18,6 +18,12 @@ final class GetDepartmentsEndpoint implements EndpointInterface
 
     public function getUrl(): Url
     {
-        return new Url(sprintf('%s?siteId=%s', self::URL, $this->siteIdentifier->toString()));
+        return new Url(
+            sprintf(
+                '%s?siteId=%s&limit=0',
+                self::URL,
+                $this->siteIdentifier->toString()
+            )
+        );
     }
 }

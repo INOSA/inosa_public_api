@@ -27,3 +27,6 @@ whoami
 bin/console cache:warmup
 
 chmod 777 -R var/cache/
+
+echo "List available public api routes"
+bin/console debug:router

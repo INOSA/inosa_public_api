@@ -147,6 +147,7 @@
     <content url="file://$MODULE_DIR$/tests/AuthorizationServer/CreatePublicApiClient" />
     <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetDepartments" />
     <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetFolderBasicStructure" />
+    <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetPermissionGroups" />
     <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetReadingStatusForOneUser" />
     <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetReadingStatusPerDepartment" />
     <content url="file://$MODULE_DIR$/tests/AuthorizationServer/GetRoleStatusPerUser" />

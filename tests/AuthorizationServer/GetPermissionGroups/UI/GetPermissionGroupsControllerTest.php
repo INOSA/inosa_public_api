@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\AuthorizationServer\GetPermissionGroups\UI;
+namespace App\Tests\AuthorizationServer\GetRoles\UI;
 
 use App\Tests\WebTestCase;
 
@@ -13,7 +13,7 @@ final class GetPermissionGroupsControllerTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri: 'api/permissions-groups',
+            uri: 'api/permission-groups',
             server: $this->getAuthorizationHeader()
         );
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\AuthorizationServer\GetRoles\UI;
+namespace App\Tests\AuthorizationServer\GetPermissionGroups\UI;
 
 use App\Tests\WebTestCase;
 

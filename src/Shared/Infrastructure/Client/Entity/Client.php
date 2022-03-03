@@ -112,6 +112,7 @@ class Client extends AbstractClient
      */
     public function setClientScopes(ArrayList $clientScopes): void
     {
+        /** @var LeagueScope[] $scopes */
         $scopes = $clientScopes->transform(
             static fn(Scope $scope): LeagueScope => new LeagueScope($scope->toString())
         )->toArray();
@@ -124,6 +125,7 @@ class Client extends AbstractClient
      */
     public function setClientGrants(ArrayList $clientGrants): void
     {
+        /** @var LeagueGrant[] $grants */
         $grants = $clientGrants->transform(
             static fn(Grant $grant): LeagueGrant => new LeagueGrant($grant->toString())
         )->toArray();

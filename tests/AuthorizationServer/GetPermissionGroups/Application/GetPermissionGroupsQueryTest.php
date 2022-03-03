@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\AuthorizationServer\GetRoles\Application;
+namespace App\Tests\AuthorizationServer\GetPermissionGroups\Application;
 
 use App\AuthorizationServer\GetPermissionGroups\Application\GetPermissionGroupsQueryInterface;
 use App\Shared\Application\Json\JsonEncoderInterface;

@@ -13,6 +13,16 @@ final class ResponseCode
     {
     }
 
+    public function isServerError(): bool
+    {
+        return self::INTERNAL_SERVER_ERROR_CODE <= $this->code;
+    }
+
+    public function isSuccess(): bool
+    {
+        return 200 <= $this->code && 300 > $this->code;
+    }
+
     public static function internalServerError(): self
     {
         return new self(self::INTERNAL_SERVER_ERROR_CODE);

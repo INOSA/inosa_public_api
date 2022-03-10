@@ -9,6 +9,7 @@ use App\Shared\Application\Query\GenericView;
 use App\Shared\Application\Query\InternalServerErrorView;
 use App\Shared\Application\Query\NotFoundView;
 use App\Shared\Domain\ProxyResponse;
+use App\Shared\Domain\ResponseContent;
 use Inosa\Arrays\ArrayHashMap;
 
 final class ViewFactory
@@ -41,7 +42,7 @@ final class ViewFactory
                 ArrayHashMap::create(
                     [
                         'data' => null,
-                        'error' => 'Internal Server Error, please contact with the Administrator.',
+                        'error' => ResponseContent::internalServerError(),
                     ]
                 )
             ),
@@ -55,7 +56,7 @@ final class ViewFactory
                 ArrayHashMap::create(
                     [
                         'data' => null,
-                        'error' => 'Resource you\'re looking for does not exists',
+                        'error' => ResponseContent::notFound(),
                     ]
                 )
             ),

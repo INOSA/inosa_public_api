@@ -50,6 +50,13 @@ get_permission_groups:
   defaults:
     oauth2_scopes: [ 'public-api' ]
 
+create_users:
+  path: /api/users
+  controller: App\AuthorizationServer\CreateUser\UI\CreateUserController::createUser
+  methods: POST
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
+
 kernel:
   resource: ../src/Kernel.php
   type: annotation

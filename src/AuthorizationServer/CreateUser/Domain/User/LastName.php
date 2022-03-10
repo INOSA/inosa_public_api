@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\AuthorizationServer\CreateUser\Domain\User;
 
-use App\Shared\Domain\StringableInterface;
-
-final class LastName implements StringableInterface
+final class LastName
 {
     public function __construct(private string $lastName)
     {

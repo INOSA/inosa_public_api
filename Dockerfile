@@ -35,9 +35,12 @@ ENV ENV ${ENV:-prod}
 COPY ./docker/php/php.ini-${ENV} ${PHP_INI_DIR}/php.ini
 COPY ./docker/php/opcache.ini-${ENV} ${PHP_INI_DIR}/opcache.ini
 
+COPY docker/php/xdebug.ini /tmp/xdebug.ini
+
 RUN set -eux; if [ "${ENV}" == "dev" ] || [ ${ENV} == "test" ]; then \
         pecl install xdebug \
         && docker-php-ext-enable --ini-name xdebug.ini xdebug \
+        && mv /tmp/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini \
     ;fi
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer creates=/usr/local/bin/composer warn=no && \

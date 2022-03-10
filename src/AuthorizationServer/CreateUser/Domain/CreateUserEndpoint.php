@@ -54,9 +54,9 @@ final class CreateUserEndpoint implements PostEndpointInterface
                 'firstName' => $this->firstName->toString(),
                 'lastName' => $this->lastName->toString(),
                 'email' => $this->email->toString(),
-                'permissionsGroupsIds' => $this->transformPermissionGroupsIdentifiersToString()->toArray(),
+                'permissionsGroups' => $this->transformPermissionGroupsIdentifiersToString()->toArray(),
                 'departmentId' => $this->departmentIdentifier->toString(),
-                'rolesIds' => $this->transformRoleIdentifiersToString()->toArray(),
+                'roles' => $this->transformRoleIdentifiersToString()->toArray(),
             ]
         );
     }

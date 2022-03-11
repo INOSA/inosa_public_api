@@ -52,12 +52,28 @@ final class HttpClient
     }
 
     /**
+     * @param ArrayHashMap<mixed> $body
+     */
+    public function put(Url $url, ArrayHashMap $body): ResponseInterface
+    {
+        return $this->apiClient->request(
+            'PUT',
+            sprintf('%s/%s', $this->apiUrl, $url->toString()),
+            [
+                'headers' => $this->getHeaders()->toArray(),
+                'json' => $body->toArray(),
+            ]
+        );
+    }
+
+    /**
      * @return ArrayHashMap<string>
      */
     private function getHeaders(): ArrayHashMap
     {
         $headers = [
             'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
             'Origin' => 'public-api',
         ];
 

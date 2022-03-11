@@ -40,37 +40,42 @@ final class CreateUserRequestNormalizer implements ContextAwareDenormalizerInter
         $constraint = new Assert\Collection(
             [
                 'id' => [
-                    $this->notBlank('id'),
-                    $this->typeString('id'),
-                    $this->uuid('id'),
+                    new Assert\NotBlank(['message' => 'id field must not be blank']),
+                    new Assert\Type(['type' => 'string', 'message' => 'id field must be of type string']),
+                    new Assert\Uuid(['message' => 'id field must be a valid uuid']),
                 ],
                 'userName' => [
-                    $this->notBlank('userName'),
-                    $this->typeString('userName'),
+                    new Assert\NotBlank(['message' => 'userName field must not be blank']),
+                    new Assert\Type(['type' => 'string', 'message' => 'userName field must be of type string']),
                 ],
                 'firstName' => [
-                    $this->notBlank('firstName'),
-                    $this->typeString('firstName'),
+                    new Assert\NotBlank(['message' => 'firstName field must not be blank']),
+                    new Assert\Type(['type' => 'string', 'message' => 'firstName field must be of type string']),
                 ],
                 'lastName' => [
-                    $this->notBlank('lastName'),
-                    $this->typeString('lastName'),
+                    new Assert\NotBlank(['message' => 'lastName field must not be blank']),
+                    new Assert\Type(['type' => 'string', 'message' => 'lastName field must be of type string']),
                 ],
                 'email' => new Assert\Email(),
                 'permissionsGroups' => [
-                    $this->typeArray('permissionsGroups'),
+                    new Assert\Type(['type' => 'array', 'message' => 'permissionsGroups field must be of type array']),
                     new Assert\All(
                         [
-                            $this->uuid('permissionGroups'),
+                            new Assert\Uuid(['message' => 'permissionsGroups field must be a valid uuid']),
                         ]
                     ),
                 ],
-                'departmentId' => $this->uuid('departmentId'),
+                'departmentId' => new Assert\Uuid(['message' => 'departmentId field must be a valid uuid']),
                 'roles' => [
-                    $this->typeArray('roles'),
+                    new Assert\Type(
+                        [
+                            'type' => 'array',
+                            'message' => 'roles field must be of type array',
+                        ]
+                    ),
                     new Assert\All(
                         [
-                            $this->uuid('roles'),
+                            new Assert\Uuid(['message' => 'role id must a valid uuid']),
                         ]
                     ),
                 ],
@@ -93,25 +98,5 @@ final class CreateUserRequestNormalizer implements ContextAwareDenormalizerInter
             $data['departmentId'],
             $data['roles'],
         );
-    }
-
-    private function notBlank(string $fieldName): Assert\NotBlank
-    {
-        return new Assert\NotBlank(null, sprintf('%s field is required', $fieldName));
-    }
-
-    private function typeString(string $fieldName): Assert\Type
-    {
-        return new Assert\Type(['type' => 'string'], sprintf('%s field must be of type string', $fieldName));
-    }
-
-    private function typeArray(string $fieldName): Assert\Type
-    {
-        return new Assert\Type(['type' => 'array'], sprintf('%s field must be of type array', $fieldName));
-    }
-
-    private function uuid(string $fieldName): Assert\Uuid
-    {
-        return new Assert\Uuid(null, sprintf('%s field must be a valid UUID', $fieldName));
     }
 }

@@ -57,6 +57,13 @@ create_users:
   defaults:
     oauth2_scopes: [ 'public-api' ]
 
+assign_user_to_role:
+  path: /api/users/{userId}/roles
+  controller: App\AuthorizationServer\ConnectUserToRoles\UI\ConnectUserToRolesController::connectUserToRoles
+  methods: PATCH
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
+
 kernel:
   resource: ../src/Kernel.php
   type: annotation

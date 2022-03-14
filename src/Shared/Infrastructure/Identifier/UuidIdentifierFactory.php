@@ -21,6 +21,12 @@ final class UuidIdentifierFactory implements IdentifierFactoryInterface
      */
     public function fromString(string $identifier): Identifier
     {
+        if (false === Uuid::isValid($identifier)) {
+            throw new InvalidIdentifierException(
+                sprintf('%s is not valid uuid v4 string', $identifier)
+            );
+        }
+
         try {
             return new Identifier(Uuid::fromString($identifier)->toString());
         } catch (InvalidUuidStringException $exception) {

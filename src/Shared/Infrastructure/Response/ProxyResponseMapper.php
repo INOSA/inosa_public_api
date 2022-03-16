@@ -18,6 +18,7 @@ final class ProxyResponseMapper
     public function toProxyResponse(ResponseInterface $response): ProxyResponse
     {
         $responseCode = $this->getResponseCode($response);
+        $content = $this->getResponseContent($response);
         if ($responseCode->isServerError()) {
             return ProxyResponse::internalServerError();
         }

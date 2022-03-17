@@ -18,7 +18,7 @@ final class ConnectUserToRolesControllerTest extends WebTestCase
     public function testRequestIsSuccessful(): void
     {
         $this->client->request(
-            method:  'PATCH',
+            method:  'PUT',
             uri:     'api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150/roles',
             server:  $this->getAuthorizationHeader(),
             content: '{"roles":["9a66a3e9-280f-4c94-ae35-3446c242d77f"]}'
@@ -27,10 +27,22 @@ final class ConnectUserToRolesControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
     }
 
+    public function testEmptyRolesArrayIsSuccessful(): void
+    {
+        $this->client->request(
+            method:  'PUT',
+            uri:     'api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150/roles',
+            server:  $this->getAuthorizationHeader(),
+            content: '{"roles":[]}'
+        );
+
+        self::assertResponseIsSuccessful();
+    }
+
     public function testUserIdNotValidUuidReturnBadRequest(): void
     {
         $this->client->request(
-            method:  'PATCH',
+            method:  'PUT',
             uri:     'api/users/this-is-some-kind-of-a-not-uuid/roles',
             server:  $this->getAuthorizationHeader(),
             content: '{"roles":["9a66a3e9-280f-4c94-ae35-3446c242d77f"]}'
@@ -46,7 +58,7 @@ final class ConnectUserToRolesControllerTest extends WebTestCase
     public function testReturnBadRequestOnInvalidContent(array $content): void
     {
         $this->client->request(
-            method:  'PATCH',
+            method:  'PUT',
             uri:     'api/users/this-is-some-kind-of-a-not-uuid/roles',
             server:  $this->getAuthorizationHeader(),
             content: $this->jsonEncoder->encode(ArrayHashMap::create($content)),
@@ -61,11 +73,6 @@ final class ConnectUserToRolesControllerTest extends WebTestCase
     public function invalidContentDataProvider(): array
     {
         return [
-            'empty roles array' => [
-                [
-                    'roles' => [],
-                ],
-            ],
             'roles array with invalid uuid' => [
                 [
                     'roles' => ['this-is-not-valid-uuid'],

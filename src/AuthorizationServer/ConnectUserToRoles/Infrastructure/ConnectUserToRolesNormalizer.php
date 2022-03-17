@@ -60,12 +60,6 @@ final class ConnectUserToRolesNormalizer implements ContextAwareDenormalizerInte
                                             'message' => 'roles field must be of type array',
                                         ],
                                     ),
-                                    new Assert\Count(
-                                        [
-                                            'min' => 1,
-                                            'minMessage' => 'roles must contain at least one role uuid',
-                                        ],
-                                    ),
                                     new Assert\All(
                                         [
                                             new Assert\Uuid(['message' => 'role id must a valid uuid']),

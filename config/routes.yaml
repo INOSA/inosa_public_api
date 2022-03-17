@@ -67,7 +67,7 @@ create_users:
 assign_user_to_role:
   path: /api/users/{userId}/roles
   controller: App\AuthorizationServer\ConnectUserToRoles\UI\ConnectUserToRolesController::connectUserToRoles
-  methods: PATCH
+  methods: PUT
   defaults:
     oauth2_scopes: [ 'public-api' ]
 

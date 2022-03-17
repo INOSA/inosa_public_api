@@ -23,7 +23,7 @@ final class ConnectUserToRolesCommandTest extends IntegrationTestCase
     private MockHttpClient $httpClient;
     private TransportInterface $transport;
 
-    public function testCreateUserCommandWithCorrectCommandWillCreateUser(): void
+    public function testCreateUserCommandWithCorrectCommandWillConnectUserToRole(): void
     {
         $this->httpClient->setResponseFactory(
             [
@@ -51,6 +51,36 @@ final class ConnectUserToRolesCommandTest extends IntegrationTestCase
                         '190af733-e90a-4222-9230-9b321cb763c6',
                     ],
                 ),
+            )
+        );
+
+        self::assertCount(1, $this->transport->get());
+    }
+
+    public function testCreateUserCommandWithCorrectCommandWillAllowToSendEmptyRolesArray(): void
+    {
+        $this->httpClient->setResponseFactory(
+            [
+                new MockResponse(
+                    $this->jsonEncoder->encode(
+                        ArrayHashMap::create(
+                            [
+                                'data' => [],
+                                'errors' => [],
+                            ],
+                        )
+                    ),
+                    [
+                        'http_code' => 204,
+                    ],
+                ),
+            ],
+        );
+
+        $this->commandBus->dispatch(
+            new ConnectUserToRolesCommand(
+                new UserIdentifier('827e5b3b-780d-49aa-a4e7-af29a328736b'),
+                ArrayList::create([]),
             )
         );
 

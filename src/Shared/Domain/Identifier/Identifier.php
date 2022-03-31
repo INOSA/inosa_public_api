@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Identifier;
 
-class Identifier
+use App\Shared\Domain\StringableInterface;
+
+class Identifier implements StringableInterface
 {
     /**
      * Always use @link IdentifierFactoryInterface for instantiation

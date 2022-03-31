@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\AuthorizationServer\CreateUser\Domain\User;
 
-final class Email
+use App\Shared\Domain\StringableInterface;
+
+final class Email implements StringableInterface
 {
     public function __construct(private string $email)
     {

@@ -13,7 +13,7 @@ final class GetPermissionGroupsControllerTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri: 'api/permission-groups',
+            uri: 'api/permissions-groups',
             server: $this->getAuthorizationHeader()
         );
 

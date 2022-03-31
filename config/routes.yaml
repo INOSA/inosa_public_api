@@ -51,7 +51,7 @@ get_reading_status_per_user:
     oauth2_scopes: [ 'public-api' ]
 
 get_permission_groups:
-  path: /api/permission-groups
+  path: /api/permissions-groups
   controller: App\AuthorizationServer\GetPermissionGroups\UI\GetPermissionGroupsController::getPermissionGroups
   methods: GET
   defaults:
@@ -68,6 +68,13 @@ assign_user_to_role:
   path: /api/users/{userId}/roles
   controller: App\AuthorizationServer\ConnectUserToRoles\UI\ConnectUserToRolesController::connectUserToRoles
   methods: PUT
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
+
+get_users:
+  path: /api/users
+  controller: App\AuthorizationServer\GetUsers\UI\GetUsersController::getUsers
+  methods: GET
   defaults:
     oauth2_scopes: [ 'public-api' ]
 

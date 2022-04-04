@@ -9,7 +9,7 @@ use App\Shared\Domain\Url\Url;
 
 final class GetPermissionGroupsEndpoint implements EndpointInterface
 {
-    private const URL = 'permissions-groups';
+    private const URL = 'permission-groups';
 
     public function __construct()
     {

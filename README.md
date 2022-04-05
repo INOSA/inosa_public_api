@@ -58,3 +58,9 @@ If you have set up fixtures for main api application you can run
 `./scripts/public-api-client-create.sh`
 
 This will create complete public api client account connected with main api user called *public-api-user*.
+
+# Deployment
+## Security key hex
+Generate random hex string via:
+
+`openssl rand -hex 32`

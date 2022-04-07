@@ -8,8 +8,8 @@ final class ClientIdFactory
 {
     private const HASH_ALGORITHM = 'md5';
 
-    public function generate(): ClientId
+    public function generate(): ClientIdentifier
     {
-        return new ClientId(hash(self::HASH_ALGORITHM, random_bytes(16)));
+        return new ClientIdentifier(hash(self::HASH_ALGORITHM, random_bytes(16)));
     }
 }

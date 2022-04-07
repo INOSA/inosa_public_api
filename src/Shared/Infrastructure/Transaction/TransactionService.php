@@ -21,7 +21,7 @@ final class TransactionService implements TransactionServiceInterface
     public function execute(Closure $callable): void
     {
         try {
-            $this->entityManager->transactional($callable);
+            $this->entityManager->wrapInTransaction($callable);
         } catch (Throwable $e) {
             throw new RuntimeException($e->getMessage());
         }

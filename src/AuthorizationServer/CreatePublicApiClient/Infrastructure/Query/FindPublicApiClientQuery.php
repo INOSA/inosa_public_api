@@ -6,46 +6,26 @@ namespace App\AuthorizationServer\CreatePublicApiClient\Infrastructure\Query;
 
 use App\AuthorizationServer\CreatePublicApiClient\Application\Query\FindPublicApiClientCreateView;
 use App\AuthorizationServer\CreatePublicApiClient\Application\Query\FindPublicApiClientQueryInterface;
+use App\AuthorizationServer\CreatePublicApiClient\Infrastructure\Repository\ClientRepository;
 use App\Shared\Domain\Identifier\InosaSiteIdentifier;
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Exception;
-use Inosa\Arrays\ArrayHashMap;
-use LogicException;
 
 final class FindPublicApiClientQuery implements FindPublicApiClientQueryInterface
 {
-    public function __construct(private Connection $connection)
+    public function __construct(private ClientRepository $clientRepository)
     {
     }
 
     public function findByInosaSiteId(InosaSiteIdentifier $id): ?FindPublicApiClientCreateView
     {
-        $qb = $this->connection->createQueryBuilder();
+        $result = $this->clientRepository->findOneByInosaSiteIdentifier($id);
 
-        $qb->select('c.identifier', 'c.secret')
-            ->from('client_additional_info', 'cai')
-            ->innerJoin('cai', 'oauth2_client', 'c', 'cai.client_id = c.identifier')
-            ->andWhere(
-                $qb->expr()->eq('cai.inosa_site_id', ':inosa_site_id')
-            )
-            ->setParameter('inosa_site_id', $id->asString());
-
-        try {
-            $result = $qb->fetchAssociative();
-
-            if (false === $result) {
-                return null;
-            }
-
-            $result = ArrayHashMap::create($result);
-
-            if ($result->isEmpty()) {
-                return null;
-            }
-
-            return new FindPublicApiClientCreateView($result->get('identifier'), $result->get('secret'));
-        } catch (Exception $exception) {
-            throw new LogicException($exception->getMessage());
+        if (null === $result) {
+            return null;
         }
+
+        return new FindPublicApiClientCreateView(
+            $result->getClientId()->toString(),
+            $result->getClientSecret()->toString()
+        );
     }
 }

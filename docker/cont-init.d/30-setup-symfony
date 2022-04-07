@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv sh
+
+/var/www/html/scripts/setup.sh

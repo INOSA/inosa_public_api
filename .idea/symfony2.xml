@@ -4,6 +4,7 @@
     <option name="pathToTranslation" value="var/cache/dev/translations" />
     <option name="directoryToWeb" value="public" />
     <option name="directoryToApp" value="src" />
+    <option name="remoteDevFileScheduler" value="true" />
     <option name="pluginEnabled" value="true" />
     <option name="profilerCsvPath" value="" />
     <option name="containerFiles">

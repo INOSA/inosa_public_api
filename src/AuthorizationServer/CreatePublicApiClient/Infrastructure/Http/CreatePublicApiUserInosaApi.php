@@ -43,14 +43,14 @@ final class CreatePublicApiUserInosaApi implements CreatePublicApiUserInosaApiIn
                 new Url('users'),
                 ArrayHashMap::create(
                     [
-                        'siteId' => $inosaSiteIdentifier->asString(),
+                        'siteId' => $inosaSiteIdentifier->toString(),
                     ]
                 )
             );
 
             if (Response::HTTP_CREATED !== $request->getStatusCode()) {
                 throw new CreatePublicApiUserInosaApiException(
-                    sprintf('Could not create pubic user for site (client) %s', $inosaSiteIdentifier->asString())
+                    sprintf('Could not create pubic user for site (client) %s', $inosaSiteIdentifier->toString())
                 );
             }
         } catch (TransportExceptionInterface $e) {

@@ -30,7 +30,7 @@ get_reading_status_per_department:
     oauth2_scopes: [ 'public-api' ]
 
 get_role_status_per_user:
-  path: /api/role-status-per-user
+  path: /api/users/role-status
   controller: App\AuthorizationServer\GetRoleStatusPerUser\UI\GetRoleStatusPerUserController::getRoleStatusPerUser
   methods: GET
   defaults:

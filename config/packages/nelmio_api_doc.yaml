@@ -1,0 +1,318 @@
+nelmio_api_doc:
+  areas:
+    default:
+      path_patterns:
+        - ^/api(?!/doc$)
+
+  models:
+    use_jms: false
+    names:
+      - { alias: CreateUserRequest, type: App\AuthorizationServer\CreateUser\Application\CreateUserRequest }
+      - { alias: GetUsersRequest, type: App\AuthorizationServer\GetUsers\Application\GetUsersRequest }
+      - { alias: ConnectUserToRolesRequest, type: App\AuthorizationServer\ConnectUserToRoles\Application\ConnectUserToRolesRequest }
+  documentation:
+    tags:
+      - name: 'v1'
+        description: 'Version 1 of Public API'
+    info:
+      title: 'Public API Documentation'
+      description: 'Public api allows to call exposed Inosa endpoints'
+      version: 1.0.0
+    paths:
+      /api/departments:
+        get:
+          tags: [ 'v1' ]
+          summary: 'Get departments'
+          operationId: getDepartments
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/roles:
+        get:
+          tags: [ 'v1' ]
+          summary: 'Get roles'
+          operationId: getRoles
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/permissions-groups:
+        get:
+          tags: [ 'v1' ]
+          summary: 'Get permissions groups'
+          operationId: getPermissionsGroups
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/folders-basic-structure/without-metrics:
+        get:
+          tags: [ 'v1' ]
+          summary: 'Get folder basic structure without metrics'
+          operationId: getFolderBasicStructureWithoutMetrics
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/users/role-status:
+        get:
+          tags: [ 'v1' ]
+          summary: 'Get role status per user'
+          operationId: getRoleStatus
+          parameters:
+            - in: query
+              name: roleId[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'Array containing role identifiers'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/users/reading-status:
+        get:
+          tags: [ 'v1' ]
+          summary: 'Get reading status per user'
+          operationId: getReadingStatusPerUser
+          parameters:
+            - in: query
+              name: documentId[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'Array containing department identifiers'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/users/{id}/reading-status:
+        get:
+          tags: [ 'v1' ]
+          summary: 'Get reading status for one user'
+          operationId: getReadingStatusForOneUser
+          parameters:
+            - in: query
+              name: roleId[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'Array containing role identifiers'
+            - in: query
+              name: documentId[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'Array containing department identifiers'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/departments/reading-status:
+        get:
+          tags: [ 'v1' ]
+          summary: 'Get reading status per department'
+          operationId: getReadingStatusPerDepartment
+          parameters:
+            - in: query
+              name: departmentId[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'Array containing department identifiers'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/users/{userId}/roles:
+        put:
+          tags: [ 'v1' ]
+          summary: 'Assign user to roles'
+          operationId: assignUserToRoles
+          requestBody:
+            description: 'Assign user to roles request parameters'
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ConnectUserToRolesRequest'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/users:
+        post:
+          tags: [ 'v1' ]
+          summary: 'Create user'
+          operationId: createUser
+          requestBody:
+            description: 'Create user request parameters'
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreateUserRequest'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+        get:
+          tags: [ 'v1' ]
+          summary: 'Get users'
+          operationId: getUsers
+          parameters:
+            - in: query
+              name: departmentId[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'Array containing department identifiers'
+            - in: query
+              name: firstname
+              schema:
+                type: string
+              required: false
+              description: 'First name of the user'
+            - in: query
+              name: lastname
+              schema:
+                type: string
+              required: false
+              description: 'Last name of the user'
+            - in: query
+              name: username
+              schema:
+                type: string
+              description: 'User name of the user'
+            - in: query
+              name: email
+              schema:
+                type: string
+              required: false
+              description: 'Email of the user'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+    components:
+      responses:
+        Success:
+          description: OK
+        Create:
+          description: 'The resource has been created'
+        ServerError:
+          description: 'Internal server error'
+        BadRequest:
+          description: 'Request is not complete or contain errors'
+        NotFound:
+          description: 'The specified resource was not found'
+        Unauthorized:
+          description: 'Unauthorized'
+      schemas:
+        CreateUserRequest:
+          type: object
+          properties:
+            permissionsGroups:
+              type: array
+              items:
+                type: string
+            roles:
+              type: array
+              items:
+                type: string
+        GetUsersRequest:
+          type: object
+          properties:
+            departmentIds:
+              type: array
+              items:
+                type: string
+        ConnectUserToRolesRequest:
+          type: object
+          properties:
+            roles:
+              description: role identifiers
+              type: array
+              items:
+                type: string
+      securitySchemes:
+        oAuth2ClientCredentials:
+          type: oauth2
+          description: 'Public API Authorization is based on the Client Credentials flow. In order to achievie client_id and client_secret call administrator, that will generate them. Remeber to keep them secret'
+          flows:
+            clientCredentials:
+              tokenUrl: /token
+              scopes:
+                public-api: 'general purpose scope'
+    security:
+      - oAuth2ClientCredentials:
+          - public-api

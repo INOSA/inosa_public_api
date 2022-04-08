@@ -29,7 +29,7 @@ final class CreateUserRequest
     /**
      * @return ArrayList<PermissionGroupsIdentifier>
      */
-    public function getPermissionGroupsIdentifiersAsArrayList(): ArrayList
+    public function permissionsGroupsAsList(): ArrayList
     {
         return ArrayList::create($this->permissionsGroups)
             ->transform(
@@ -42,7 +42,7 @@ final class CreateUserRequest
     /**
      * @return ArrayList<RoleIdentifier>
      */
-    public function getRolesIdentifiersAsArrayList(): ArrayList
+    public function rolesAsList(): ArrayList
     {
         return ArrayList::create($this->roles)
             ->transform(

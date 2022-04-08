@@ -21,9 +21,11 @@
         "doctrine/orm": "^2.9",
         "inosa/arrays": "^1.0",
         "league/oauth2-server-bundle": "~0.3",
+        "nelmio/api-doc-bundle": "^4.8",
         "nyholm/psr7": "^1.4",
         "psr/http-factory": "^1.0",
         "ramsey/uuid": "^4.2",
+        "symfony/asset": "6.0.*",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
         "symfony/error-handler": "6.0.*",
@@ -36,8 +38,11 @@
         "symfony/runtime": "6.0.*",
         "symfony/security-bundle": "6.0.*",
         "symfony/serializer": "6.0.*",
+        "symfony/twig-bundle": "6.0.*",
         "symfony/validator": "6.0.*",
-        "symfony/yaml": "6.0.*"
+        "symfony/yaml": "6.0.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",

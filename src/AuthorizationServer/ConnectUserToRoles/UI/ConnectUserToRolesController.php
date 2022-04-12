@@ -38,7 +38,7 @@ final class ConnectUserToRolesController extends ClientCredentialsAuthorizationC
             $messageBus->dispatch(
                 new ConnectUserToRolesCommand(
                     UserIdentifier::fromIdentifier($identifierFactory->fromString($connectUserToRolesRequest->userId)),
-                    $connectUserToRolesRequest->getRolesAsList(),
+                    $connectUserToRolesRequest->rolesAsList(),
                 )
             );
 

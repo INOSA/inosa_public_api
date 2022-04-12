@@ -139,11 +139,30 @@
     "league/oauth2-server-bundle": {
         "version": "v0.1.2"
     },
+    "league/uri": {
+        "version": "6.5.0"
+    },
+    "league/uri-interfaces": {
+        "version": "2.3.0"
+    },
     "monolog/monolog": {
         "version": "2.3.5"
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"
+    },
+    "nelmio/api-doc-bundle": {
+        "version": "4.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "c8e0c38e1a280ab9e37587a8fa32b251d5bc1c94"
+        },
+        "files": [
+            "config/packages/nelmio_api_doc.yaml",
+            "config/routes/nelmio_api_doc.yaml"
+        ]
     },
     "nette/utils": {
         "version": "v3.2.5"
@@ -327,6 +346,9 @@
             "phpcs.xml.dist"
         ]
     },
+    "symfony/asset": {
+        "version": "v6.0.7"
+    },
     "symfony/browser-kit": {
         "version": "v5.3.4"
     },
@@ -457,6 +479,9 @@
             "config/packages/test/monolog.yaml"
         ]
     },
+    "symfony/options-resolver": {
+        "version": "v6.0.3"
+    },
     "symfony/password-hasher": {
         "version": "v5.3.8"
     },
@@ -554,6 +579,22 @@
     "symfony/translation-contracts": {
         "version": "v3.0.0"
     },
+    "symfony/twig-bridge": {
+        "version": "v6.0.7"
+    },
+    "symfony/twig-bundle": {
+        "version": "6.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.4",
+            "ref": "bb2178c57eee79e6be0b297aa96fc0c0def81387"
+        },
+        "files": [
+            "config/packages/twig.yaml",
+            "templates/base.html.twig"
+        ]
+    },
     "symfony/validator": {
         "version": "6.0",
         "recipe": {
@@ -578,7 +619,16 @@
     "theseer/tokenizer": {
         "version": "1.2.1"
     },
+    "twig/extra-bundle": {
+        "version": "v3.3.8"
+    },
+    "twig/twig": {
+        "version": "v3.3.10"
+    },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "zircote/swagger-php": {
+        "version": "4.2.14"
     }
 }

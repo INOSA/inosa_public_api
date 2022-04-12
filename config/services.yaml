@@ -27,3 +27,4 @@ services:
       - '@League\Bundle\OAuth2ServerBundle\Repository\AccessTokenRepository'
 
   League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface: '@App\Shared\Infrastructure\Repository\AccessTokenRepository'
+

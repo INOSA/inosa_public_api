@@ -43,9 +43,9 @@ final class CreateUserController extends ClientCredentialsAuthorizationControlle
                 new FirstName($createUserRequest->firstName),
                 new LastName($createUserRequest->lastName),
                 new Email($createUserRequest->email),
-                $createUserRequest->getPermissionGroupsIdentifiersAsArrayList(),
+                $createUserRequest->permissionsGroupsAsList(),
                 new DepartmentIdentifier($createUserRequest->departmentIdentifier),
-                $createUserRequest->getRolesIdentifiersAsArrayList(),
+                $createUserRequest->rolesAsList(),
             );
 
             $messageBus->dispatch($command);

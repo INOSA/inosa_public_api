@@ -19,7 +19,7 @@ final class ConnectUserToRolesRequest
     /**
      * @return ArrayList<RoleIdentifier>
      */
-    public function getRolesAsList(): ArrayList
+    public function rolesAsList(): ArrayList
     {
         return ArrayList::create($this->roles)->transform(
             fn(string $roleIdentifier): RoleIdentifier => new RoleIdentifier($roleIdentifier)

@@ -24,6 +24,7 @@ fi
 
 whoami
 
+bin/console assets:install
 bin/console cache:warmup
 
 chmod 777 -R var/cache/

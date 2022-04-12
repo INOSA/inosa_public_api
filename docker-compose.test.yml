@@ -27,7 +27,7 @@ services:
   testdb:
     image: 'public.ecr.aws/s6z8v3g0/inosadocker/database:release-1.0.2'
     ports:
-      - "14333:1433"
+      - "14334:1433"
     environment:
       - DB_DATABASE=public_api_db_test
       - DB_PASSWORD=Asd12345

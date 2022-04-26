@@ -6,3 +6,12 @@
         {% endblock header %}
     </header>
 {% endblock header_block %}
+
+{% block swagger_initialization %}
+    <script type="text/javascript">
+        window.onload = loadSwaggerUI({
+            defaultModelsExpandDepth: -1,
+            deepLinking: true,
+        });
+    </script>
+{% endblock %}

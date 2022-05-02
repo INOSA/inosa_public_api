@@ -78,6 +78,13 @@ get_users:
   defaults:
     oauth2_scopes: [ 'public-api' ]
 
+connect_users_to_permissions_groups:
+  path: /api/users/{userId}/permissions-groups
+  controller: App\AuthorizationServer\ConnectUserToPermissionsGroups\UI\ConnectUsersToPermissionsGroupsController::connectUsersToPermissionsGroups
+  methods: PUT
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
+
 kernel:
   resource: ../src/Kernel.php
   type: annotation

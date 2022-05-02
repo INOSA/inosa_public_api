@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\AuthorizationServer\ConnectUserToRoles\Application;
+namespace App\Tests\AuthorizationServer\ConnectUserToPermissionsGroups\Application;
 
-use App\AuthorizationServer\ConnectUserToRoles\Application\Command\ConnectUserToRolesCommand;
+use App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\Command\ConnectUsersToPermissionsGroupsCommand;
 use App\Shared\Application\Json\JsonEncoderInterface;
 use App\Shared\Application\MessageBus\MessageBusInterface;
 use App\Shared\Domain\Identifier\UserIdentifier;
@@ -16,14 +16,14 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class ConnectUserToRolesCommandTest extends IntegrationTestCase
+final class ConnectUserToPermissionsGroupsCommandTest extends IntegrationTestCase
 {
     private MessageBusInterface $commandBus;
     private JsonEncoderInterface $jsonEncoder;
     private MockHttpClient $httpClient;
     private TransportInterface $transport;
 
-    public function testConnectUserToRolesCommandWithCorrectCommandWillConnectUserToRole(): void
+    public function testConnectUserToPermissionsGroupsCommandWithCorrectCommandWillConnectUserToPermissionsGroups(): void
     {
         $this->httpClient->setResponseFactory(
             [
@@ -44,11 +44,11 @@ final class ConnectUserToRolesCommandTest extends IntegrationTestCase
         );
 
         $this->commandBus->dispatch(
-            new ConnectUserToRolesCommand(
-                new UserIdentifier('827e5b3b-780d-49aa-a4e7-af29a328736b'),
+            new ConnectUsersToPermissionsGroupsCommand(
+                new UserIdentifier('e718bb65-f9d0-4c7e-ab61-327e4e51149b'),
                 ArrayList::create(
                     [
-                        '190af733-e90a-4222-9230-9b321cb763c6',
+                        '573f467d-e847-4fcd-8fd0-cfe8b817eda4',
                     ],
                 ),
             )
@@ -57,7 +57,7 @@ final class ConnectUserToRolesCommandTest extends IntegrationTestCase
         self::assertCount(1, $this->transport->get());
     }
 
-    public function testConnectUserToRolesCommandWithCorrectCommandWillAllowToSendEmptyRolesArray(): void
+    public function testConnectUserToPermissionsGroupsCommandWithCorrectCommandWillAllowToSendEmptyPermissionsGroupsArray(): void
     {
         $this->httpClient->setResponseFactory(
             [
@@ -78,7 +78,7 @@ final class ConnectUserToRolesCommandTest extends IntegrationTestCase
         );
 
         $this->commandBus->dispatch(
-            new ConnectUserToRolesCommand(
+            new ConnectUsersToPermissionsGroupsCommand(
                 new UserIdentifier('827e5b3b-780d-49aa-a4e7-af29a328736b'),
                 ArrayList::create([]),
             )

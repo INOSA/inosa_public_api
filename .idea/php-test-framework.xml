@@ -6,6 +6,7 @@
         <cache>
           <versions>
             <info id="interpreter-44931f32-a85b-4515-9c1c-2d422d015e86" version="9.5.13" />
+            <info id="interpreter-a14416e0-4e3e-4a89-af9e-d3ef39f412e3" version="9.5.20" />
           </versions>
         </cache>
       </tool>

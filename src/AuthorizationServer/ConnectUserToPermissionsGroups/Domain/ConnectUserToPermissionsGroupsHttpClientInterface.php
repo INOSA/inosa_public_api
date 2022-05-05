@@ -7,7 +7,7 @@ namespace App\AuthorizationServer\ConnectUserToPermissionsGroups\Domain;
 use App\Shared\Domain\Endpoint\PutEndpointInterface;
 use App\Shared\Domain\ProxyResponse;
 
-interface ConnectUsersToPermissionsGroupsHttpClientInterface
+interface ConnectUserToPermissionsGroupsHttpClientInterface
 {
     public function request(PutEndpointInterface $endpoint): ProxyResponse;
 }

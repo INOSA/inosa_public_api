@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\AuthorizationServer\ConnectUserToPermissionsGroups\Infrastructure;
 
-use App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\ConnectUsersToPermissionsGroupRequest;
+use App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\ConnectUserToPermissionsGroupRequest;
 use LogicException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
  */
-final class ConnectUsersToPermissionsGroupsNormalizer implements ContextAwareDenormalizerInterface
+final class ConnectUserToPermissionsGroupsNormalizer implements ContextAwareDenormalizerInterface
 {
     public function __construct(private ValidatorInterface $validator)
     {
@@ -25,7 +25,7 @@ final class ConnectUsersToPermissionsGroupsNormalizer implements ContextAwareDen
      */
     public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
-        return ConnectUsersToPermissionsGroupRequest::class === $type;
+        return ConnectUserToPermissionsGroupRequest::class === $type;
     }
 
     /**
@@ -79,7 +79,7 @@ final class ConnectUsersToPermissionsGroupsNormalizer implements ContextAwareDen
             throw new BadRequestHttpException((string) $violations->get(0)->getMessage());
         }
 
-        return new ConnectUsersToPermissionsGroupRequest(
+        return new ConnectUserToPermissionsGroupRequest(
             $data['userId'],
             $data['content']['permissionsGroupsIds'],
         );

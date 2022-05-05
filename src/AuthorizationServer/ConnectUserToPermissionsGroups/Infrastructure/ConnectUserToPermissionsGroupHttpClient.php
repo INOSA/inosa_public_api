@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\AuthorizationServer\ConnectUserToPermissionsGroups\Infrastructure;
 
-use App\AuthorizationServer\ConnectUserToPermissionsGroups\Domain\ConnectUsersToPermissionsGroupsHttpClientInterface;
+use App\AuthorizationServer\ConnectUserToPermissionsGroups\Domain\ConnectUserToPermissionsGroupsHttpClientInterface;
 use App\Shared\Domain\Endpoint\PutEndpointInterface;
 use App\Shared\Domain\ProxyResponse;
 use App\Shared\Infrastructure\Http\HttpClient;
 use App\Shared\Infrastructure\Response\ProxyResponseMapper;
 
-final class ConnectUsersToPermissionsGroupHttpClient implements ConnectUsersToPermissionsGroupsHttpClientInterface
+final class ConnectUserToPermissionsGroupHttpClient implements ConnectUserToPermissionsGroupsHttpClientInterface
 {
     public function __construct(
         private readonly HttpClient $httpClient,

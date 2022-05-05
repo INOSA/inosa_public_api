@@ -11,7 +11,7 @@ use App\Shared\Domain\Url\Url;
 use Inosa\Arrays\ArrayHashMap;
 use Inosa\Arrays\ArrayList;
 
-final class ConnectUsersToPermissionsGroupsEndpoint implements PutEndpointInterface
+final class ConnectUserToPermissionsGroupsEndpoint implements PutEndpointInterface
 {
     public const URL = 'users/%s/permissions-groups';
 

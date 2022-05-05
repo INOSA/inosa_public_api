@@ -7,7 +7,7 @@ namespace App\AuthorizationServer\ConnectUserToPermissionsGroups\Application;
 use App\Shared\Domain\Identifier\PermissionGroupsIdentifier;
 use Inosa\Arrays\ArrayList;
 
-final class ConnectUsersToPermissionsGroupRequest
+final class ConnectUserToPermissionsGroupRequest
 {
     /**
      * @param string[] $permissionsGroupsIds

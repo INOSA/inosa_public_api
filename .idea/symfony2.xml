@@ -9,7 +9,12 @@
     <option name="profilerCsvPath" value="" />
     <option name="containerFiles">
       <list>
-        <container_file path="var/cache/local/App_KernelLocalDebugContainer.xml" />
+        <container_file path="var/cache/dev/App_KernelDevDebugContainer.xml" />
+      </list>
+    </option>
+    <option name="routingFiles">
+      <list>
+        <routing_file path="var/cache/dev/url_generating_routes.php" />
       </list>
     </option>
   </component>

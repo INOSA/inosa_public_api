@@ -10,6 +10,7 @@ nelmio_api_doc:
       - { alias: CreateUserRequest, type: App\AuthorizationServer\CreateUser\Application\CreateUserRequest }
       - { alias: GetUsersRequest, type: App\AuthorizationServer\GetUsers\Application\GetUsersRequest }
       - { alias: ConnectUserToRolesRequest, type: App\AuthorizationServer\ConnectUserToRoles\Application\ConnectUserToRolesRequest }
+      - { alias: ConnectUserToPermissionsGroupRequest, type: App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\ConnectUserToPermissionsGroupRequest }
   documentation:
     tags:
       - name: 'v1'
@@ -75,7 +76,7 @@ nelmio_api_doc:
         }
         ```
         Payload data consists of two INOSA application *roles* UUID and *userId* is a request parameters that is INOSA application user UUID identifier.
-      version: 1.0.2
+      version: 1.1.0
     paths:
       /api/departments:
         get:
@@ -254,11 +255,35 @@ nelmio_api_doc:
           requestBody:
             description: |
               * roles - a list of INOSA application roleId, if empty, user will loss all already assigned roles
-              * userId - INOSA application user UUID
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/ConnectUserToRolesRequest'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
+
+      /api/users/{userId}/permissions-groups:
+        put:
+          tags: [ 'v1' ]
+          summary: 'Assign user to permissions groups'
+          description: |
+            Endpoint that is responsible for attaching specific permissions groups for the particular user. As the method is PUT it is required to
+            send all permissions groups UUIDs currently assigned for the user and attach new permissions groups UUIDs.
+          operationId: assignUserToPermissionsGroups
+          requestBody:
+            description: |
+              * permissionsGroupsIds - a list of INOSA application permissionsGroupsId, if empty, user will loss all already assigned permissions groups
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ConnectUserToPermissionsGroupRequest'
           responses:
             '200':
               $ref: '#/components/responses/Success'
@@ -391,6 +416,21 @@ nelmio_api_doc:
               type: array
               items:
                 type: string
+            userId:
+              type: string
+              readOnly: true
+        ConnectUserToPermissionsGroupRequest:
+          type: object
+          properties:
+            permissionsGroupsIds:
+              description: permissions groups identifiers
+              type: array
+              items:
+                type: string
+            userId:
+              type: string
+              readOnly: true
+
       securitySchemes:
         oAuth2ClientCredentials:
           type: oauth2

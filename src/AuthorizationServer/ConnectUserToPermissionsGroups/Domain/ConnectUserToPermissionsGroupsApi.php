@@ -7,21 +7,21 @@ namespace App\AuthorizationServer\ConnectUserToPermissionsGroups\Domain;
 use App\Shared\Domain\Endpoint\PutEndpointInterface;
 use App\Shared\Domain\ProxyResponse;
 
-final class ConnectUsersToPermissionsGroupsApi
+final class ConnectUserToPermissionsGroupsApi
 {
-    public function __construct(private ConnectUsersToPermissionsGroupsHttpClientInterface $httpClient)
+    public function __construct(private ConnectUserToPermissionsGroupsHttpClientInterface $httpClient)
     {
     }
 
     /**
-     * @throws ConnectUsersToPermissionsGroupsException
+     * @throws ConnectUserToPermissionsGroupsException
      */
     public function request(PutEndpointInterface $putEndpoint): ProxyResponse
     {
         $response = $this->httpClient->request($putEndpoint);
 
         if (false === $response->isSuccess()) {
-            throw new ConnectUsersToPermissionsGroupsException(
+            throw new ConnectUserToPermissionsGroupsException(
                 $response->getResponseContent()->toString(),
                 $response->getResponseCode()->asInt()
             );

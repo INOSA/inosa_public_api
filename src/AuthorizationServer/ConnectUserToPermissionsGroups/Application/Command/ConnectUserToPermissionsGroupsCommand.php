@@ -9,7 +9,7 @@ use App\Shared\Domain\Identifier\PermissionGroupsIdentifier;
 use App\Shared\Domain\Identifier\UserIdentifier;
 use Inosa\Arrays\ArrayList;
 
-final class ConnectUsersToPermissionsGroupsCommand implements SyncCommandInterface
+final class ConnectUserToPermissionsGroupsCommand implements SyncCommandInterface
 {
     /**
      * @param ArrayList<PermissionGroupsIdentifier> $permissionsGroupsIds

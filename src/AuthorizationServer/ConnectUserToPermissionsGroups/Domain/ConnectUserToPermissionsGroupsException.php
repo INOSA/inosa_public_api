@@ -6,6 +6,6 @@ namespace App\AuthorizationServer\ConnectUserToPermissionsGroups\Domain;
 
 use App\Shared\Domain\ProxyResponseException;
 
-final class ConnectUsersToPermissionsGroupsException extends ProxyResponseException
+final class ConnectUserToPermissionsGroupsException extends ProxyResponseException
 {
 }

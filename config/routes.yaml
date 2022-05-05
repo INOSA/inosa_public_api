@@ -80,7 +80,7 @@ get_users:
 
 connect_users_to_permissions_groups:
   path: /api/users/{userId}/permissions-groups
-  controller: App\AuthorizationServer\ConnectUserToPermissionsGroups\UI\ConnectUsersToPermissionsGroupsController::connectUsersToPermissionsGroups
+  controller: App\AuthorizationServer\ConnectUserToPermissionsGroups\UI\ConnectUserToPermissionsGroupsController::connectUsersToPermissionsGroups
   methods: PUT
   defaults:
     oauth2_scopes: [ 'public-api' ]

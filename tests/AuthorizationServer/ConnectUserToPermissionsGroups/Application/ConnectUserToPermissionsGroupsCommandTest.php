@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\AuthorizationServer\ConnectUserToPermissionsGroups\Application;
 
-use App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\Command\ConnectUsersToPermissionsGroupsCommand;
+use App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\Command\ConnectUserToPermissionsGroupsCommand;
 use App\Shared\Application\Json\JsonEncoderInterface;
 use App\Shared\Application\MessageBus\MessageBusInterface;
 use App\Shared\Domain\Identifier\UserIdentifier;
@@ -44,7 +44,7 @@ final class ConnectUserToPermissionsGroupsCommandTest extends IntegrationTestCas
         );
 
         $this->commandBus->dispatch(
-            new ConnectUsersToPermissionsGroupsCommand(
+            new ConnectUserToPermissionsGroupsCommand(
                 new UserIdentifier('e718bb65-f9d0-4c7e-ab61-327e4e51149b'),
                 ArrayList::create(
                     [
@@ -78,7 +78,7 @@ final class ConnectUserToPermissionsGroupsCommandTest extends IntegrationTestCas
         );
 
         $this->commandBus->dispatch(
-            new ConnectUsersToPermissionsGroupsCommand(
+            new ConnectUserToPermissionsGroupsCommand(
                 new UserIdentifier('827e5b3b-780d-49aa-a4e7-af29a328736b'),
                 ArrayList::create([]),
             )

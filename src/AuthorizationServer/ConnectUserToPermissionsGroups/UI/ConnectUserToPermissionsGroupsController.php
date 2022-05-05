@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\AuthorizationServer\ConnectUserToPermissionsGroups\UI;
 
-use App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\Command\ConnectUsersToPermissionsGroupsCommand;
-use App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\ConnectUsersToPermissionsGroupRequest;
+use App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\Command\ConnectUserToPermissionsGroupsCommand;
+use App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\ConnectUserToPermissionsGroupRequest;
 use App\Shared\Application\CommandHandlerException;
 use App\Shared\Application\Json\JsonDecoderInterface;
 use App\Shared\Application\MessageBus\MessageBusInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-final class ConnectUsersToPermissionsGroupsController extends ClientCredentialsAuthorizationController
+final class ConnectUserToPermissionsGroupsController extends ClientCredentialsAuthorizationController
 {
     public function connectUsersToPermissionsGroups(
         Request $request,
@@ -25,18 +25,18 @@ final class ConnectUsersToPermissionsGroupsController extends ClientCredentialsA
         MessageBusInterface $messageBus,
         IdentifierFactoryInterface $identifierFactory,
     ): JsonResponse {
-        /** @var ConnectUsersToPermissionsGroupRequest $connectUsersToPermissionsGroupsRequest */
+        /** @var ConnectUserToPermissionsGroupRequest $connectUsersToPermissionsGroupsRequest */
         $connectUsersToPermissionsGroupsRequest = $serializer->denormalize(
             [
                 'userId' => $request->get('userId'),
                 'content' => $jsonDecoder->decode($request->getContent())->toArray(),
             ],
-            ConnectUsersToPermissionsGroupRequest::class,
+            ConnectUserToPermissionsGroupRequest::class,
         );
 
         try {
             $messageBus->dispatch(
-                new ConnectUsersToPermissionsGroupsCommand(
+                new ConnectUserToPermissionsGroupsCommand(
                     UserIdentifier::fromIdentifier(
                         $identifierFactory->fromString($connectUsersToPermissionsGroupsRequest->userId)
                     ),

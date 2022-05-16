@@ -85,6 +85,13 @@ connect_users_to_permissions_groups:
   defaults:
     oauth2_scopes: [ 'public-api' ]
 
+archive_user:
+  path: /api/users/{userId}/archive
+  controller: App\AuthorizationServer\ArchiveUser\UI\ArchiveUserController::archiveUser
+  methods: PATCH
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
+
 kernel:
   resource: ../src/Kernel.php
   type: annotation

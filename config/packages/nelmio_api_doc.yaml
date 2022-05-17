@@ -11,6 +11,7 @@ nelmio_api_doc:
       - { alias: GetUsersRequest, type: App\AuthorizationServer\GetUsers\Application\GetUsersRequest }
       - { alias: ConnectUserToRolesRequest, type: App\AuthorizationServer\ConnectUserToRoles\Application\ConnectUserToRolesRequest }
       - { alias: ConnectUserToPermissionsGroupRequest, type: App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\ConnectUserToPermissionsGroupRequest }
+      - { alias: ArchiveUserRequest, type: App\AuthorizationServer\ArchiveUser\Application\ArchiveUserRequest }
   documentation:
     tags:
       - name: 'v1'
@@ -293,6 +294,35 @@ nelmio_api_doc:
               $ref: '#/components/responses/Unauthorized'
             '500':
               $ref: '#/components/responses/ServerError'
+      /api/users/{userId}/archive:
+        patch:
+          tags: [ 'v1' ]
+          summary: 'Archive user'
+          description: |
+            Endpoint that allows you to archive INOSA user. In order to do that you need to pass userId in request parameter
+            that represents user identifier from INOSA system. It may also be required to pass additional parameters in
+            request body. By default they are optional, more information are specified below in Request Body section.
+          operationId: archiveUser
+          requestBody:
+            description: |
+              * shouldKeepRoles - boolean that informs in roles of archived user should be preserved
+              * deviationsResponsibleId - UUID of substitute user for deviations
+              * actionsResponsibleId - UUID of substitute user for actions
+              * itemsResponsibleId - UUID of substitute user for documents that belongs to archived user
+              * coSignerResponsibleId - UUID of substitute user for cosigning
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ArchiveUserRequest'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
 
       /api/users:
         post:
@@ -427,6 +457,12 @@ nelmio_api_doc:
               type: array
               items:
                 type: string
+            userId:
+              type: string
+              readOnly: true
+        ArchiveUserRequest:
+          type: object
+          properties:
             userId:
               type: string
               readOnly: true

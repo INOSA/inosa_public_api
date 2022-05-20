@@ -12,6 +12,7 @@ nelmio_api_doc:
       - { alias: ConnectUserToRolesRequest, type: App\AuthorizationServer\ConnectUserToRoles\Application\ConnectUserToRolesRequest }
       - { alias: ConnectUserToPermissionsGroupRequest, type: App\AuthorizationServer\ConnectUserToPermissionsGroups\Application\ConnectUserToPermissionsGroupRequest }
       - { alias: ArchiveUserRequest, type: App\AuthorizationServer\ArchiveUser\Application\ArchiveUserRequest }
+      - { alias: DeleteUserRequest, type: App\AuthorizationServer\DeleteUser\Application\DeleteUserRequest }
   documentation:
     tags:
       - name: 'v1'
@@ -315,15 +316,40 @@ nelmio_api_doc:
                 schema:
                   $ref: '#/components/schemas/ArchiveUserRequest'
           responses:
-            '200':
-              $ref: '#/components/responses/Success'
+            '204':
+              $ref: '#/components/responses/NoContent'
             '400':
               $ref: '#/components/responses/BadRequest'
             '401':
               $ref: '#/components/responses/Unauthorized'
             '500':
               $ref: '#/components/responses/ServerError'
-
+      /api/users/{userId}:
+        delete:
+          tags: [ 'v1' ]
+          summary: 'Delete user'
+          description: |
+            Endpoint that allows you to delete INOSA user. In order to do that you need to pass userId in request parameter
+            that represents user identifier from INOSA system. It may also be required to pass additional parameters in
+            request body. By default they are optional, more information are specified below in Request Body section.
+          operationId: deleteUser
+          requestBody:
+            description: |
+              * itemsResponsibleId - UUID of substitute user for documents that belongs to deleted user
+              * coSignerResponsibleId - UUID of substitute user for cosigning
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/DeleteUserRequest'
+          responses:
+            '204':
+              $ref: '#/components/responses/NoContent'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
       /api/users:
         post:
           tags: [ 'v1' ]
@@ -398,6 +424,8 @@ nelmio_api_doc:
           responses:
             '200':
               $ref: '#/components/responses/Success'
+            '204':
+              $ref: '#/components/responses/NoContent'
             '400':
               $ref: '#/components/responses/BadRequest'
             '401':
@@ -409,6 +437,8 @@ nelmio_api_doc:
       responses:
         Success:
           description: OK
+        NoContent:
+          description: 'Success with no further information'
         Create:
           description: 'The resource has been created'
         ServerError:
@@ -461,6 +491,12 @@ nelmio_api_doc:
               type: string
               readOnly: true
         ArchiveUserRequest:
+          type: object
+          properties:
+            userId:
+              type: string
+              readOnly: true
+        DeleteUserRequest:
           type: object
           properties:
             userId:

@@ -13,10 +13,31 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 final class HttpClient
 {
     public function __construct(
-        private string $apiUrl,
-        private HttpClientInterface $apiClient,
-        private RequestStack $requestStack,
+        private readonly string $apiUrl,
+        private readonly HttpClientInterface $apiClient,
+        private readonly RequestStack $requestStack,
     ) {
+    }
+
+    /**
+     * @param ArrayHashMap<mixed> $body
+     */
+    public function delete(Url $url, ArrayHashMap $body): ResponseInterface
+    {
+        $parsedUrl = sprintf(
+            '%s/%s',
+            $this->apiUrl,
+            $url->toString(),
+        );
+
+        return $this->apiClient->request(
+            'DELETE',
+            $parsedUrl,
+            [
+                'headers' => $this->getHeaders()->toArray(),
+                'json' => $body->toArray(),
+            ]
+        );
     }
 
     public function get(Url $url): ResponseInterface

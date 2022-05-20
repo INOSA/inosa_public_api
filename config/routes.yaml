@@ -92,6 +92,13 @@ archive_user:
   defaults:
     oauth2_scopes: [ 'public-api' ]
 
+delete_user:
+  path: /api/users/{userId}
+  controller: App\AuthorizationServer\DeleteUser\UI\DeleteUserController::deleteUser
+  methods: DELETE
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
+
 kernel:
   resource: ../src/Kernel.php
   type: annotation

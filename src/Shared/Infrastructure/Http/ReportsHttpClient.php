@@ -12,12 +12,12 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class ReportsHttpClient
 {
-    private HttpClient $httpClient;
+    private readonly HttpClient $httpClient;
 
     public function __construct(
         string $reportsApiUrl,
-        HttpClientInterface $apiClient,
-        RequestStack $requestStack,
+        readonly HttpClientInterface $apiClient,
+        readonly RequestStack $requestStack,
     ) {
         $this->httpClient = new HttpClient(
             $reportsApiUrl,

@@ -8,8 +8,4 @@ use App\Shared\Domain\Identifier\Identifier;
 
 final class ClientInternalIdentifier extends Identifier
 {
-    public static function fromIdentifier(Identifier $identifier): self
-    {
-        return new self($identifier->toString());
-    }
 }

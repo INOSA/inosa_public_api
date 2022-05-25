@@ -11,7 +11,7 @@ class Identifier implements StringableInterface
     /**
      * Always use @link IdentifierFactoryInterface for instantiation
      */
-    public function __construct(private string $identifier)
+    final public function __construct(private string $identifier)
     {
     }
 
@@ -23,5 +23,10 @@ class Identifier implements StringableInterface
     public function toString(): string
     {
         return $this->identifier;
+    }
+
+    public static function fromIdentifier(Identifier $identifier): static
+    {
+        return new static($identifier->toString());
     }
 }

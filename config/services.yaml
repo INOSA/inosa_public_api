@@ -28,3 +28,6 @@ services:
 
   League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface: '@App\Shared\Infrastructure\Repository\AccessTokenRepository'
 
+  App\Shared\Infrastructure\RateLimiter\PublicApiRateLimiterEventListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request }

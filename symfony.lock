@@ -449,6 +449,18 @@
     "symfony/http-kernel": {
         "version": "v5.3.7"
     },
+    "symfony/lock": {
+        "version": "6.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.2",
+            "ref": "a1c8800e40ae735206bb14586fdd6c4630a51b8d"
+        },
+        "files": [
+            "config/packages/lock.yaml"
+        ]
+    },
     "symfony/messenger": {
         "version": "4.3",
         "recipe": {
@@ -526,6 +538,9 @@
     },
     "symfony/psr-http-message-bridge": {
         "version": "v2.1.1"
+    },
+    "symfony/rate-limiter": {
+        "version": "v6.0.8"
     },
     "symfony/routing": {
         "version": "6.0",

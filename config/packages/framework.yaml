@@ -20,6 +20,12 @@ framework:
     property_info:
         enabled: true
 
+    rate_limiter:
+        authenticated_api:
+            policy: 'fixed_window'
+            limit: 2000
+            interval: '60 minutes'
+
 when@test:
     framework:
         test: true

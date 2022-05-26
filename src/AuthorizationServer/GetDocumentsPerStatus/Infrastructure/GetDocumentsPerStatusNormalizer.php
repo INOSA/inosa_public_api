@@ -133,10 +133,10 @@ final class GetDocumentsPerStatusNormalizer implements ContextAwareDenormalizerI
 
         return new GetDocumentsPerStatusRequest(
             $data['documentType'] ?? [],
-            $data['authorIds'] ?? [],
-            $data['verifierIds'] ?? [],
-            $data['approverIds'] ?? [],
-            $data['folderIds'] ?? [],
+            $data['authorId'] ?? [],
+            $data['verifierId'] ?? [],
+            $data['approverId'] ?? [],
+            $data['folderId'] ?? [],
         );
     }
 }

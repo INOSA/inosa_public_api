@@ -58,6 +58,6 @@ final class GetDocumentsPerStatusController extends ClientCredentialsAuthorizati
             ),
         );
 
-        return new JsonResponse($responseFactory->fromView($view));
+        return $responseFactory->fromView($view);
     }
 }

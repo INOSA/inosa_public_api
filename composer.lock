@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c542a63250f98150064d937d8bd7517",
+    "content-hash": "92e4b60ba87ad35f93e6fde3b28eca23",
     "packages": [
         {
             "name": "brick/math",
@@ -1795,16 +1795,16 @@
         },
         {
             "name": "inosa/arrays",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/INOSA/arrays.git",
-                "reference": "30e9227bf53ed7651f0c80c3081a380e86aca8bb"
+                "reference": "e0b2b9b257c6489e4c63d2e29d874c43562934e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/INOSA/arrays/zipball/30e9227bf53ed7651f0c80c3081a380e86aca8bb",
-                "reference": "30e9227bf53ed7651f0c80c3081a380e86aca8bb",
+                "url": "https://api.github.com/repos/INOSA/arrays/zipball/e0b2b9b257c6489e4c63d2e29d874c43562934e4",
+                "reference": "e0b2b9b257c6489e4c63d2e29d874c43562934e4",
                 "shasum": ""
             },
             "require": {
@@ -1829,10 +1829,10 @@
             ],
             "description": "Library that provides array list and array hash map support to php",
             "support": {
-                "source": "https://github.com/INOSA/arrays/tree/1.0.1",
+                "source": "https://github.com/INOSA/arrays/tree/1.0.3",
                 "issues": "https://github.com/INOSA/arrays/issues"
             },
-            "time": "2021-10-07T10:01:23+00:00"
+            "time": "2022-05-25T09:16:21+00:00"
         },
         {
             "name": "laminas/laminas-code",

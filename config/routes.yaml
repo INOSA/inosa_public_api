@@ -99,6 +99,13 @@ delete_user:
   defaults:
     oauth2_scopes: [ 'public-api' ]
 
+get_documents_per_status:
+  path: /api/documents/status
+  controller: App\AuthorizationServer\GetDocumentsPerStatus\UI\GetDocumentsPerStatusController::getDocumentsPerStatus
+  methods: GET
+  defaults:
+    oauth2_scopes: [ 'public-api' ]
+
 kernel:
   resource: ../src/Kernel.php
   type: annotation

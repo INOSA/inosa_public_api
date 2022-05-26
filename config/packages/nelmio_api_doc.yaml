@@ -245,7 +245,71 @@ nelmio_api_doc:
               $ref: '#/components/responses/Unauthorized'
             '500':
               $ref: '#/components/responses/ServerError'
-
+      /api/documents/status:
+        get:
+          tags: [ 'v1' ]
+          description: |
+            Endpoint that is responsible for fetching documents per status. Its possible to filter results, however its optional and in order to
+            fetch all results you do not need to provide any query parameters. 
+            Available filters options are listed below.
+          summary: 'Get documents per status'
+          operationId: getDocumentsPerStatus
+          parameters:
+            - in: query
+              name: documentType[]
+              schema:
+                type: array
+                items:
+                  type: string
+                  enum:
+                    - inosa
+                    - url
+                    - message
+                    - file
+                    - quiz
+              required: false
+              description: 'Type of documents available in INOSA system'
+            - in: query
+              name: authorIds[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'UUIDs of users that are authors of documents'
+            - in: query
+              name: verifierIds[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'UUIDs of users that are verifiers of documents'
+            - in: query
+              name: approverIds[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'UUIDs of users that are approvers of documents'
+            - in: query
+              name: folderIds[]
+              schema:
+                type: array
+                items:
+                  type: string
+              required: false
+              description: 'UUIDs of folders in INOSA system from where you would like to fetch the documents'
+          responses:
+            '200':
+              $ref: '#/components/responses/Success'
+            '400':
+              $ref: '#/components/responses/BadRequest'
+            '401':
+              $ref: '#/components/responses/Unauthorized'
+            '500':
+              $ref: '#/components/responses/ServerError'
       /api/users/{userId}/roles:
         put:
           tags: [ 'v1' ]
@@ -270,7 +334,6 @@ nelmio_api_doc:
               $ref: '#/components/responses/Unauthorized'
             '500':
               $ref: '#/components/responses/ServerError'
-
       /api/users/{userId}/permissions-groups:
         put:
           tags: [ 'v1' ]
@@ -359,7 +422,6 @@ nelmio_api_doc:
             description: |
               Request for creation of INOSA application user requires the fields that are listed in *Example Value* section.
               These parameters MUST be send in the JSON payload of the POST request.
-              
               * permissionsGroups - list of INOSA application permission groups UUID, can also by empty, by the key must be present in the request
               * roles - list of INOSA application role UUID, can also by empty, by the key must be present in the request
               * userIdentifier - INOSA application user UUID
@@ -432,7 +494,6 @@ nelmio_api_doc:
               $ref: '#/components/responses/Unauthorized'
             '500':
               $ref: '#/components/responses/ServerError'
-
     components:
       responses:
         Success:
@@ -444,7 +505,7 @@ nelmio_api_doc:
         ServerError:
           description: 'Internal server error'
         BadRequest:
-          description: 'Request is not complete or contain errors'
+          description: 'Request is not complete or contains errors'
         NotFound:
           description: 'The specified resource was not found'
         Unauthorized:
@@ -502,7 +563,6 @@ nelmio_api_doc:
             userId:
               type: string
               readOnly: true
-
       securitySchemes:
         oAuth2ClientCredentials:
           type: oauth2

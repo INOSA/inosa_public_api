@@ -8,6 +8,7 @@
 
     <exclude-pattern>*/tests/bootstrap.php$</exclude-pattern>
     <exclude-pattern>*/src/Kernel.php$</exclude-pattern>
+    <exclude-pattern>*/Shared/Domain/DocumentType.php</exclude-pattern>
 
     <arg name="basepath" value="."/>
     <arg name="colors"/>

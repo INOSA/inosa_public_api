@@ -9,7 +9,6 @@ use App\AuthorizationServer\GetDepartments\Domain\GetDepartmentsApi;
 use App\AuthorizationServer\GetDepartments\Domain\GetDepartmentsEndpoint;
 use App\Shared\Application\Query\Factory\ViewFactory;
 use App\Shared\Application\Query\ResponseViewInterface;
-use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 
 final class GetDepartmentsQuery implements GetDepartmentsQueryInterface
 {
@@ -17,9 +16,9 @@ final class GetDepartmentsQuery implements GetDepartmentsQueryInterface
     {
     }
 
-    public function getDepartments(InosaSiteIdentifier $siteIdentifier): ResponseViewInterface
+    public function getDepartments(): ResponseViewInterface
     {
-        $proxyResponse = $this->api->request(new GetDepartmentsEndpoint($siteIdentifier));
+        $proxyResponse = $this->api->request(new GetDepartmentsEndpoint());
 
         return $this->viewFactory->fromProxyResponse($proxyResponse);
     }

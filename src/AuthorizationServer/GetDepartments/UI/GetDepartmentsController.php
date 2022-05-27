@@ -15,7 +15,7 @@ final class GetDepartmentsController extends ClientCredentialsAuthorizationContr
         GetDepartmentsQueryInterface $query,
         ResponseFactory $responseFactory,
     ): JsonResponse {
-        $response = $query->getDepartments($this->getClient()->getInosaSiteId());
+        $response = $query->getDepartments();
 
         return $responseFactory->fromView($response);
     }

@@ -6,19 +6,19 @@ security:
     users_in_memory: { memory: null }
   firewalls:
     api_doc:
-      pattern: ^/api/doc$
+      pattern: '^/%public_api_prefix_url%/api/doc$'
       security: false
     api_token:
-      pattern: ^/token$
+      pattern: '^/%public_api_prefix_url%/token$'
       security: false
     api:
-      pattern: ^/api
+      pattern: '^/%public_api_prefix_url%/api'
       security: true
       stateless: true
       oauth2: true
 
   access_control:
-    - { path: ^/api, roles: ROLE_OAUTH2_PUBLIC-API }
+    - { path: '^/%public_api_prefix_url%/api', roles: ROLE_OAUTH2_PUBLIC-API }
 
 when@test:
   security:

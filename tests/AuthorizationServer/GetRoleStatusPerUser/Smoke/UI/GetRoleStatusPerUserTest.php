@@ -14,7 +14,7 @@ final class GetRoleStatusPerUserTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri: 'api/users/role-status',
+            uri: 'public-api/api/users/role-status',
             server: $this->getAuthorizationHeader()
         );
 
@@ -31,7 +31,7 @@ final class GetRoleStatusPerUserTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri: sprintf('%s?%s', 'api/users/role-status', $roleIdParam),
+            uri: sprintf('%s?%s', 'public-api/api/users/role-status', $roleIdParam),
             server: $this->getAuthorizationHeader()
         );
 

@@ -13,7 +13,7 @@ final class GetRolesControllerTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri: 'api/roles',
+            uri: 'public-api/api/roles',
             server: $this->getAuthorizationHeader()
         );
 

@@ -7,7 +7,6 @@ namespace App\Tests\AuthorizationServer\GetFolderBasicStructure\Integration\Appl
 use App\AuthorizationServer\GetFoldersBasicStructure\Application\Query\GetFoldersBasicStructureQueryInterface;
 use App\Shared\Application\Json\JsonEncoderInterface;
 use App\Shared\Application\Query\InternalServerErrorView;
-use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 use App\Tests\IntegrationTestCase;
 use Inosa\Arrays\ArrayHashMap;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -39,9 +38,7 @@ final class GetFolderBasicStructureQueryTest extends IntegrationTestCase
             ],
         );
 
-        $response = $this->query->getFolderBasicStructureView(
-            new InosaSiteIdentifier('f6be1c12-4bb7-4ab1-9c2b-454347aee2a1')
-        );
+        $response = $this->query->getFolderBasicStructureView();
 
         $this::assertJson($response->getResponseContent());
         $this::assertEquals(200, $response->getStatusCode());
@@ -69,9 +66,7 @@ final class GetFolderBasicStructureQueryTest extends IntegrationTestCase
             ],
         );
 
-        $response = $this->query->getFolderBasicStructureView(
-            new InosaSiteIdentifier('f6be1c12-4bb7-4ab1-9c2b-454347aee2a1')
-        );
+        $response = $this->query->getFolderBasicStructureView();
 
         $this::assertJson($response->getResponseContent());
         $this::assertEquals(500, $response->getStatusCode());

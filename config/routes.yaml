@@ -1,110 +1,15 @@
 oauth2:
   resource: '@LeagueOAuth2ServerBundle/Resources/config/routes.php'
+  prefix: '%public_api_prefix_url%'
 
-get_folders_basic_structure:
-  path: /api/folders-basic-structure/without-metrics
-  controller: App\AuthorizationServer\GetFoldersBasicStructure\UI\GetFoldersBasicStructureController::getFoldersBasicStructure
+public-api:
+  resource: 'routes/public-api-routes.yaml'
+  prefix: '%public_api_prefix_url%'
+
+healthz:
+  path: '%public_api_prefix_url%/healthz'
+  controller: App\AuthorizationServer\Healthz\HealthzController::healthz
   methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_departments:
-  path: /api/departments
-  controller: App\AuthorizationServer\GetDepartments\UI\GetDepartmentsController::getDepartments
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_roles:
-  path: /api/roles
-  controller: App\AuthorizationServer\GetRoles\UI\GetRolesController::getRoles
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_reading_status_per_department:
-  path: /api/departments/reading-status
-  controller: App\AuthorizationServer\GetReadingStatusPerDepartment\UI\GetReadingStatusPerDepartmentController::getReadingStatusPerDepartment
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_role_status_per_user:
-  path: /api/users/role-status
-  controller: App\AuthorizationServer\GetRoleStatusPerUser\UI\GetRoleStatusPerUserController::getRoleStatusPerUser
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_reading_status_for_one_user:
-  path: /api/users/{id}/reading-status
-  controller: App\AuthorizationServer\GetReadingStatusForOneUser\UI\GetReadingStatusForOneUserController::getReadingStatusForOneUser
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_reading_status_per_user:
-  path: /api/users/reading-status
-  controller: App\AuthorizationServer\GetReadingStatusPerUser\UI\GetReadingStatusPerUserController::getReadingStatusPerUser
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_permission_groups:
-  path: /api/permissions-groups
-  controller: App\AuthorizationServer\GetPermissionGroups\UI\GetPermissionGroupsController::getPermissionGroups
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-create_users:
-  path: /api/users
-  controller: App\AuthorizationServer\CreateUser\UI\CreateUserController::createUser
-  methods: POST
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-assign_user_to_role:
-  path: /api/users/{userId}/roles
-  controller: App\AuthorizationServer\ConnectUserToRoles\UI\ConnectUserToRolesController::connectUserToRoles
-  methods: PUT
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_users:
-  path: /api/users
-  controller: App\AuthorizationServer\GetUsers\UI\GetUsersController::getUsers
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-connect_users_to_permissions_groups:
-  path: /api/users/{userId}/permissions-groups
-  controller: App\AuthorizationServer\ConnectUserToPermissionsGroups\UI\ConnectUserToPermissionsGroupsController::connectUsersToPermissionsGroups
-  methods: PUT
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-archive_user:
-  path: /api/users/{userId}/archive
-  controller: App\AuthorizationServer\ArchiveUser\UI\ArchiveUserController::archiveUser
-  methods: PATCH
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-delete_user:
-  path: /api/users/{userId}
-  controller: App\AuthorizationServer\DeleteUser\UI\DeleteUserController::deleteUser
-  methods: DELETE
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
-
-get_documents_per_status:
-  path: /api/documents/status
-  controller: App\AuthorizationServer\GetDocumentsPerStatus\UI\GetDocumentsPerStatusController::getDocumentsPerStatus
-  methods: GET
-  defaults:
-    oauth2_scopes: [ 'public-api' ]
 
 kernel:
   resource: ../src/Kernel.php

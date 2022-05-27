@@ -9,7 +9,6 @@ use App\AuthorizationServer\GetFoldersBasicStructure\Domain\ApiClient\GetFolders
 use App\AuthorizationServer\GetFoldersBasicStructure\Domain\Endpoint\GetFoldersBasicStructureEndpoint;
 use App\Shared\Application\Query\Factory\ViewFactory;
 use App\Shared\Application\Query\ResponseViewInterface;
-use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 
 final class GetFoldersBasicStructureQuery implements GetFoldersBasicStructureQueryInterface
 {
@@ -17,9 +16,9 @@ final class GetFoldersBasicStructureQuery implements GetFoldersBasicStructureQue
     {
     }
 
-    public function getFolderBasicStructureView(InosaSiteIdentifier $inosaSiteIdentifier): ResponseViewInterface
+    public function getFolderBasicStructureView(): ResponseViewInterface
     {
-        $proxyResponse = $this->api->request(new GetFoldersBasicStructureEndpoint($inosaSiteIdentifier));
+        $proxyResponse = $this->api->request(new GetFoldersBasicStructureEndpoint());
 
         return $this->viewFactory->fromProxyResponse($proxyResponse);
     }

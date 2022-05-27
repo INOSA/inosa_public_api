@@ -16,7 +16,7 @@ final class DeleteUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method: 'DELETE',
-            uri:    'api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150',
+            uri:    'public-api/api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150',
             server: $this->getAuthorizationHeader(),
         );
 
@@ -27,7 +27,7 @@ final class DeleteUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method: 'DELETE',
-            uri:    'api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150?itemsResponsibleId=fa2880ec-9f95-4fa0-a06e-a07e7baa5371&coSignerResponsibleId=9163e66d-0c1d-4eb7-bd12-64afca10f9d1',
+            uri:    'public-api/api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150?itemsResponsibleId=fa2880ec-9f95-4fa0-a06e-a07e7baa5371&coSignerResponsibleId=9163e66d-0c1d-4eb7-bd12-64afca10f9d1',
             server: $this->getAuthorizationHeader(),
         );
 
@@ -41,7 +41,7 @@ final class DeleteUserControllerTest extends WebTestCase
     {
         $url = sprintf(
             '%s?itemsResponsibleId=%s',
-            'api/users/82715858-bbb9-4b02-ac27-d81c07c9be3a',
+            'public-api/api/users/82715858-bbb9-4b02-ac27-d81c07c9be3a',
             $itemsResponsibleId
         );
 
@@ -61,7 +61,7 @@ final class DeleteUserControllerTest extends WebTestCase
     {
         $url = sprintf(
             '%s%s',
-            'api/users/82715858-bbb9-4b02-ac27-d81c07c9be3a?coSignerResponsibleId=',
+            'public-api/api/users/82715858-bbb9-4b02-ac27-d81c07c9be3a?coSignerResponsibleId=',
             $invalidCoSignerResponsibleId,
         );
 

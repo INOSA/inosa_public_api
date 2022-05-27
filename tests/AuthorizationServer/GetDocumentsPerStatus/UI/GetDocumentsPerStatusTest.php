@@ -15,7 +15,7 @@ final class GetDocumentsPerStatusTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri:    'api/documents/status',
+            uri:    'public-api/api/documents/status',
             server: $this->getAuthorizationHeader(),
         );
 
@@ -30,7 +30,7 @@ final class GetDocumentsPerStatusTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri:    sprintf('api/documents/status?documentType[]=%s', $documentType),
+            uri:    sprintf('public-api/api/documents/status?documentType[]=%s', $documentType),
             server: $this->getAuthorizationHeader(),
         );
 
@@ -73,7 +73,7 @@ final class GetDocumentsPerStatusTest extends WebTestCase
     public function testGetDocumentsPerStatusWithValidParametersResultInSuccess(): void
     {
         $uri = sprintf(
-            'api/documents/status?documentType[]=%s&authorId[]=%s&verifierId[]=%s&approverId[]=%s&folderId[]=%s',
+            'public-api/api/documents/status?documentType[]=%s&authorId[]=%s&verifierId[]=%s&approverId[]=%s&folderId[]=%s',
             DocumentType::FILE->value,
             'a3e07bc8-13a7-48a5-8ccb-2aeff6bce9a0',
             'c479b02a-a9a9-4620-addb-346c2e5635e5',
@@ -99,7 +99,7 @@ final class GetDocumentsPerStatusTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri:    sprintf('api/documents/status%s', $parameters),
+            uri:    sprintf('public-api/api/documents/status%s', $parameters),
             server: $this->getAuthorizationHeader(),
         );
 

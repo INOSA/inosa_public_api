@@ -15,7 +15,7 @@ final class GetUsersControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'GET',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
         );
 
@@ -29,7 +29,7 @@ final class GetUsersControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'GET',
-            uri:     sprintf('api/users?%s', $queryParams),
+            uri:     sprintf('public-api/api/users?%s', $queryParams),
             server:  $this->getAuthorizationHeader(),
         );
 
@@ -53,7 +53,7 @@ final class GetUsersControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'GET',
-            uri:     sprintf('api/users?%s', $queryParams),
+            uri:     sprintf('public-api/api/users?%s', $queryParams),
             server:  $this->getAuthorizationHeader(),
         );
 

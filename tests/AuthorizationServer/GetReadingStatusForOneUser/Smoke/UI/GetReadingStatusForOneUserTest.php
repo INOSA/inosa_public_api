@@ -16,7 +16,7 @@ final class GetReadingStatusForOneUserTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri:    sprintf('api/users/%s/reading-status', self::USER_ID),
+            uri:    sprintf('public-api/api/users/%s/reading-status', self::USER_ID),
             server: $this->getAuthorizationHeader()
         );
 
@@ -34,7 +34,7 @@ final class GetReadingStatusForOneUserTest extends WebTestCase
         $client = $this->getClient();
         $client->request(
             method: 'GET',
-            uri:    sprintf('api/users/%s/reading-status%s', $userId, $params),
+            uri:    sprintf('public-api/api/users/%s/reading-status%s', $userId, $params),
             server: $this->getAuthorizationHeader()
         );
 

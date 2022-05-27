@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\AuthorizationServer\GetDepartments\UI;
+namespace App\Tests\AuthorizationServer\Healthz;
 
 use App\Tests\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-final class GetDepartmentsControllerTest extends WebTestCase
+final class HealthzControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
 
-    public function testGetDepartmentsShouldBeOk(): void
+    public function testHealtzControllerWithWorkingApplicationIsSuccessful(): void
     {
         $this->client->request(
             method: 'GET',
-            uri:    'public-api/api/departments',
+            uri:    'public-api/healthz',
             server: $this->getAuthorizationHeader(),
         );
 
@@ -25,6 +25,7 @@ final class GetDepartmentsControllerTest extends WebTestCase
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->client = $this->getClient();
     }
 }

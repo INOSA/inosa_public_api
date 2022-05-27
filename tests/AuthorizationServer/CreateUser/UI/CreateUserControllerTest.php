@@ -18,7 +18,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->build(),
         );
@@ -30,7 +30,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->emptyId()->build()
         );
@@ -42,7 +42,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->withId('1234567')->build()
         );
@@ -54,7 +54,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->buildWithoutId()
         );
@@ -66,7 +66,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->withEmail('thisIsNotValidEmail')->build()
         );
@@ -78,7 +78,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->buildWithoutEmail()
         );
@@ -90,7 +90,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->withFirstName("")->build()
         );
@@ -102,7 +102,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->buildWithoutFirstName()
         );
@@ -114,7 +114,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->withLastName("")->build()
         );
@@ -126,7 +126,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->buildWithoutLastName()
         );
@@ -138,7 +138,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->withUserName("")->build()
         );
@@ -150,7 +150,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->buildWithoutUserName()
         );
@@ -162,7 +162,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this
                          ->createUserParamBuilder
@@ -179,7 +179,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->buildWithoutRoles()
         );
@@ -191,7 +191,7 @@ final class CreateUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'POST',
-            uri:     'api/users',
+            uri:     'public-api/api/users',
             server:  $this->getAuthorizationHeader(),
             content: $this->createUserParamBuilder->validRequest()->buildWithoutPermissionGroups()
         );

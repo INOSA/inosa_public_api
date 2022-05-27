@@ -19,7 +19,7 @@ final class ConnectUserToPermissionsGroupsControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'PUT',
-            uri:     'api/users/c93b442c-c43d-492f-a422-03c3dfb6345b/permissions-groups',
+            uri:     'public-api/api/users/c93b442c-c43d-492f-a422-03c3dfb6345b/permissions-groups',
             server:  $this->getAuthorizationHeader(),
             content: '{"permissionsGroupsIds":["00bf6517-3982-4533-b670-8d911b81549c"]}'
         );
@@ -31,7 +31,7 @@ final class ConnectUserToPermissionsGroupsControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'PUT',
-            uri:     'api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150/permissions-groups',
+            uri:     'public-api/api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150/permissions-groups',
             server:  $this->getAuthorizationHeader(),
             content: '{"permissionsGroupsIds":[]}'
         );
@@ -43,7 +43,7 @@ final class ConnectUserToPermissionsGroupsControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'PUT',
-            uri:     'api/users/this-is-some-kind-of-a-not-uuid/permissions-groups',
+            uri:     'public-api/api/users/this-is-some-kind-of-a-not-uuid/permissions-groups',
             server:  $this->getAuthorizationHeader(),
             content: '{"permissionsGroupsIds":["131d6443-5db6-43d9-b41b-18b3cc9f6ef5"]}'
         );
@@ -59,7 +59,7 @@ final class ConnectUserToPermissionsGroupsControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'PUT',
-            uri:     'api/users/this-is-some-kind-of-a-not-uuid/permissions-groups',
+            uri:     'public-api/api/users/this-is-some-kind-of-a-not-uuid/permissions-groups',
             server:  $this->getAuthorizationHeader(),
             content: $this->jsonEncoder->encode(ArrayHashMap::create($content)),
         );

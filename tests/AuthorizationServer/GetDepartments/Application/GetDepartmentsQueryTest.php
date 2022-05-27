@@ -7,7 +7,6 @@ namespace App\Tests\AuthorizationServer\GetDepartments\Application;
 use App\AuthorizationServer\GetDepartments\Application\GetDepartmentsQueryInterface;
 use App\Shared\Application\Json\JsonEncoderInterface;
 use App\Shared\Application\Query\InternalServerErrorView;
-use App\Shared\Domain\Identifier\InosaSiteIdentifier;
 use App\Tests\IntegrationTestCase;
 use Inosa\Arrays\ArrayHashMap;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -42,9 +41,7 @@ final class GetDepartmentsQueryTest extends IntegrationTestCase
             ],
         );
 
-        $response = $this->query->getDepartments(
-            new InosaSiteIdentifier('f6be1c12-4bb7-4ab1-9c2b-454347aee2a1')
-        );
+        $response = $this->query->getDepartments();
 
         $this::assertJson($response->getResponseContent());
         $this::assertEquals(500, $response->getStatusCode());
@@ -70,9 +67,7 @@ final class GetDepartmentsQueryTest extends IntegrationTestCase
             ],
         );
 
-        $response = $this->query->getDepartments(
-            new InosaSiteIdentifier('f6be1c12-4bb7-4ab1-9c2b-454347aee2a1')
-        );
+        $response = $this->query->getDepartments();
 
         $this::assertJson($response->getResponseContent());
         $this::assertEquals(200, $response->getStatusCode());

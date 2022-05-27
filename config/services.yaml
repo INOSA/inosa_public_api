@@ -1,6 +1,8 @@
 parameters:
   default_db_port: 1433
+  default_public_api_prefix_url: 'public-api'
   env(DB_PORT): '%default_db_port%'
+  public_api_prefix_url: '%env(default:default_public_api_prefix_url:PUBLIC_API_PREFIX_URL)%'
 
 services:
   _defaults:

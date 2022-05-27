@@ -19,7 +19,7 @@ final class ArchiveUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'PATCH',
-            uri:     'api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150/archive',
+            uri:     'public-api/api/users/012c25b6-1e63-40ae-9ebb-f3e894ec0150/archive',
             server:  $this->getAuthorizationHeader(),
             content: '{}',
         );
@@ -31,7 +31,7 @@ final class ArchiveUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'PATCH',
-            uri:     'api/users/this-is-some-kind-of-a-not-uuid/archive',
+            uri:     'public-api/api/users/this-is-some-kind-of-a-not-uuid/archive',
             server:  $this->getAuthorizationHeader(),
             content: '{}',
         );
@@ -47,7 +47,7 @@ final class ArchiveUserControllerTest extends WebTestCase
     {
         $this->client->request(
             method:  'PATCH',
-            uri:     'api/users/82715858-bbb9-4b02-ac27-d81c07c9be3a/archive',
+            uri:     'public-api/api/users/82715858-bbb9-4b02-ac27-d81c07c9be3a/archive',
             server:  $this->getAuthorizationHeader(),
             content: $this->jsonEncoder->encode(ArrayHashMap::create($content)),
         );

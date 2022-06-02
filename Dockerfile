@@ -43,8 +43,7 @@ RUN set -eux; if [ "${ENV}" == "dev" ] || [ ${ENV} == "test" ]; then \
         && mv /tmp/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini \
     ;fi
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer creates=/usr/local/bin/composer warn=no && \
-    composer install --no-scripts --no-dev --no-autoloader
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer creates=/usr/local/bin/composer warn=no
 
 RUN mkdir -p /run/nginx && apk add --no-cache nginx && rm /etc/nginx/http.d/default.conf
 

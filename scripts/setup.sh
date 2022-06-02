@@ -11,12 +11,12 @@ then
   echo "Installing dev/test dependencies"
 
   composer install --no-cache
-  composer dump-autoload
 
   bin/console doctrine:migrations:migrate -n
   bin/console doctrine:fixtures:load -n
 else
-  composer dump-autoload --optimize
+  composer install --no-dev --no-scripts --no-cache --optimize-autoloader
+  composer dump-autoload -o
   bin/console doctrine:migrations:migrate -n
 fi
 

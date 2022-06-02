@@ -6,9 +6,7 @@ set -eux
 
 composer clear-cache
 
-echo "${ENV}"
-
-if [ "${ENV}" == "dev" ] || [ ${ENV} == "test" ]
+if [ "${APP_ENV}" == "dev" ] || [ ${APP_ENV} == "test" ]
 then
   echo "Installing dev/test dependencies"
 

@@ -42,6 +42,37 @@ final class GetDocumentsPerStatusEndpoint implements PostEndpointInterface
      */
     public function getParams(): ArrayHashMap
     {
+        return ArrayHashMap::create(
+            [
+                'globalFilters' => $this->getGlobalFilters()->toArray(),
+                'localFilters' => $this->getLocalFilters()->toArray(),
+            ]
+        );
+    }
+
+    /**
+     * @return ArrayHashMap<array<string, string>>
+     */
+    private function getGlobalFilters(): ArrayHashMap
+    {
+        if (true === $this->folderIds->isEmpty()) {
+            return ArrayHashMap::empty();
+        }
+
+        return ArrayHashMap::create(
+            [
+                'folderIds' => $this->folderIds
+                    ->transform(fn(FolderIdentifier $identifier): string => $identifier->toString())
+                    ->toArray(),
+            ]
+        );
+    }
+
+    /**
+     * @return ArrayHashMap<array<string, string>>
+     */
+    private function getLocalFilters(): ArrayHashMap
+    {
         $localFilters = ArrayHashMap::create([]);
 
         if (false === $this->documentTypes->isEmpty()) {
@@ -80,24 +111,6 @@ final class GetDocumentsPerStatusEndpoint implements PostEndpointInterface
             );
         }
 
-        if (false === $this->folderIds->isEmpty()) {
-            $localFilters->put(
-                'folderIds',
-                $this->folderIds
-                    ->transform(fn(FolderIdentifier $identifier): string => $identifier->toString())
-                    ->toArray(),
-            );
-        }
-
-        return ArrayHashMap::create(
-            [
-                'globalFilters' => [],
-                'localFilters' => $localFilters->toArray(),
-                'pagination' => [
-                    'page' => 0,
-                    'size' => -1,
-                ],
-            ]
-        );
+        return $localFilters;
     }
 }

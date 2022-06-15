@@ -11,12 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class GetDepartmentsController extends ClientCredentialsAuthorizationController
 {
-    public function getDepartments(
-        GetDepartmentsQueryInterface $query,
-        ResponseFactory $responseFactory,
-    ): JsonResponse {
-        $response = $query->getDepartments();
-
-        return $responseFactory->fromView($response);
+    public function getDepartments(GetDepartmentsQueryInterface $query, ResponseFactory $responseFactory): JsonResponse
+    {
+        return $responseFactory->fromView($query->getDepartments());
     }
 }

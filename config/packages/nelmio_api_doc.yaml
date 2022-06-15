@@ -81,7 +81,7 @@ nelmio_api_doc:
         }
         ```
         Payload data consists of two INOSA application *roles* UUID and *userId* is a request parameters that is INOSA application user UUID identifier.
-      version: 1.0.2
+      version: '1.0'
     paths:
       /api/departments:
         get:

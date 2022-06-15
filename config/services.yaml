@@ -30,3 +30,4 @@ services:
 
   League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface: '@App\Shared\Infrastructure\Repository\AccessTokenRepository'
 
+  App\Shared\Infrastructure\Logger\RequestLoggerInterface: '@App\Shared\Infrastructure\Logger\MonologRequestLogger'

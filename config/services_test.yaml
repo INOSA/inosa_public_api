@@ -6,3 +6,5 @@ services:
       - '@App\Shared\Infrastructure\Client\Repository\ClientRepository'
       - '@App\Shared\Domain\Identifier\IdentifierFactoryInterface'
       - '@App\Shared\Application\Json\JsonDecoderInterface'
+
+  App\Shared\Infrastructure\Logger\RequestLoggerInterface: '@App\Shared\Infrastructure\Logger\NullLogger'

@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Http;
 
 use App\Shared\Domain\Url\Url;
+use App\Shared\Infrastructure\Logger\RequestLoggerInterface;
 use Inosa\Arrays\ArrayHashMap;
+use LogicException;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -16,6 +19,7 @@ final class HttpClient
         private readonly string $apiUrl,
         private readonly HttpClientInterface $apiClient,
         private readonly RequestStack $requestStack,
+        private readonly RequestLoggerInterface $logger,
     ) {
     }
 
@@ -24,37 +28,41 @@ final class HttpClient
      */
     public function delete(Url $url, ArrayHashMap $body): ResponseInterface
     {
-        $parsedUrl = sprintf(
-            '%s/%s',
-            $this->apiUrl,
-            $url->toString(),
-        );
+        try {
+            $response = $this->apiClient->request(
+                'DELETE',
+                sprintf('%s/%s', $this->apiUrl, $url->toString()),
+                [
+                    'headers' => $this->getHeaders()->toArray(),
+                    'json' => $body->toArray(),
+                ]
+            );
+        } catch (TransportExceptionInterface $e) {
+            throw new LogicException($e->getMessage());
+        }
 
-        return $this->apiClient->request(
-            'DELETE',
-            $parsedUrl,
-            [
-                'headers' => $this->getHeaders()->toArray(),
-                'json' => $body->toArray(),
-            ]
-        );
+        $this->logger->logRequest($response);
+
+        return $response;
     }
 
     public function get(Url $url): ResponseInterface
     {
-        $parsedUrl = sprintf(
-            '%s/%s',
-            $this->apiUrl,
-            $url->toString(),
-        );
+        try {
+            $response = $this->apiClient->request(
+                'GET',
+                sprintf('%s/%s', $this->apiUrl, $url->toString()),
+                [
+                    'headers' => $this->getHeaders()->toArray(),
+                ]
+            );
+        } catch (TransportExceptionInterface $e) {
+            throw new LogicException($e->getMessage());
+        }
 
-        return $this->apiClient->request(
-            'GET',
-            $parsedUrl,
-            [
-                'headers' => $this->getHeaders()->toArray(),
-            ]
-        );
+        $this->logger->logRequest($response);
+
+        return $response;
     }
 
     /**
@@ -62,14 +70,22 @@ final class HttpClient
      */
     public function post(Url $url, ArrayHashMap $body): ResponseInterface
     {
-        return $this->apiClient->request(
-            'POST',
-            sprintf('%s/%s', $this->apiUrl, $url->toString()),
-            [
-                'headers' => $this->getHeaders()->toArray(),
-                'json' => $body->toArray(),
-            ]
-        );
+        try {
+            $response = $this->apiClient->request(
+                'POST',
+                sprintf('%s/%s', $this->apiUrl, $url->toString()),
+                [
+                    'headers' => $this->getHeaders()->toArray(),
+                    'json' => $body->toArray(),
+                ]
+            );
+        } catch (TransportExceptionInterface $e) {
+            throw new LogicException($e->getMessage());
+        }
+
+        $this->logger->logRequest($response);
+
+        return $response;
     }
 
     /**
@@ -77,14 +93,22 @@ final class HttpClient
      */
     public function put(Url $url, ArrayHashMap $body): ResponseInterface
     {
-        return $this->apiClient->request(
-            'PUT',
-            sprintf('%s/%s', $this->apiUrl, $url->toString()),
-            [
-                'headers' => $this->getHeaders()->toArray(),
-                'json' => $body->toArray(),
-            ]
-        );
+        try {
+            $response = $this->apiClient->request(
+                'PUT',
+                sprintf('%s/%s', $this->apiUrl, $url->toString()),
+                [
+                    'headers' => $this->getHeaders()->toArray(),
+                    'json' => $body->toArray(),
+                ]
+            );
+        } catch (TransportExceptionInterface $e) {
+            throw new LogicException($e->getMessage());
+        }
+
+        $this->logger->logRequest($response);
+
+        return $response;
     }
 
     /**
@@ -111,12 +135,6 @@ final class HttpClient
 
     private function getAuthorizationHeader(): ?string
     {
-        $request = $this->requestStack->getCurrentRequest();
-
-        if (null === $request) {
-            return null;
-        }
-
-        return $request->headers->get('Authorization');
+        return $this->requestStack->getCurrentRequest()?->headers->get('Authorization');
     }
 }

@@ -20,7 +20,7 @@ final class Stringify implements StringableInterface
         return new self($stringable->toString());
     }
 
-    public static function empty(): self
+    public static function createEmpty(): self
     {
         return new self('');
     }
@@ -32,7 +32,7 @@ final class Stringify implements StringableInterface
 
     public function concatMultiple(Stringify ...$stringifies): self
     {
-        $concatenated = Stringify::empty();
+        $concatenated = self::createEmpty();
 
         foreach ($stringifies as $stringify) {
             $concatenated = $concatenated->concat($stringify);

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Http;
 
 use App\Shared\Domain\Url\Url;
+use App\Shared\Infrastructure\Logger\RequestLoggerInterface;
 use Inosa\Arrays\ArrayHashMap;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -15,14 +16,16 @@ final class ReportsHttpClient
     private readonly HttpClient $httpClient;
 
     public function __construct(
-        string $reportsApiUrl,
+        readonly string $reportsApiUrl,
         readonly HttpClientInterface $apiClient,
         readonly RequestStack $requestStack,
+        readonly RequestLoggerInterface $logger,
     ) {
         $this->httpClient = new HttpClient(
             $reportsApiUrl,
             $apiClient,
             $requestStack,
+            $logger,
         );
     }
 

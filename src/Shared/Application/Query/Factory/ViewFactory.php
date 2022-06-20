@@ -23,7 +23,7 @@ final class ViewFactory
         return match (true) {
             $proxyResponse->isInternalServerError() => $this->internalServerError(),
             $proxyResponse->isNotFound() => $this->notFound(),
-            default => $this->view($proxyResponse)
+            default => $this->view($proxyResponse),
         };
     }
 

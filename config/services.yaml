@@ -33,3 +33,5 @@ services:
   App\Shared\Infrastructure\RateLimiter\PublicApiRateLimiterEventListener:
     tags:
       - { name: kernel.event_listener, event: kernel.request }
+
+  App\Shared\Infrastructure\Logger\RequestLoggerInterface: '@App\Shared\Infrastructure\Logger\MonologRequestLogger'

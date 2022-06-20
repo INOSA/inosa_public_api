@@ -33,7 +33,7 @@ final class StringifyTest extends UnitTestCase
     {
         $string = '';
 
-        $stringify = Stringify::empty();
+        $stringify = Stringify::createEmpty();
 
         self::assertEquals($string, $stringify->toString());
     }
@@ -79,7 +79,7 @@ final class StringifyTest extends UnitTestCase
             ]
         );
 
-        $result = Stringify::empty()->concatMultiple(...$strings->toArray());
+        $result = Stringify::createEmpty()->concatMultiple(...$strings->toArray());
 
         self::assertEquals('willsmith', $result->toString());
     }

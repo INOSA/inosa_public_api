@@ -1,5 +1,7 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
+    assets:
+        base_path: '/%public_api_prefix_url%'
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
     http_method_override: false

@@ -79,7 +79,7 @@ final class GetUsersEndpoint implements EndpointInterface
     private function getDepartmentIdsQueryParam(): Stringify
     {
         if (true === $this->departmentIds->isEmpty()) {
-            return Stringify::empty();
+            return Stringify::createEmpty();
         }
 
         /** @var ArrayList<Stringify> $stringableDepartmentIds */
@@ -90,7 +90,7 @@ final class GetUsersEndpoint implements EndpointInterface
                     ->concat(Stringify::fromString('&'))
             );
 
-        return Stringify::empty()
+        return Stringify::createEmpty()
             ->concatMultiple(...$stringableDepartmentIds->toArray())
             ->removeLastCharacter();
     }
@@ -98,7 +98,7 @@ final class GetUsersEndpoint implements EndpointInterface
     private function getFirstNameQueryParam(): Stringify
     {
         if (null === $this->firstName) {
-            return Stringify::empty();
+            return Stringify::createEmpty();
         }
 
         return Stringify::fromString('firstname=')->concat(Stringify::fromStringable($this->firstName));
@@ -107,7 +107,7 @@ final class GetUsersEndpoint implements EndpointInterface
     private function getLastNameQueryParam(): Stringify
     {
         if (null === $this->lastName) {
-            return Stringify::empty();
+            return Stringify::createEmpty();
         }
 
         return Stringify::fromString('lastname=')->concat(Stringify::fromStringable($this->lastName));
@@ -116,7 +116,7 @@ final class GetUsersEndpoint implements EndpointInterface
     private function getUserNameQueryParam(): Stringify
     {
         if (null === $this->userName) {
-            return Stringify::empty();
+            return Stringify::createEmpty();
         }
 
         return Stringify::fromString('username=')->concat(Stringify::fromStringable($this->userName));
@@ -125,7 +125,7 @@ final class GetUsersEndpoint implements EndpointInterface
     private function getEmailQueryParam(): Stringify
     {
         if (null === $this->email) {
-            return Stringify::empty();
+            return Stringify::createEmpty();
         }
 
         return Stringify::fromString('email=')->concat(Stringify::fromStringable($this->email));

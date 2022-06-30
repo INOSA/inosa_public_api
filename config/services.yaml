@@ -1,8 +1,12 @@
 parameters:
   default_db_port: 1433
-  default_public_api_prefix_url: 'public-api'
   env(DB_PORT): '%default_db_port%'
+
+  default_public_api_prefix_url: 'public-api'
   public_api_prefix_url: '%env(default:default_public_api_prefix_url:PUBLIC_API_PREFIX_URL)%'
+
+  default_reports_prefix_url: ''
+  reports_prefix_url: '%env(default:default_reports_prefix_url:REPORTS_PREFIX_URL)%'
 
 services:
   _defaults:
@@ -10,7 +14,7 @@ services:
     autoconfigure: true
     bind:
       $apiUrl: 'http://%env(string:API_CONTAINER_NAME)%/internalapi/public-api'
-      $reportsApiUrl: 'http://%env(string:REPORTS_CONTAINER_NAME)%/public-api'
+      $reportsApiUrl: 'http://%env(string:REPORTS_CONTAINER_NAME)%%reports_prefix_url%/public-api'
 
   App\:
     resource: '../src/'

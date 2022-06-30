@@ -403,7 +403,7 @@ nelmio_api_doc:
           description: 'Public API Authorization is based on the Client Credentials flow. In order to achievie client_id and client_secret call administrator, that will generate them. Remeber to keep them secret'
           flows:
             clientCredentials:
-              tokenUrl: /token
+              tokenUrl: '/%public_api_prefix_url%/token'
               scopes:
                 public-api: 'general purpose scope'
     security:
